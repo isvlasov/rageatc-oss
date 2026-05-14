@@ -1,0 +1,6 @@
+{
+  "name": "rageatc-core-oss",
+  "version": "0.1.0",
+  "description": "Thinking engine — Producer-Critic-Learner workflow with research, production, review, and learning extraction",
+  "author": { "name": "Ilya Vlasov" }
+}
