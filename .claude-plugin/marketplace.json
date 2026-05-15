@@ -13,7 +13,7 @@
       "name": "rageatc-tech-oss",
       "source": "./plugins/rageatc-tech-oss",
       "description": "Technical capability skills for tool selection, environment detection, and fallback chains",
-      "version": "0.1.0"
+      "version": "1.5.7"
     },
     {
       "name": "rageatc-code-oss",
