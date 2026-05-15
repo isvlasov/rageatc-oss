@@ -1,6 +1,6 @@
 {
   "name": "rageatc-design-oss",
-  "version": "0.1.0",
+  "version": "1.0.3",
   "description": "Interface design with craft and consistency — domain-driven design systems, token architecture, and design compliance review",
   "author": { "name": "Ilya Vlasov" }
 }

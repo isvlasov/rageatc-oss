@@ -25,7 +25,7 @@
       "name": "rageatc-design-oss",
       "source": "./plugins/rageatc-design-oss",
       "description": "Interface design with craft and consistency — domain-driven design systems, token architecture, and design compliance review",
-      "version": "0.1.0"
+      "version": "1.0.3"
     }
   ]
 }
