@@ -1,6 +1,6 @@
 ---
 name: solutioning
-description: Guides orchestrators through structured dialogue to explore solution options when the problem is defined but the approach is unclear. Use when evaluating approaches, comparing alternatives, exploring solution direction, or choosing between options. Helps ask the right questions, apply simplicity principles, recognise decision types, and produce lightweight decision records that hand off to creating-briefs. Complements understanding-the-ask skill.
+description: Explores solution options when the problem is defined but the approach is unclear. Use when evaluating approaches, comparing alternatives, or choosing between options.
 ---
 
 # Solutioning

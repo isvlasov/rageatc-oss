@@ -1,6 +1,6 @@
 ---
 name: persuading
-description: Extracts genuine value from a subject (person, product, idea, pitch) and frames it so the right audience recognises it. Applies the extract-frame-express methodology across three modes — dialogue preparation (working through a pitch or positioning problem with a user), review of existing content (diagnosing why it isn't landing), and autonomous production (writing persuasive content directly). Use when producing LinkedIn posts, pitch narratives, cover letters, proposals, case studies, positioning statements, or any communication where the goal is making genuine value visible. Specialisation of communicating-in-writing — do NOT use for general writing guidance, negotiation, manipulation techniques, or copywriting templates.
+description: Extracts genuine value from a subject and frames it so the right audience recognises it. Use when producing LinkedIn posts, pitch narratives, cover letters, proposals, case studies, or positioning statements. Not for general writing guidance, negotiation, or copywriting templates.
 ---
 
 # Persuading

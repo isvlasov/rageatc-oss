@@ -1,6 +1,6 @@
 ---
 name: creating-briefs
-description: Teaches the craft of transforming unstructured requests into clear, bounded, actionable briefs by extracting requirements from applicable standards and establishing verifiable success criteria. Use when asked to "write a brief", "create a brief", "prepare a specification", "extract requirements", or "transform this request into a brief". Applies to "artefact brief", "production brief", and "research brief" contexts. Use when "clarifying task requirements", "establishing quality expectations", "translating vague requests", or "creating shared understanding between requester and executor".
+description: Transforms unstructured requests into clear, actionable briefs. Use when writing a brief, preparing a specification, extracting requirements, or clarifying what a task needs.
 ---
 
 # Creating Briefs

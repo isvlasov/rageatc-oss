@@ -1,6 +1,6 @@
 ---
 name: designing-workflow
-description: Defines the canonical six-phase workflow structure (Preparation, Planning, Research, Production, Learning, Finalisation) and provides guidance on phase selection based on task characteristics. Explains when phases are mandatory versus optional, introduces three workflow patterns (Minimal, Research-Driven, Thorough), and clarifies how to subset the workflow menu for specific tasks. Covers workflow design and structure, including phase sequence, phase optionality, and context management between phases. Use when planning workflow structure, determining which phases to include or skip, selecting workflow patterns, or understanding the six-phase workflow menu. Complements orchestrating-work skill which handles workflow execution.
+description: Designs workflow structure. Use when planning a workflow, choosing which phases to include, or selecting a workflow pattern for a task.
 ---
 
 # Designing Workflow

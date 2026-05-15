@@ -1,6 +1,6 @@
 ---
 name: writing-skills
-description: Creates and updates Claude Code Agent Skills. Covers frontmatter metadata, naming conventions, discoverable descriptions, progressive disclosure patterns, workflow structure, and quality evaluation. Use when asked to create a skill, write or revise SKILL.md, improve skill naming or descriptions, add progressive disclosure files, standardise skill structure, or develop evaluation scenarios. Relevant for skill authoring, skill documentation, skill standards, and improving how skills are discovered and invoked.
+description: Creates and updates Claude Code Agent Skills. Use when creating a skill, revising SKILL.md, improving a skill's name or description, or adding progressive disclosure files.
 ---
 
 # Writing Skills

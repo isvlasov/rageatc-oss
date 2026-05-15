@@ -1,6 +1,6 @@
 ---
 name: understanding-the-ask
-description: Guides orchestrators through structured dialogue to understand user intent before formalising requirements. Use when requests are vague, incomplete, or solution-focused, or when clarifying requirements, exploring the ask, or preparing to write a brief. Complements creating-briefs skill.
+description: Clarifies user intent before formalising requirements. Use when requests are vague, incomplete, or solution-focused, or when preparing to write a brief.
 ---
 
 # Understanding the Ask

@@ -1,6 +1,6 @@
 ---
 name: collecting-sources
-description: Guides systematic source collection during research using domain-adaptive discovery and RADAR quality evaluation (Relevance, Authority, Date, Accuracy, Rationale). Discovers sources via appropriate tools (academic databases for scholarly work, web search for general topics), stores locally with complete metadata conforming to schema v1.0, and creates human-readable source indices. Use when users ask to "collect sources", "gather sources", "find sources", "build source library", "research sources", "academic papers", or mention "RADAR evaluation" or "source quality". Orchestrators invoke during Research phase for thorough research requiring source collection before synthesis, particularly via source-collector-agent when metadata tracking and quality assessment are needed.
+description: Collects research sources with quality evaluation. Use when gathering or finding sources, building a source library, searching for academic papers, or performing RADAR assessment.
 ---
 
 # Collecting Sources

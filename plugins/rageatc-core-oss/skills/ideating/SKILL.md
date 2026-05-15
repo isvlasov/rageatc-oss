@@ -1,6 +1,6 @@
 ---
 name: ideating
-description: Facilitates idea generation and exploration through quick capture, dialogue-driven ideation sessions, and idea review. Use when capturing fleeting thoughts, brainstorming solutions, exploring problem spaces before committing to direction, or reviewing stored ideas to decide what to pursue. Relevant when starting new projects, generating options, or thinking creatively.
+description: Generates and explores ideas. Use when capturing fleeting thoughts, brainstorming, exploring a problem space before committing to a direction, or reviewing stored ideas to decide what to pursue.
 ---
 
 # Ideating

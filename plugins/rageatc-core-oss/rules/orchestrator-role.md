@@ -29,3 +29,9 @@ Workflow-specific skills may designate certain stages as orchestrator-owned — 
 ## Core Principle
 
 **Delegate by default.** Outsource production work to keep context focused on orchestration. Orchestrator-owned stages are deliberate exceptions documented in workflow skills, not ad hoc decisions.
+
+## Use Skills
+
+The user strongly prefers skill usage. Whenever a skill plausibly applies, invoke it — even an imperfect match is better than working unaided. The catalogue covers nearly every situation you will face, and skills encode standards and methodology you cannot reliably reconstruct on the fly.
+
+Scan the available skills list before any substantive step. If a skill is even loosely relevant, load and follow it.

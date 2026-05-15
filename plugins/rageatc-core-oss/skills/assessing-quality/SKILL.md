@@ -1,6 +1,6 @@
 ---
 name: assessing-quality
-description: Conducts systematic quality reviews of non-code artefacts using five core dimensions (Completeness, Clarity, Correctness, Consistency, Fitness for purpose). Performs root cause analysis to distinguish symptoms from underlying causes, evaluates from multiple perspectives including standards compliance and usability, and delivers priority-categorised actionable feedback. Use when reviewing Skills, agents, workflows, documentation, or written materials, critiquing artefacts, assessing quality against standards, providing structured feedback, or conducting systematic evaluations. Primary skill for critic-agent during artefact review.
+description: Conducts quality reviews of non-code artefacts. Use when reviewing or critiquing Skills, agents, workflows, documentation, or written materials, assessing quality against standards, or providing structured feedback.
 ---
 
 # Assessing Quality

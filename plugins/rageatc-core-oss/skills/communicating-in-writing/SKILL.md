@@ -1,6 +1,6 @@
 ---
 name: communicating-in-writing
-description: Guides written communication — emails, reports, presentations, documents, website copy, newsletters, books — through intent clarification, audience analysis, cognitive load management, structural decisions, and sentence-level craft. Use when writing, improving existing writing, shaping communication principles, reviewing document structure, adapting writing to an audience, or ensuring written communication is clear and purposeful. Do NOT use for oral delivery, tool-specific formatting (slide rendering, PDF generation), or workflow orchestration.
+description: Guides written communication — emails, reports, presentations, documents, website copy, newsletters, books. Use when writing or improving writing, adapting to an audience, or shaping document structure. Not for oral delivery or tool-specific formatting (slides, PDFs).
 ---
 
 # Communicating in Writing

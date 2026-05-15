@@ -1,6 +1,6 @@
 ---
 name: verifying-claims
-description: Systematically verifies claims and assesses source credibility using journalism standards (IFCN), the SIFT method (Stop, Investigate source, Find coverage, Trace claims), and RADAR framework (Rationale, Authority, Date, Accuracy, Relevance). Performs retrospective verification with provided sources or proactive validation by finding evidence. Applies multi-source triangulation, evidence hierarchy assessment, AI hallucination detection through extrinsic checks, and confidence calibration (Confirmed/Likely/Possible/Unverified/Disputed). Use when you need to fact-check claims, verify accuracy, validate sources, detect hallucinations, check if statements are true or accurate, perform SIFT or RADAR assessment, triangulate evidence, or when fact-checker-agent requires claim verification and confidence calibration.
+description: Verifies claims and assesses source credibility. Use when fact-checking claims, verifying accuracy, validating sources, detecting hallucinations, triangulating evidence, or performing SIFT or RADAR assessment.
 ---
 
 # Verifying Claims

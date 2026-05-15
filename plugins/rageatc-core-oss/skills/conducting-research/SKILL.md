@@ -1,6 +1,6 @@
 ---
 name: conducting-research
-description: Guides systematic research methodology covering the complete workflow from defining scope through source evaluation, information synthesis, and determining completion. Provides frameworks for assessing source authority, recency, accuracy, bias, and relevance. Supports both breadth-first and depth-first approaches. Use when users ask to research, investigate, explore, look into topics, compare options, learn about unfamiliar domains, find information, or understand current state. Essential for researcher-agent during Research phase, source evaluation, synthesis activities, applying research methodology, and determining completion criteria for research tasks.
+description: Conducts research. Use when asked to research, investigate, explore, look into a topic, compare options, learn about an unfamiliar domain, or understand current state.
 ---
 
 # Conducting Research

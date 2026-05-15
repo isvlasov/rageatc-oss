@@ -1,6 +1,6 @@
 ---
 name: understanding-rageatc
-description: Agent behavioural frame for operating within the rageatc multi-agent workflow system. Preloaded by agents to establish scope discipline, workflow trust, quality expectations, and universal protocols. Not intended for orchestrator use — orchestrator context comes from rules.
+description: Agent behavioural frame for operating within rageatc. Preloaded by agents — not for orchestrator use; orchestrator context comes from rules.
 ---
 
 # Understanding rageatc

@@ -1,6 +1,6 @@
 ---
 name: capturing-learnings
-description: Systematically extracts learnings from completed work through structured After Action Review (AAR) methodology, root cause analysis (Five Whys, Fishbone), and gap analysis comparing expected versus actual outcomes. Produces actionable SMART improvement proposals with blame-free systems focus. Use when extracting learnings from Producer-Critic iterations, capturing lessons learned, analysing what went wrong or what went right, conducting root cause analysis, identifying why outcomes diverged from expectations, creating improvement proposals for skills or workflows, or documenting insights for learning_proposals.md. Learner-agent invokes during Learning phase to analyse iteration history, critique patterns, and propose enhancements.
+description: Extracts learnings from completed work. Use when capturing lessons learned, analysing what went wrong or what went right, conducting root cause analysis, or creating improvement proposals for skills or workflows.
 ---
 
 # Capturing Learnings

@@ -1,6 +1,6 @@
 ---
 name: orchestrating-work
-description: Principles for effective multi-agent workflow execution and coordination. Covers input validation (universal and agent-specific requirements), work acceptance criteria and quality gates, file organisation conventions (versioning with v1/v2/v3, task directory structure), orchestration logging format and audit trails, and phase transition prerequisites. Use when coordinating agents in multi-agent workflows, validating agent inputs before invocation, accepting or rejecting agent work, organising task directories and naming files, creating or updating ORCHESTRATION-LOG.md entries, checking phase prerequisites before transitions, or executing producer-critic-learner cycles, research workflows, or any multi-phase orchestrated task.
+description: Principles for multi-agent workflow execution. Use when coordinating agents, accepting or rejecting agent work, executing producer-critic-learner cycles, or running any multi-phase orchestrated task.
 ---
 
 # Orchestrating Work
