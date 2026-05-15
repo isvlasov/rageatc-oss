@@ -1,6 +1,6 @@
 {
   "name": "rageatc-tech-oss",
-  "version": "1.5.7",
+  "version": "1.5.10",
   "description": "Technical capability skills for tool selection, environment detection, and fallback chains",
   "author": { "name": "Ilya Vlasov" }
 }
