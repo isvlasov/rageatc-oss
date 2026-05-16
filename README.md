@@ -89,6 +89,43 @@ learning       ─────►  critic        (review proposals)
 
 Each name is the skill that runs that step. Shaping is orchestrator-led dialogue with you; everything from briefing onwards is delegated to subagents. "critic" is the critic-agent (`assessing-quality` skill); "fact-checker" is the fact-checker-agent (`verifying-claims` skill).
 
+## The full rageatc-code pipeline (Thorough mode)
+
+This is the maximum software-build pipeline. Smaller projects collapse it: a bug fix runs **Quick** mode (architecture note, then `building` and `reviewer`); a typical feature runs **Standard** (the full planning chain, but no `learning` at the end). **Thorough** mode below is reserved for greenfield or cross-cutting work.
+
+```
+shaping                    ┐    (← rageatc-core entry,
+ │                         │       when direction is unclear)
+ ▼                         │
+managing-product           │
+ │                         │
+ ▼                         ├─  planning
+architecting-software      │   (orchestrator-led,
+ │                         │    you approve every artefact)
+ ▼                         │
+designing-interfaces       │   (only if UI exists)
+ │                         │
+ ▼                         │
+decomposing-work           │
+ │                         │
+ ▼                         │
+enriching-roadmap          │
+ │                         │
+ ▼                         │
+planning-software          ┘
+ │
+ ▼
+building            ◄════►  reviewer    (iterate per chunk)
+ │
+ ▼
+completion-review   ─────►  reviewer  +  user-emulation
+ │
+ ▼
+learning            ─────►  critic     (review proposals)
+```
+
+Each planning step produces an artefact (PRD, architecture, design system, roadmap, plan) that you approve before the next stage runs. `reviewer` is the reviewer-agent (`reviewing-code` skill); `user-emulation` is the user-emulation-agent (`evaluating-as-user` skill); `critic` is the critic-agent (`assessing-quality`, from rageatc-core).
+
 ## Why I built this - from a meatbag, not an AI
 
 Hi all,
