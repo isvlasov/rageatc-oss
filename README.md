@@ -14,12 +14,21 @@ Four plugins. Install whichever you want - they work alone or together.
 /plugin marketplace add isvlasov/rageatc-oss
 ```
 
-**Install plugins:**
+**Install plugins** (each command is copyable on its own — install all four, or just the ones you want):
 
 ```
 /plugin install rageatc-core-oss@rageatc-oss
+```
+
+```
 /plugin install rageatc-tech-oss@rageatc-oss
+```
+
+```
 /plugin install rageatc-code-oss@rageatc-oss
+```
+
+```
 /plugin install rageatc-design-oss@rageatc-oss
 ```
 
