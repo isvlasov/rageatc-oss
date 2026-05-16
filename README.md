@@ -61,6 +61,34 @@ Four plugins. Install whichever you want - they work alone or together.
 
 Each plugin works alone, but they fit together. Most software work uses core, code, and (where there's a UI) design together.
 
+## The full rageatc-core pipeline
+
+This is the maximum possible workflow inside `rageatc-core`. In practice you almost always use only a subset - a LinkedIn post is just `producing` and `critic`; a quick fact check is just `researching` and `fact-checker`. The pipeline below is a reference for what's available, not a script that runs every time.
+
+```
+ideating                  ┐
+ │                        │
+ ▼                        │
+understanding-the-ask     ├─  shaping
+ │                        │   (orchestrator-led,
+ ▼                        │    dialogue with you)
+solutioning               ┘
+ │
+ ▼
+briefing       ─────►  critic        (review brief)
+ │
+ ▼
+researching    ─────►  fact-checker  (verify claims)
+ │
+ ▼
+producing      ◄════►  critic        (iterate until accept)
+ │
+ ▼
+learning       ─────►  critic        (review proposals)
+```
+
+Each name is the skill that runs that step. Shaping is orchestrator-led dialogue with you; everything from briefing onwards is delegated to subagents. "critic" is the critic-agent (`assessing-quality` skill); "fact-checker" is the fact-checker-agent (`verifying-claims` skill).
+
 ## Why I built this - from a meatbag, not an AI
 
 Hi all,
