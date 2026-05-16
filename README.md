@@ -32,6 +32,24 @@ Four plugins. Install whichever you want - they work alone or together.
 /plugin install rageatc-design-oss@rageatc-oss
 ```
 
+**Update plugins** (when I push a new version — same one-at-a-time pattern as install):
+
+```
+/plugin update rageatc-core-oss@rageatc-oss
+```
+
+```
+/plugin update rageatc-tech-oss@rageatc-oss
+```
+
+```
+/plugin update rageatc-code-oss@rageatc-oss
+```
+
+```
+/plugin update rageatc-design-oss@rageatc-oss
+```
+
 ## What's inside
 
 | Plugin | Purpose |
