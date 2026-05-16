@@ -61,9 +61,11 @@ Four plugins. Install whichever you want - they work alone or together.
 
 Each plugin works alone, but they fit together. Most software work uses core, code, and (where there's a UI) design together.
 
-## The full rageatc-core pipeline
+## The full menu
 
-This is the maximum possible workflow inside `rageatc-core`. In practice you almost always use only a subset - a LinkedIn post is just `producing` and `critic`; a quick fact check is just `researching` and `fact-checker`. The pipeline below is a reference for what's available, not a script that runs every time.
+The diagrams below show everything `rageatc-core` and `rageatc-code` can do. In practice most work uses only a few of the stages - these are a reference, not a script that runs every time.
+
+### rageatc-core
 
 ```
 ideating                  ┐
@@ -87,11 +89,9 @@ producing      ◄════►  critic        (iterate until accept)
 learning       ─────►  critic        (review proposals)
 ```
 
-Each name is the skill that runs that step. Shaping is orchestrator-led dialogue with you; everything from briefing onwards is delegated to subagents. "critic" is the critic-agent (`assessing-quality` skill); "fact-checker" is the fact-checker-agent (`verifying-claims` skill).
+Each name is the skill that runs that step. Shaping is orchestrator-led dialogue with you; everything from briefing onwards is delegated to subagents. `critic` is the critic-agent (`assessing-quality`); `fact-checker` is the fact-checker-agent (`verifying-claims`).
 
-## The full rageatc-code pipeline (Thorough mode)
-
-This is the maximum software-build pipeline. Smaller projects collapse it: a bug fix runs **Quick** mode (architecture note, then `building` and `reviewer`); a typical feature runs **Standard** (the full planning chain, but no `learning` at the end). **Thorough** mode below is reserved for greenfield or cross-cutting work.
+### rageatc-code (Thorough mode)
 
 ```
 shaping                    ┐    (← rageatc-core entry,
@@ -124,7 +124,7 @@ completion-review   ─────►  reviewer  +  user-emulation
 learning            ─────►  critic     (review proposals)
 ```
 
-Each planning step produces an artefact (PRD, architecture, design system, roadmap, plan) that you approve before the next stage runs. `reviewer` is the reviewer-agent (`reviewing-code` skill); `user-emulation` is the user-emulation-agent (`evaluating-as-user` skill); `critic` is the critic-agent (`assessing-quality`, from rageatc-core).
+Each planning step produces an artefact (PRD, architecture, design system, roadmap, plan) that you approve before the next stage runs. `reviewer` is the reviewer-agent (`reviewing-code`); `user-emulation` is the user-emulation-agent (`evaluating-as-user`); `critic` is the critic-agent (`assessing-quality`, from rageatc-core). Smaller projects skip stages: **Quick** mode is just an architecture note then `building` and `reviewer`; **Standard** runs everything except `shaping` (if scope is clear) and `designing-interfaces` (if no UI).
 
 ## Why I built this - from a meatbag, not an AI
 
