@@ -136,7 +136,6 @@ Agents:
 
 Skills that load when relevant:
 
-- [`extracting-yt-transcripts`](plugins/rageatc-tech-oss/skills/extracting-yt-transcripts/SKILL.md) - when you want a YouTube video's transcript.
 - [`playwright-cli`](plugins/rageatc-tech-oss/skills/playwright-cli/SKILL.md) - when you want AI to drive a browser: open pages, fill forms, click around, scrape data, or test a web-app you just developed.
 - [`working-with-pdfs`](plugins/rageatc-tech-oss/skills/working-with-pdfs/SKILL.md) - when you need to read, build, merge, split, or otherwise handle PDFs.
 

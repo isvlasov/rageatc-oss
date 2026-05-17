@@ -13,7 +13,7 @@ Skills and agents to help you with your work or life. For a detailed description
 | Plugin | Purpose |
 |---|---|
 | **rageatc-core-oss** | To tackle even the most challenging thinking work. Ideate, structure the problem, then solve it with an agentic loop that reviews its own outputs and learns from them. |
-| **rageatc-tech-oss** | Tools that extend what your AI agent can reach: browse websites, read and write PDFs, pull YouTube transcripts. With fallbacks when the primary tool isn't available. |
+| **rageatc-tech-oss** | Tools that extend what your AI agent can reach: browse websites, read and write PDFs. With fallbacks when the primary tool isn't available. |
 | **rageatc-code-oss** | For building software the slow way. Tests come first, architecture is designed before coding starts, work is broken into small chunks, code is reviewed. Adapts to project size, from a one-line fix to a multi-week build. |
 | **rageatc-design-oss** | For when your software has a UI. Builds a design system from scratch or extracts one from existing code, then keeps the build aligned to it. |
 
