@@ -4,11 +4,11 @@
 
 Four plugins for Claude Code / Cowork, built on an idea we're using AI wrong. They slow you down on the inputs so the outputs are worth keeping.
 
-[Install in a minute →](INSTALL.md)
+[Quick install guide](INSTALL.md)
 
 ## What's inside
 
-Skills and agents to help you with your work or life. For a detailed description of what's inside and how to use it - see [WHATS-INSIDE.md](WHATS-INSIDE.md).
+Skills and agents to help you with your work or life. Each plugin works alone, but they fit together. Most software work uses all four. For non-coding work you will only need core and tech.
 
 | Plugin | Purpose |
 |---|---|
@@ -17,7 +17,7 @@ Skills and agents to help you with your work or life. For a detailed description
 | **rageatc-code-oss** | For building software the slow way. Tests come first, architecture is designed before coding starts, work is broken into small chunks, code is reviewed. Adapts to project size, from a one-line fix to a multi-week build. |
 | **rageatc-design-oss** | For when your software has a UI. Builds a design system from scratch or extracts one from existing code, then keeps the build aligned to it. |
 
-Each plugin works alone, but they fit together. Most software work uses core, code, and (where there's a UI) design together.
+For a detailed description of what's inside and how to use it - see [WHATS-INSIDE.md](WHATS-INSIDE.md).
 
 ## Why I built this - written by a meatbag, not an AI
 
@@ -31,7 +31,7 @@ So I built rageatc to make AI work the way I'd work with good people on a team -
 
 Started with one skill (`writing-skills`) for what I actually needed. Grew one skill or agent at a time as new real problems showed up. I use it daily - not every part of it, but there is no dead weight.
 
-I want to share it with you.
+I've been using it personally for almost 5 months, and that's the best thinking setup I've seen so far. I want to share it with you.
 
 This might look overwhelming, but it is in fact simple. Use a single skill or the full stack - your way. Trust the recommended workflows the AI will guide you towards, or build your own.
 

@@ -4,11 +4,22 @@ Setup for rageatc-oss.
 
 ## Before you start
 
-You need Claude Code (both desktop app or terminal) or Claude Cowork (app) installed.
+You need Claude Code (desktop app or terminal) or Claude Cowork (app) installed.
 
-All commands below are typed inside a Claude Code or Cowork session, not in your terminal.
+## Install through the desktop app
 
-## 1. Add the marketplace
+Works for Claude Code (desktop) and Cowork.
+
+1. Press **Customize**.
+2. Under **Personal plugins**, choose **Create plugin**.
+3. Choose **Add marketplace** and point it at `isvlasov/rageatc-oss`.
+4. All four `rageatc-*-oss` plugins appear in the list. Install whichever ones you want.
+
+## Install with commands
+
+The commands below are typed inside a Claude Code or Cowork session, not in your terminal.
+
+### 1. Add the marketplace
 
 ```
 /plugin marketplace add isvlasov/rageatc-oss
@@ -16,9 +27,9 @@ All commands below are typed inside a Claude Code or Cowork session, not in your
 
 This tells Claude where to find the plugins. You only do this once.
 
-## 2. Install the plugins
+### 2. Install the plugins
 
-Install whichever ones you want — they work alone or together.
+Install whichever ones you want. They work alone or together.
 
 ```
 /plugin install rageatc-core-oss@rageatc-oss
