@@ -2,162 +2,54 @@
 
 > **Rage Against The C** - pick your own C to rage against.
 
-Thinking plugins for Claude Code. Install these to make your AI help you give it better inputs, so its outputs get better. Focused on problem-solving. If the solution turns out to be software, they help you build that too.
+Four plugins for Claude Code / Cowork, built on an idea we're using AI wrong. They slow you down on the inputs so the outputs are worth keeping.
 
-## Quickstart
-
-Four plugins. Install whichever you want - they work alone or together.
-
-**Add the marketplace:**
-
-```
-/plugin marketplace add isvlasov/rageatc-oss
-```
-
-**Install plugins** (each command is copyable on its own — install all four, or just the ones you want):
-
-```
-/plugin install rageatc-core-oss@rageatc-oss
-```
-
-```
-/plugin install rageatc-tech-oss@rageatc-oss
-```
-
-```
-/plugin install rageatc-code-oss@rageatc-oss
-```
-
-```
-/plugin install rageatc-design-oss@rageatc-oss
-```
-
-**Update plugins** (when I push a new version — same one-at-a-time pattern as install):
-
-```
-/plugin update rageatc-core-oss@rageatc-oss
-```
-
-```
-/plugin update rageatc-tech-oss@rageatc-oss
-```
-
-```
-/plugin update rageatc-code-oss@rageatc-oss
-```
-
-```
-/plugin update rageatc-design-oss@rageatc-oss
-```
+[Install in a minute →](INSTALL.md)
 
 ## What's inside
 
+Skills and agents to help you with your work or life. For a detailed description of what's inside and how to use it - see [WHATS-INSIDE.md](WHATS-INSIDE.md).
+
 | Plugin | Purpose |
 |---|---|
-| **rageatc-core-oss** | Skills and agents that help you tackle even the most challenging thinking work. Ideate, structure the problem, then solve it with an agentic loop that reviews its own outputs and learns from them. |
+| **rageatc-core-oss** | To tackle even the most challenging thinking work. Ideate, structure the problem, then solve it with an agentic loop that reviews its own outputs and learns from them. |
 | **rageatc-tech-oss** | Tools that extend what your AI agent can reach: browse websites, read and write PDFs, pull YouTube transcripts. With fallbacks when the primary tool isn't available. |
 | **rageatc-code-oss** | For building software the slow way. Tests come first, architecture is designed before coding starts, work is broken into small chunks, code is reviewed. Adapts to project size, from a one-line fix to a multi-week build. |
 | **rageatc-design-oss** | For when your software has a UI. Builds a design system from scratch or extracts one from existing code, then keeps the build aligned to it. |
 
 Each plugin works alone, but they fit together. Most software work uses core, code, and (where there's a UI) design together.
 
-## The full menu
-
-The diagrams below show everything `rageatc-core` and `rageatc-code` can do. In practice most work uses only a few of the stages - these are a reference, not a script that runs every time.
-
-### rageatc-core
-
-```
-ideating                  ┐
- │                        │
- ▼                        │
-understanding-the-ask     ├─  shaping
- │                        │   (orchestrator-led,
- ▼                        │    dialogue with you)
-solutioning               ┘
- │
- ▼
-briefing       ─────►  critic        (review brief)
- │
- ▼
-researching    ─────►  fact-checker  (verify claims)
- │
- ▼
-producing      ◄════►  critic        (iterate until accept)
- │
- ▼
-learning       ─────►  critic        (review proposals)
-```
-
-Each name is the skill that runs that step. Shaping is orchestrator-led dialogue with you; everything from briefing onwards is delegated to subagents. `critic` is the critic-agent (`assessing-quality`); `fact-checker` is the fact-checker-agent (`verifying-claims`).
-
-### rageatc-code (Thorough mode)
-
-```
-shaping                    ┐    (← rageatc-core entry,
- │                         │       when direction is unclear)
- ▼                         │
-managing-product           │
- │                         │
- ▼                         ├─  planning
-architecting-software      │   (orchestrator-led,
- │                         │    you approve every artefact)
- ▼                         │
-designing-interfaces       │   (only if UI exists)
- │                         │
- ▼                         │
-decomposing-work           │
- │                         │
- ▼                         │
-enriching-roadmap          │
- │                         │
- ▼                         │
-planning-software          ┘
- │
- ▼
-building            ◄════►  reviewer    (iterate per chunk)
- │
- ▼
-completion-review   ─────►  reviewer  +  user-emulation
- │
- ▼
-learning            ─────►  critic     (review proposals)
-```
-
-Each planning step produces an artefact (PRD, architecture, design system, roadmap, plan) that you approve before the next stage runs. `reviewer` is the reviewer-agent (`reviewing-code`); `user-emulation` is the user-emulation-agent (`evaluating-as-user`); `critic` is the critic-agent (`assessing-quality`, from rageatc-core). Smaller projects skip stages: **Quick** mode is just an architecture note then `building` and `reviewer`; **Standard** runs everything except `shaping` (if scope is clear) and `designing-interfaces` (if no UI).
-
-## Why I built this - from a meatbag, not an AI
+## Why I built this - written by a meatbag, not an AI
 
 Hi all,
 
-I'm Ilya. I have decades of structured problem-solving experience - starting from growing up in Russia in the 90s (lots of problems to solve, trust me), to leading large guilds in online MMOs, to building and restructuring businesses, to hiring and firing people, to working in strategy consulting, to being obsessed with science and understanding how things work under the hood, including AI.
+I'm Ilya. I have decades of structured problem-solving and management experience - starting from growing up in Russia in the 90s (lots of problems to solve, trust me), to leading large guilds in online MMOs, to building and restructuring businesses, to hiring and firing people, to working in strategy consulting, to being obsessed with science and understanding how things work under the hood, including AI.
 
 I feel we're not using AI the right way. The speed at which AI produces output has misled us into thinking that giving AI directions could be fast too. Wrong.
 
-Taking things slow, especially when making irreversible decisions, is the fastest way to get where you wanted to go. And often, your true destination is not the one you thought you knew.
+So I built rageatc to make AI work the way I'd work with good people on a team - briefed properly, asked good questions back, given time on the parts that matter. The frameworks behind it come from science and best practices from industries where things matter, not consulting. You've likely heard of those, but too lazy to apply them in real life (me too) - AI isn't.
 
-Another focal point of rageatc is helping you step out of your bubbles. We don't know what we don't know, and that bothers me a lot. The system will often help you expand your bubble by exploring areas you weren't aware of.
-
-I created these plugins to somewhat mimic the way I think and the way I work with other people. AI isn't the same as humans, but it does have very similar properties - which lets me use my experience managing teams to manage AI effectively.
+Started with one skill (`writing-skills`) for what I actually needed. Grew one skill or agent at a time as new real problems showed up. I use it daily - not every part of it, but there is no dead weight.
 
 I want to share it with you.
 
-The frameworks, methodologies and workflows are based on science and best practices from industries where things matter, not consulting. You've likely heard of those, but too lazy to apply these frameworks in real life (me too) - but AI is not.
-
 This might look overwhelming, but it is in fact simple. Use a single skill or the full stack - your way. Trust the recommended workflows the AI will guide you towards, or build your own.
 
-## What it can do for you
+## Principles
 
-A few examples of how I use it. You can use it your way:
+**1. Slow is fast - own the understanding.** Working with AI is about managing others. Same as with people, rushed instructions generate low quality outputs. Time invested up front, defining the task properly, pays back many times over during execution.
 
-- Understand what the problem really is
-- Structure it and deep-dive into root causes
-- Conduct deep research
-- Find the right solution
-- Execute in a structured way, where AI helps AI produce better outputs through feedback loops, self-learning, and a simple memory system
-- Build simple apps that are genuinely useful (I'm sure you can build complex ones too)
-- Improve the system itself
-- Produce other artefacts: presentations, written documents, websites, and more
+**2. Bad communication kills results.** Applies to all of these: human-to-human, human-to-AI, and often overlooked - human-to-self. We assume the other party understands us, but that's a trick - don't fall for it. If you're into aviation, you know how many communication rules that look stupid at first glance were written in blood - and they work. Clear messaging, and clear understanding of what you actually want, is critical.
+
+**3. We don't know what we don't know.** We all live in our own bubbles. You can't ask a question about something you don't know exists, and that limits what you can do. Luckily, the bubble of modern LLMs is massive - they can help you explore the unknowns. AI helps you see outside your bubble, gain fresh perspectives, even on things you thought you knew. Use humanity's knowledge to your advantage - especially from industries you're less familiar with.
+
+**4. Any computer task is doable by AI if AI is properly organised.** AI solves simple, well-defined tasks reliably, especially when given a guide. Any large task can be broken down into smaller chunks. Combine these two and you get AI working reliably on pretty much anything.
+
+**5. Solve for problems that exist now, not for theoretical ones.** It's extremely easy to get carried away by AI's capabilities and try to find a solution for a problem you might encounter in future. That's dangerous. My approach is to solve what I have at hand now. Makes the plugins practical - problem first, solution next.
+
+**6. Context is king.** Shit in = shit out, same applies for AI. The quality of your context (the input AI gets) is the main driver of the quality of output. So protect the orchestrator's context window. Store what was produced in files, not inline. Delegate token-heavy work to subagents - and make sure the orchestrator manages them the same way a good manager would manage you.
+
+**7. AI can help you deal with AI.** LLMs are great at reviewing, including stuff produced by other LLMs. They can turn the boring task of providing sufficient context into an interesting one by interviewing you. And they follow instructions much better than humans - so codify your work.
 
 ## Acknowledgements
 
@@ -168,7 +60,7 @@ This marketplace draws on:
 
 ## Status
 
-Under active development. Public-facing copy and usage examples are still being polished. Issues and PRs welcome but no service-level commitments - see [`CONTRIBUTING.md`](CONTRIBUTING.md).
+Active development. Issues and PRs welcome - see [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 ## License
 
