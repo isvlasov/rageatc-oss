@@ -4,7 +4,7 @@ Setup for rageatc-oss.
 
 ## Before you start
 
-You need Claude Code or Claude Cowork installed.
+You need Claude Code (both desktop app or terminal) or Claude Cowork (app) installed.
 
 All commands below are typed inside a Claude Code or Cowork session, not in your terminal.
 
@@ -56,20 +56,13 @@ To get the latest version of a plugin:
 /plugin update rageatc-design-oss@rageatc-oss
 ```
 
-By default Claude doesn't auto-update plugins from third-party marketplaces. If you want it to, see below.
-
 ## Optional: enable auto-updates
 
-Open your Claude settings file at `~/.claude/settings.json` (create it if it doesn't exist) and add this:
+Auto-updates are off by default for third-party marketplaces like this one. Turn them on per marketplace from the plugin manager:
 
-```json
-{
-  "env": {
-    "FORCE_AUTOUPDATE_PLUGINS": "1"
-  }
-}
-```
+1. Run `/plugin` to open the plugin manager.
+2. Go to the **Marketplaces** tab.
+3. Select `rageatc-oss`.
+4. Choose **Enable auto-update**.
 
-If you already have other settings in the file, add the `env` block alongside them.
-
-Restart Claude for the change to take effect.
+From then on, Claude refreshes the marketplace and updates installed plugins at startup. If anything updated, you'll see a prompt to run `/reload-plugins`.
