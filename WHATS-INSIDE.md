@@ -17,9 +17,9 @@ You can and absolutely should use it your way.
 
 ## The full menu
 
-The diagrams below show an example of a workflow `rageatc-core` and `rageatc-code` can do. In practice most work uses only select stages.
+The diagrams below show an example of a workflow `rageatc-core-oss` and `rageatc-code-oss` can do. In practice most work uses only select stages.
 
-### rageatc-core
+### rageatc-core-oss
 
 ```
 ideating                  ┐
@@ -43,10 +43,10 @@ producing      ◄════►  critic        (iterate until accept)
 learning       ─────►  critic        (review proposals)
 ```
 
-### rageatc-code (Thorough mode)
+### rageatc-code-oss (Thorough mode)
 
 ```
-shaping                    ┐    (← rageatc-core entry,
+shaping                    ┐    (← rageatc-core-oss entry,
  │                         │       when direction is unclear)
  ▼                         │
 managing-product           │
