@@ -46,9 +46,9 @@ Outputs: artefact versions with matching review versions, approved final version
 
 ### Phase 5: Learning (optional — always before Finalisation)
 
-Learner agent analyses the iteration history (all artefact and review versions), identifies patterns in critique feedback, and proposes skill or workflow improvements. Include after significant or complex work, capability-building, or iterations with interesting patterns; skip for one-off or trivial tasks. Proposals require user approval before any skill or workflow is updated.
+Capture noteworthy observations to the project's `LEARNINGS.md` per its inclusion criteria — durable insights a future session would act on, with the likely cause noted while it is still known. Skip for one-off or trivial tasks. Codification into skill or workflow changes happens later, when the user runs `/codify`.
 
-Output: learning proposals document.
+Output: LEARNINGS.md entries.
 
 ### Phase 6: Finalisation (always, unless work stays in the work directory)
 
@@ -76,7 +76,6 @@ Persists: task requirements and constraints, research findings, artefact brief, 
 Boundaries requiring explicit handoffs:
 
 - Research → Production: research findings, fact-check report, research brief
-- Production → Learning: all artefact versions, all review versions, iteration count
 - Production → Finalisation: approved artefact, deployment path
 
 See `orchestrating-work` for how to validate handoffs during execution.

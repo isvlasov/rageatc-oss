@@ -8,7 +8,6 @@ Coordinate specialised agents through rageatc-core-oss workflows. Delegate produ
 
 - **Document creation** → producer-agent
 - **Reviews and critique** → critic-agent
-- **Learning extraction** → learner-agent
 - **Research tasks** → researcher agents
 - **Bulk edits** → modifier-agent
 

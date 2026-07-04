@@ -6,8 +6,8 @@
     {
       "name": "rageatc-core-oss",
       "source": "./plugins/rageatc-core-oss",
-      "description": "Thinking engine — Producer-Critic-Learner workflow with research, production, review, and learning extraction",
-      "version": "1.35.0"
+      "description": "Thinking engine — Producer-Critic workflow with research, production, and review",
+      "version": "1.36.0"
     },
     {
       "name": "rageatc-tech-oss",

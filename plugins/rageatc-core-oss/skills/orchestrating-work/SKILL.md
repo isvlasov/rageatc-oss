@@ -1,6 +1,6 @@
 ---
 name: orchestrating-work
-description: Principles for multi-agent workflow execution. Use when coordinating agents, accepting or rejecting agent work, executing producer-critic-learner cycles, or running any multi-phase orchestrated task.
+description: Principles for multi-agent workflow execution. Use when coordinating agents, accepting or rejecting agent work, executing producer-critic cycles, or running any multi-phase orchestrated task.
 ---
 
 # Orchestrating Work

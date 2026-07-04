@@ -20,7 +20,7 @@ Check every `.md` file in the project root. Follow each file's own update instru
 | File | How to update |
 |------|---------------|
 | STATUS.md | Rewrite with current state (current position, recent decisions, next steps, open questions) |
-| LEARNINGS.md | Append insights that need codifying later (e.g. system behaviours, agent failure modes that need rules). Do NOT use as a session log. |
+| LEARNINGS.md | Append only what passes the file's inclusion criteria — a durable insight a future session would act on. Most sessions add nothing. Do NOT use as a session log. |
 | BACKLOG.md | Move new granular tasks or unresolved issues here. Keep `STATUS.md` "next steps" focused only on immediate session continuity. |
 | CLAUDE.md | Update pointers — add new key files, remove stale pointers, update descriptions |
 | README.md | Update if project description, status, or structure changed |

@@ -97,6 +97,7 @@ Skills you invoke yourself:
 - [`/prime`](plugins/rageatc-core-oss/skills/prime/SKILL.md) - at the start of a session, to orient Claude by reading CLAUDE.md and STATUS.md before doing anything else.
 - [`/handover`](plugins/rageatc-core-oss/skills/handover/SKILL.md) - to update STATUS.md and the other root files so the next session can resume cleanly.
 - [`/learn`](plugins/rageatc-core-oss/skills/learn/SKILL.md) - to capture an in-session observation to LEARNINGS.md. Use `/learn` to let Claude propose an entry, or `/learn <note>` to dictate.
+- [`/codify`](plugins/rageatc-core-oss/skills/codify/SKILL.md) - to sweep LEARNINGS.md and turn accumulated entries into skill, rule, or documentation changes. Run when you're ready to process the inbox.
 - [`/finalise-session`](plugins/rageatc-core-oss/skills/finalise-session/SKILL.md) - at the end of a session: runs `/handover`, then does a basic clean-up, commits and pushes.
 
 Skills that load when relevant:
@@ -112,7 +113,6 @@ Skills that load when relevant:
 - [`conducting-research`](plugins/rageatc-core-oss/skills/conducting-research/SKILL.md) - when you ask AI to investigate, compare options, or learn an unfamiliar domain.
 - [`verifying-claims`](plugins/rageatc-core-oss/skills/verifying-claims/SKILL.md) - when you need facts checked or sources triangulated against claims.
 - [`assessing-quality`](plugins/rageatc-core-oss/skills/assessing-quality/SKILL.md) - when reviewing or critiquing a written artefact against standards.
-- [`capturing-learnings`](plugins/rageatc-core-oss/skills/capturing-learnings/SKILL.md) - when extracting lessons from completed work and producing improvement proposals.
 - [`communicating-in-writing`](plugins/rageatc-core-oss/skills/communicating-in-writing/SKILL.md) - when writing or improving emails, reports, documents, presentations, website copy, or books.
 - [`persuading`](plugins/rageatc-core-oss/skills/persuading/SKILL.md) - when producing LinkedIn posts, pitch narratives, cover letters, proposals, or anything that needs to land with a specific audience.
 - [`writing-skills`](plugins/rageatc-core-oss/skills/writing-skills/SKILL.md) - when creating or revising a Claude Code Skill.
@@ -124,8 +124,7 @@ Internal:
 Agents:
 
 - [`producer-agent`](plugins/rageatc-core-oss/agents/producer-agent.md) - the universal artefact creator. Produces documents, guides, specs, skills. Invoked by orchestration skills.
-- [`critic-agent`](plugins/rageatc-core-oss/agents/critic-agent.md) - rigorous quality assessment of an artefact against the brief and standards. Invoked by `/critic` or during producer-critic-learner cycles.
-- [`learner-agent`](plugins/rageatc-core-oss/agents/learner-agent.md) - extracts lessons from a completed producer-critic cycle and produces improvement proposals.
+- [`critic-agent`](plugins/rageatc-core-oss/agents/critic-agent.md) - rigorous quality assessment of an artefact against the brief and standards. Invoked by `/critic` or during producer-critic cycles.
 - [`researcher-agent`](plugins/rageatc-core-oss/agents/researcher-agent.md) - runs research and produces a synthesis. Invoked when you ask for research.
 - [`source-collector-agent`](plugins/rageatc-core-oss/agents/source-collector-agent.md) - discovers, evaluates, and stores research sources with RADAR quality scores.
 - [`fact-checker-agent`](plugins/rageatc-core-oss/agents/fact-checker-agent.md) - verifies claims against sources, either live (web search) or retrospective (against pre-collected sources). Used before research findings propagate into production.

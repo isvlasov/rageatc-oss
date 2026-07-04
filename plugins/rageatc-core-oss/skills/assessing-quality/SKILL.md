@@ -83,7 +83,7 @@ For each issue, ask "why" repeatedly until you reach one of:
 
 - an **actionable cause** the producer can fix in the artefact
 - a **constraint** outside the producer's control (e.g. requires changing the brief) — note as constraint
-- a **systemic issue** affecting the broader system — note for learner
+- a **systemic issue** affecting the broader system — flag it for capture to `LEARNINGS.md`
 
 Example chain: "Section 3 uses undefined terminology" → writer didn't define terms → no glossary → brief didn't specify the audience's knowledge level → root cause: missing audience definition in the brief.
 

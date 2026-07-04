@@ -2,6 +2,10 @@
 
 Notable changes to the rageatc-oss plugins.
 
+## rageatc-core-oss 1.36.0 — 2026-07-04
+
+Retired learner-agent and the capturing-learnings skill. Added the codify skill, invoked as `/codify` — sweeps a project's LEARNINGS.md and turns accumulated entries into skill, rule, or documentation changes. The LEARNINGS.md flow is now capture (`/learn`) then codify (`/codify`): learn, handover, assessing-quality, designing-workflow, orchestrating-work, and the orchestrator-role rule updated to match.
+
 ## rageatc-core-oss 1.35.0 — 2026-07-04
 
 Condensed five skills (collecting-sources, verifying-claims, persuading, communicating-in-writing, assessing-quality) and four agents (source-collector, producer, modifier, fact-checker). assessing-quality adds signal-to-noise as a sixth review dimension. Source metadata schema adds `plaintext` format and `retrieval_method` field.

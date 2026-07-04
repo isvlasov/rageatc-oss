@@ -6,9 +6,9 @@ disable-model-invocation: true
 
 # Learn
 
-Capture an observation to `LEARNINGS.md` so it is preserved for future sessions and the learner-agent.
+Capture an observation to `LEARNINGS.md` so it is preserved for future sessions and later `/codify` sweeps.
 
-This is **quick capture, not analysis**. Do not run root cause analysis, Five Whys, or the full capturing-learnings workflow. Just record what happened clearly enough that a future reader (human or learner-agent) can understand it without access to this session's context.
+This is **quick capture, not analysis**. Do not run root cause analysis — that happens later, when the user runs `/codify`. Just record what happened clearly enough that a future reader can understand it without access to this session's context.
 
 You have session context — you know what happened. Your job is to draft the entry, not to ask the user to explain it.
 
