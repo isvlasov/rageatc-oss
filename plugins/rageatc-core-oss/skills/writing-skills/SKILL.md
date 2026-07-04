@@ -5,297 +5,96 @@ description: Creates and updates Claude Code Agent Skills. Use when creating a s
 
 # Writing Skills
 
-## Purpose
+The reader of every skill is an agent. A line earns its place only if it changes the agent's behaviour versus what it would do anyway — text the agent already knows, filler, and repetition are bloat. Apply that test to every line you write.
 
-Create or update high-quality Claude Code Agent Skills that Claude can reliably discover and use, and that remain maintainable as your library grows.
+The same test scales up. Prefer the simplest thing that fixes an observed failure — often that is nothing at all: if the model already handles the task well, don't write the skill; if a line answers an imagined problem, don't write the line. Simple beats clever, and YAGNI applies to skills as much as to code.
 
-This Skill governs:
-- Creating a new Skill package (folder + SKILL.md + optional files)
-- Updating an existing Skill package without bloating it
-- Ensuring each Skill is discoverable via a strong description
-- Keeping Skills concise, structured, and testable
+If the skill's intent, triggers, or location (personal `~/.claude/skills/`, project `.claude/skills/`, or a plugin's `skills/`) are unclear, ask before writing.
 
-## Operating Principles
+## How skills load
 
-- **Treat the context window as a shared resource**: Every token in a Skill competes with conversation history, other Skills, and the user's request. Before adding content, ask: "Does Claude already know this?" and "Does this paragraph justify its token cost?" Prefer concise examples over verbose explanations.
-- **Prefer one clear default** over many options; add escape hatch only when truly needed
-- **Treat SKILL.md as an overview**: Put details in supporting files when they get long
-- **Make the Skill verifiable**: Define success cases and test them
+Three tiers drive every design decision:
 
-## Required Knowledge About How Skills Work
+1. **Always in context:** every installed skill's `name` and `description` (plus `when_to_use` if set), ~100 tokens each. The listing caps `description` + `when_to_use` at 1,536 chars combined; when the total listing budget overflows, least-used skills' descriptions are truncated first (`/doctor` shows this). At library scale, every description word is a recurring cost.
+2. **On trigger:** the SKILL.md body. Keep under ~500 lines / ~5,000 tokens.
+3. **On demand:** bundled files, loaded only when referenced. Free until read.
 
-- Skills are model-invoked. Claude decides when to apply them based largely on the `description` field
-- At startup, Claude loads only each Skill's name and description
-- Claude reads SKILL.md only when the Skill is relevant
-- Keep this in mind when writing names, descriptions, and the amount of content in SKILL.md
+## Workflow
 
-## Inputs to Gather (Only If Missing)
+### Step 1 — Choose the invocation mode first
 
-When asked to create or update a Skill, collect these inputs. If any are missing, ask targeted questions.
+Decide before writing anything else; it shapes the description and the body:
 
-1. **Skill intent**: One-sentence purpose ("This Skill helps Claude do X")
-2. **User trigger phrases**: 5 to 15 phrases a user might naturally say that should activate the Skill
-   - Examples: "write a Skill", "create SKILL.md", "improve this Skill description", "standardise my Skill library"
-3. **Scope and location**: Default to personal Skills in `~/.claude/skills/` unless the user explicitly wants project scope in `.claude/skills/`
-4. **Tool boundaries**: Should the Skill be read-only, or allowed to write/edit files? Is Bash allowed for scaffolding?
-5. **Success criteria**: At least 3 evaluation scenarios (small, concrete tasks) that the Skill should handle well
+- **Model-invoked** (default): the agent discovers it by description match. Needs a rich trigger description.
+- **User-invoked only** (`disable-model-invocation: true`): for task skills with side effects (deploy, commit) or skills the user deliberately runs as `/name`. The description becomes a short human-facing summary — the user, not the matcher, is the audience.
+- **Model-only** (`user-invocable: false`): background knowledge; hidden from the `/` menu.
 
-## Outputs to Produce
+### Step 2 — Name it
 
-For each Skill request, produce:
+Lowercase letters, numbers, hyphens; ≤64 chars; must match the folder name; no "claude" or "anthropic" (reserved). Prefer gerund form (`reviewing-code`). Avoid generic terms (`helper`, `utils`, `tools`).
 
-1. **Skill folder skeleton**: `~/.claude/skills/<skill-name>/` or `.claude/skills/<skill-name>/`
-2. **Complete SKILL.md** including:
-   - YAML frontmatter: `name`, `description` (required)
-   - Clear instructions in Markdown
-3. **Optional supporting files** if needed:
-   - `references/*.md` for deeper guidance
-   - `assets/*.md` for strict output formats (templates)
-   - `examples.md` for worked examples
-   - `scripts/*.py` for deterministic validation or transformation (optional)
-4. **Short change note** (for versioning):
-   - "What changed"
-   - "Why"
-   - "How to test"
+### Step 3 — Write the description
 
-## Step-by-Step Workflow
+The description carries discovery — it deserves harder pruning than the body.
 
-### Step 0: Decide Whether to Create or Update
+- Third person. State what the skill does AND when to use it, with the trigger keywords a user would actually say. Front-load the distinctive words.
+- One trigger per genuinely distinct use case; collapse synonyms rather than listing them.
+- ≤1,024 chars. No `: ` inside the text (breaks YAML parsing — use em-dashes or rephrase). No XML angle brackets anywhere in frontmatter.
+- If it could over-trigger, add explicit exclusions ("Not for X").
+- **Do not summarise the workflow in the description.** An agent may act on the description alone and skip the body — a description that reads like the method invites shortcutting it.
 
-**If the user provides an existing Skill:**
-- Read the current SKILL.md first
-- Identify where it fails in real usage (not imagined usage)
-- Prefer small edits that increase discoverability and reduce ambiguity
+### Step 4 — Write the body
 
-**If no existing Skill exists:**
-- Create a minimal v1 that passes the evaluation scenarios
-- Add supporting files only when the body approaches length limits or becomes hard to navigate
+- Imperative voice ("Run the script", not "The script should be run"). Forward slashes in all paths. MCP tools fully qualified (`ServerName:tool_name`).
+- State the degree of freedom and match strictness to fragility: high (heuristics, judgement), medium (preferred pattern with parameters), low (exact steps, guardrails). One clear default beats a menu of options; add guardrails, options, or process only against observed failures, never imagined ones.
+- Structure follows content — there are no mandatory sections. Do NOT write: a Purpose section restating the description; when-to-use text in the body (the description's job); evaluation scenarios in the body (they live in `evals/`, Step 6); piled-up MUST/ALWAYS/CRITICAL (state the expectation once, plainly).
+- Use checklists for fragile multi-step sequences so the agent can tick them off.
+- No time-sensitive content inline (model IDs, versions, "new in..."). If unavoidable, isolate it in a clearly-marked old-patterns block.
 
-### Step 1: Choose the Skill Name
+### Step 5 — Split when paths diverge
 
-Follow these rules:
-- Use lowercase letters, numbers, and hyphens only
-- Keep under 64 characters
-- Prefer consistent naming. Gerund form (verb + "-ing") is usually best
-- Avoid vague names like "helper", "utils", "tools"
+Inline what every usage path needs; push behind a pointer what only some paths reach. Splitting is also the pressure valve as the body approaches the ~500-line ceiling.
 
-**Output:**
-- Proposed `name`
-- 2 to 3 alternative names if needed, but always recommend one default
+- `references/` — docs the agent consults while working (schemas, standards). Loaded on demand. Give any file over ~100 lines a table of contents; add grep hints for very large files. Keep references one level deep from SKILL.md — nested chains get partially read.
+- `assets/` — templates and files used in output. Never loaded into context.
+- `scripts/` — deterministic work the agent would otherwise rewrite each time. Only output consumes tokens. Scripts must handle their own errors (solve, don't punt to the agent) and document any non-obvious constants. Say whether to execute or read each script.
 
-### Step 2: Write a Discoverable Description
+Information lives in exactly one place — never in SKILL.md and a reference both. Do not create README, CHANGELOG, or other extraneous files in the skill folder.
 
-The `description` field drives discovery, so write it carefully.
+### Step 6 — Test in proportion to stakes
 
-**Rules:**
-- Write in third person
-- Include both what the Skill does AND when to use it (trigger contexts and keywords)
-- Include key terms users will say (from the trigger phrase list)
-- Be specific. Avoid generic descriptions like "helps with documents"
-- Stay under 1024 characters total
-- Avoid `colon-space` (`: `) inside the description text — YAML parsers can misinterpret it as a key-value separator, breaking skill discovery. Use em-dashes (—) or rephrase instead
-- If the Skill could plausibly over-trigger, add explicit exclusions ("Do NOT use for X")
+Always run the baseline: try the task without the skill and record where the model actually fails. If it doesn't fail, stop — the skill isn't needed.
 
-**Output:**
-- A final proposed `description` that includes clear triggers
+Full evals earn their cost when a skill enforces discipline, runs unattended, or risks over-triggering: 3+ scenarios drawn from the observed failures, including at least one **should-NOT-trigger** case (a nearby request the skill must leave alone). Store them in `evals/` inside the skill folder — not in the body. Grade outcomes, not paths (agents find valid unexpected routes), and test each model tier the skill serves.
 
-### Step 3: Set the Right Degree of Freedom
+For a simple user-invoked task skill, one dry run of the happy path is enough.
 
-Match the instruction strictness to task fragility:
-- **High freedom**: Heuristics and judgement calls are acceptable
-- **Medium freedom**: Preferred pattern with some parameters
-- **Low freedom**: Fragile sequence, exact steps, strong guardrails
+### Step 7 — Final check
 
-Choose one default level for the Skill and state it explicitly in the instructions.
+- [ ] Invocation mode set deliberately (Step 1), frontmatter fields per the table below
+- [ ] Description: third person, triggers, no workflow summary, survives the pruning pass
+- [ ] Body under ~500 lines, no forbidden sections (Step 4), one concept in one place
+- [ ] References one level deep; each bundled file earns its type (Step 5)
+- [ ] Baseline confirmed the skill is needed; tested in proportion to stakes (Step 6)
 
-### Step 4: Write the SKILL.md Body
+## Frontmatter reference
 
-Keep SKILL.md as the "how to apply this Skill" guide.
+Required: `name`, `description`. Optional (one line each — check current Claude Code docs when in doubt; this surface grows quickly):
 
-Write all instructions in imperative form ("Run the script", "Check the output") rather than descriptive form ("The script should be run").
+| Field | Use for |
+|---|---|
+| `disable-model-invocation: true` | User-only task skills (side effects; `/name` invocation) |
+| `user-invocable: false` | Model-only background knowledge; hides from `/` menu |
+| `when_to_use` | Extra trigger context, appended to description in the listing |
+| `allowed-tools` / `disallowed-tools` | Restrict tool access when the workflow warrants it |
+| `context: fork` + `agent` | Run the skill in a forked subagent |
+| `argument-hint`, `arguments` | Named/positional args via `$ARGUMENTS`, `$name`, `$N` |
+| `paths` | Glob-scoped auto-activation |
+| `model`, `effort` | Pin only when necessary — pinned model IDs go stale |
+| `hooks`, `shell`, `compatibility`, `metadata`, `license` | Niche; quote metadata values (`version: "1.0"`) |
 
-Use this structure as a default (adapt as needed):
+Dynamic values can be injected with `` !`command` `` syntax.
 
-1. **Purpose** (1 to 3 sentences)
-2. **Scope and constraints** (what this Skill covers and does not cover)
-3. **Inputs required** (what the user must provide)
-4. **Outputs produced** (what files or sections will be created)
-5. **Workflow** (clear, sequential steps)
-6. **Templates** (only if format must be consistent)
-7. **Examples** (at least 1 good example)
-8. **Edge cases and constraints**
-9. **Testing and iteration** (evaluation scenarios)
+## Updating an existing skill
 
-Write steps as checklists when the workflow is complex so Claude can copy and tick them off.
-
-### Step 5: Apply Progressive Disclosure When Content Grows
-
-If SKILL.md gets long or dense:
-- Split details into supporting files
-- Keep references one level deep. Link directly from SKILL.md to the file the model should read
-- If a supporting file is long, add a table of contents and clear section headings
-
-Use forward slashes in all paths.
-
-**Recommended multi-file structure:**
-- `SKILL.md` (overview and workflow)
-- `references/` (deep standards)
-- `assets/` or `templates/` (output formats)
-- `scripts/` (validators or deterministic transforms)
-
-### Step 6: Add a Feedback Loop (Quality Improvement)
-
-Embed a repeatable loop inside the Skill instructions.
-
-**Default loop:**
-- Produce artefact draft
-- Validate against rubric or checklist
-- Fix gaps
-- Re-validate
-- Repeat until pass criteria met
-
-If you include scripts, prefer:
-- Run validator script → fix errors → repeat
-
-### Step 7: Define Evaluation Scenarios Before Expanding
-
-Use evaluation-driven development:
-
-1. Identify gaps: run without the Skill and record failures
-2. Create 3 evaluation scenarios that test those gaps
-3. Establish a baseline (without the Skill)
-4. Write minimal instructions that address the gaps
-5. Iterate based on evaluation results
-
-Aim for measurable outcomes where possible: "triggers without explicit invocation", "completes without user correction", or reduced tool-call count versus baseline. Quantitative baselines make it easier to judge whether a revision actually helped.
-
-If the Skill will be used across different model tiers, test with each. What works for Opus may need more explicit detail for Haiku.
-
-In SKILL.md, include the evaluation scenarios explicitly so they can be re-run.
-
-### Step 8: Optional Guardrails
-
-If the workflow is security-sensitive or should be read-only:
-- Add `allowed-tools` in the frontmatter to restrict tools
-- Otherwise, omit `allowed-tools` and rely on normal tool permission prompts
-
-Only add restrictions when they serve a clear purpose.
-
-## Quality Checklist (Use Before Finalizing Any Skill)
-
-A Skill is ready when:
-
-- [ ] Name follows rules and is consistent with your library
-- [ ] Description is specific, third person, and contains obvious trigger keywords
-- [ ] SKILL.md is concise and structured
-- [ ] The workflow is step-by-step and easy to follow
-- [ ] Supporting files exist only when useful
-- [ ] References are not deeply nested
-- [ ] At least 3 evaluation scenarios exist and are realistic
-- [ ] There is a clear default approach (not many competing options)
-- [ ] No concept is stated in more than one section (avoid inline + standalone duplication)
-- [ ] No time-sensitive guidance unless isolated in an "Old patterns" section
-- [ ] Consistent terminology throughout (one term per concept, no synonyms)
-
-## Update Discipline (For Ongoing Improvement)
-
-When updating an existing Skill:
-
-- Make the smallest change that fixes the observed failure
-- Prefer tightening descriptions and adding missing triggers over adding lots of content
-- Record a short change note and how to test
-
-After deployment, observe how Claude uses the Skill. Watch for: files it never reads (may be unnecessary), sections it re-reads (may belong in SKILL.md), and reference chains it fails to follow (may be too deep). These usage patterns reveal structural problems that static review misses.
-
-If a new pattern applies broadly, prefer updating the shared Skill rather than creating many near-duplicates.
-
-## Skill Naming Rules Reference
-
-- **Format**: `lowercase-with-hyphens`
-- **Length**: Maximum 64 characters
-- **Style**: Prefer gerund form (e.g., `writing-skills`, `reviewing-code`, `generating-commits`)
-- **Avoid**: Generic terms like "helper", "utils", "tools", "manager"
-
-## YAML Frontmatter Format
-
-**Required fields:**
-```yaml
----
-name: skill-name
-description: What this Skill does and when to use it
----
-```
-
-**Optional fields:**
-```yaml
----
-name: skill-name
-description: What this Skill does and when to use it
-allowed-tools: Read, Grep, Glob
-model: claude-sonnet-4-20250514
-context: fork
-compatibility: Requires Python 3.10+ and poppler-utils
-metadata:
-  author: Team Name
-  version: 1.0.0
----
-```
-
-**Security restrictions:** Do not use XML angle brackets (`<` `>`) in any frontmatter field — frontmatter appears in the system prompt and angle brackets can cause parsing issues. Skill names must not contain "claude" or "anthropic" (reserved terms).
-
-## File Structure Examples
-
-**Single-file Skill (recommended for most Skills):**
-```
-my-skill/
-└── SKILL.md
-```
-
-**Multi-file Skill (for complex Skills with lots of reference material):**
-```
-my-skill/
-├── SKILL.md                 # Overview and workflow
-├── references/              # Detailed documentation
-│   ├── api-reference.md
-│   └── standards.md
-├── assets/                  # Output templates
-│   └── template.md
-├── examples.md              # Worked examples
-└── scripts/                 # Validators/transforms
-    └── validate.py
-```
-
-## Bundled Resource Reasoning
-
-When adding files to a Skill folder, choose the right type based on how Claude will use each resource.
-
-**`scripts/`** — Include when the same code would be rewritten on every invocation, or when deterministic reliability matters. Scripts can be executed without loading into context: only their output consumes tokens. State clearly whether Claude should execute the script or read it as reference.
-
-**`references/`** — Documentation Claude consults while working (schemas, API docs, standards). Loaded into context on demand. For files longer than roughly 10 000 words, include grep patterns in SKILL.md so Claude can extract only what it needs. Information lives in SKILL.md or references — not both.
-
-**`assets/`** — Files used in output (templates, images, boilerplate). Never loaded into context; used directly in output. Zero context cost.
-
-**Core principle:** Information lives in one place. Duplication across sections or files inflates token cost and creates drift.
-
-## Evaluation Scenarios
-
-Test this Skill with these scenarios:
-
-1. **Create new skill from scratch**: User says "create a skill for reviewing pull requests"
-   - Expected: Skill asks for intent, triggers, scope, and produces complete SKILL.md with proper frontmatter
-
-2. **Update existing skill**: User provides a skill with poor description and asks to improve it
-   - Expected: Skill reads existing file, improves description with trigger keywords, maintains existing structure
-
-3. **Standardise skill library**: User asks to review and standardize naming across multiple skills
-   - Expected: Skill reviews naming conventions, suggests improvements following gerund form, ensures consistency
-
-## Common Pitfalls to Avoid
-
-- **Over-engineering**: Don't add features the user hasn't requested
-- **Vague descriptions**: Ensure triggers are explicit and discoverable
-- **Deep nesting**: Keep references one level deep from SKILL.md
-- **Bloated main file**: Move details to supporting files when SKILL.md exceeds ~400 lines
-- **Missing evaluation**: Always define success criteria before expanding the Skill
-- **Generic names**: Avoid "helper", "utils", "tools" in skill names
-- **Extraneous files**: Do not create README.md, CHANGELOG.md, or similar files inside the skill folder. All documentation goes in SKILL.md or `references/`
+Make the smallest change that fixes an observed failure — tighten the description or add a missing trigger before adding content. After deployment, watch real usage: files never read are unnecessary; sections the agent re-reads belong in the body; reference chains it fails to follow are too deep. When a fix applies broadly, update the shared skill rather than cloning near-duplicates. Periodically re-run the baseline test (Step 6.1) — if the model now passes without the skill, retire it.
