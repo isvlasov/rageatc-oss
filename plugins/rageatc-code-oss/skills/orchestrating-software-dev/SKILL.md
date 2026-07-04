@@ -186,9 +186,7 @@ For each chunk in ORCHESTRATION-PLAN.md (in dependency order), run the per-chunk
 
 ### Stage 10 — Learnings
 
-**Only when something noteworthy happened.** Invoke `learner-agent` (rageatc-core-oss) with the ORCHESTRATION-LOG.md, ORCHESTRATION-PLAN.md, and any artefact versions that illustrate the learning. Set the output path to the project root `LEARNINGS.md` — the learner appends structured analysis below any raw observations already captured there. Pass the output to the human for approval — no skill or agent changes without human review.
-
-Do not run learner-agent after every project. Reserve it for projects that surfaced meaningful workflow improvements.
+**Only when something noteworthy happened.** Append observations to the project root `LEARNINGS.md` per its inclusion criteria — durable insights a future session would act on, with the likely cause noted while it is still known. Codification into skill or rule changes happens later, when the user runs `/codify` (rageatc-core-oss).
 
 ---
 
@@ -373,7 +371,7 @@ Chunks annotated as parallelisable in ROADMAP.md (non-overlapping file sets) can
 8. Stage 7: Apply planning-software with phase groupings and parallel annotations.
 9. Stage 8: Phase 0 sequential. Phase 1 — dispatch producer and consumer in parallel worktrees (non-overlapping file sets). Merge each before Phase 2. Review with spec-compliance → code-quality → security (delivery layer handles user tokens). 3-iteration cap respected — chunk-009 (integration) revises once and accepts.
 10. Stage 9: Whole-project review against PRD. Accept. User emulation of running product. DONE.
-11. Stage 10: chunk-009's integration complexity surfaces a learning about event schema contracts — invoke learner-agent. Human approves resulting proposal.
+11. Stage 10: chunk-009's integration complexity surfaces a learning about event schema contracts — appended to LEARNINGS.md for a later `/codify` sweep.
 
 ---
 

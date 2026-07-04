@@ -94,7 +94,9 @@ Create these files with their minimal template content:
 **LEARNINGS.md:**
 ```markdown
 <!--
-Update: append observations when something noteworthy happens. Do not rewrite — this file is append-only.
+Update: append observations when something noteworthy happens. Do not rewrite — this file is append-only. One exception: /codify sweeps append a `Codified →` marker line to processed entries.
+
+Include only durable insights — something a future session would act differently for knowing (a system behaviour, a failure mode, a constraint). No session notes, task status, or resolved one-offs without a reusable insight.
 
 Entry format:
 ## YYYY-MM-DD — Short descriptive title

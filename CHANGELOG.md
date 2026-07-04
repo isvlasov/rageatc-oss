@@ -2,6 +2,10 @@
 
 Notable changes to the rageatc-oss plugins.
 
+## rageatc-code-oss 2.5.7 — 2026-07-04
+
+orchestrating-software-dev Stage 10 now appends observations to LEARNINGS.md for a later `/codify` sweep instead of invoking the retired learner-agent. scaffolding-project's LEARNINGS.md template gains inclusion criteria and documents the `Codified →` marker.
+
 ## rageatc-core-oss 1.36.0 — 2026-07-04
 
 Retired learner-agent and the capturing-learnings skill. Added the codify skill, invoked as `/codify` — sweeps a project's LEARNINGS.md and turns accumulated entries into skill, rule, or documentation changes. The LEARNINGS.md flow is now capture (`/learn`) then codify (`/codify`): learn, handover, assessing-quality, designing-workflow, orchestrating-work, and the orchestrator-role rule updated to match.

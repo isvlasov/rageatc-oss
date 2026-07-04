@@ -19,7 +19,7 @@
       "name": "rageatc-code-oss",
       "source": "./plugins/rageatc-code-oss",
       "description": "Scale-adaptive software development — from bug fixes to greenfield systems, with TDD, verification, and perspective-based review",
-      "version": "2.5.6"
+      "version": "2.5.7"
     },
     {
       "name": "rageatc-design-oss",
