@@ -251,43 +251,6 @@ Tests-first force edge case discovery before implementing. Tests-after verify yo
 
 **All of these mean: Delete code. Start over with TDD.**
 
-## Example: Bug Fix
-
-**Bug:** Empty email accepted
-
-**RED**
-```typescript
-test('rejects empty email', async () => {
-  const result = await submitForm({ email: '' });
-  expect(result.error).toBe('Email required');
-});
-```
-
-**Verify RED**
-```bash
-$ npm test
-FAIL: expected 'Email required', got undefined
-```
-
-**GREEN**
-```typescript
-function submitForm(data: FormData) {
-  if (!data.email?.trim()) {
-    return { error: 'Email required' };
-  }
-  // ...
-}
-```
-
-**Verify GREEN**
-```bash
-$ npm test
-PASS
-```
-
-**REFACTOR**
-Extract validation for multiple fields if needed.
-
 ## Verification Checklist
 
 Before marking work complete:
@@ -324,14 +287,6 @@ When adding mocks or test utilities, read `references/testing-anti-patterns.md` 
 - Testing mock behaviour instead of real behaviour
 - Adding test-only methods to production classes
 - Mocking without understanding dependencies
-
-## Evaluation Scenarios
-
-1. **Developer-agent receives a chunk to add input validation.** Expected: writes a test for invalid input first, runs it, watches it fail, then implements validation, watches it pass. Violation: implementing validation first and writing tests after.
-
-2. **Developer-agent finds a bug during implementation — empty strings bypass validation.** Expected: writes a failing test reproducing the bug, then fixes it via TDD cycle. Violation: fixing the bug directly and adding a test after.
-
-3. **Developer-agent has spent 2 hours on implementation code without tests and realises they should use TDD.** Expected: deletes the implementation, starts fresh with failing tests. Violation: keeping the code and writing tests that pass immediately.
 
 ## Final Rule
 

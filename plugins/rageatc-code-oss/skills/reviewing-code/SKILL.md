@@ -5,25 +5,11 @@ description: Reviews code. Use when reviewing code implementations, assessing co
 
 # Reviewing Code
 
-## Purpose
-
-Structured methodology for reviewing code implementations. Produces consistent, severity-based, actionable feedback that a developer can act on without ambiguity.
-
-The orchestrator selects which **perspective references** to load for each review based on the workflow tier and chunk characteristics. The core process, finding format, and decision criteria remain the same regardless of which perspectives are active.
-
-## Scope and Constraints
-
-This skill defines the **review process** — how to conduct a review, format findings, and make decisions. The **what to look for** lives in perspective reference files that the orchestrator loads selectively.
-
-**This skill does NOT cover:**
-- Non-code artefacts (use assessing-quality from rageatc-core-oss)
-- Architecture design review (that's the critic's job during architecture approval)
+Structured review methodology producing consistent, severity-based, actionable feedback. This skill defines the **review process** — how to conduct a review, format findings, and decide; the **what to look for** lives in perspective reference files the orchestrator loads selectively. Non-code artefacts use assessing-quality (rageatc-core-oss); architecture design review is the critic's job at architecture approval.
 
 ## Perspective Model
 
-Perspectives are reference files under `references/` that define what to examine during review. The orchestrator tells the reviewer-agent which perspectives to load.
-
-**Available perspectives:**
+Perspectives are reference files under `references/` defining what to examine. The orchestrator tells the reviewer-agent which to load.
 
 | Reference | Focus | Typical use |
 |-----------|-------|-------------|
@@ -33,30 +19,25 @@ Perspectives are reference files under `references/` that define what to examine
 | `references/whole-project.md` | Full codebase against PRD success criteria | End of Standard/Thorough build only |
 | `references/design-compliance.md` | UI matches system.md tokens, depth, patterns | Standard + Thorough, when project has system.md and chunk touches UI |
 
-**Tier defaults:**
+**Tier defaults** (orchestrator may override — e.g., security for a Quick auth fix):
 
 | Tier | Perspectives loaded |
 |------|--------------------|
-| Quick | spec-compliance (covers correctness against brief) |
+| Quick | spec-compliance |
 | Standard | spec-compliance → code-quality → design-compliance (if system.md exists and chunk touches UI) |
-| Thorough | spec-compliance → code-quality → design-compliance (if system.md exists and chunk touches UI) → security (as needed) |
+| Thorough | spec-compliance → code-quality → design-compliance (if applicable) → security (as needed) |
 | End-of-build | whole-project (standalone, against PRD not brief) |
-
-The orchestrator may override defaults based on chunk characteristics (e.g., load security for a Quick auth fix).
 
 ## Inputs Required
 
-- **Enriched roadmap chunk** — acceptance criteria, file set, chunk purpose (the enriched roadmap IS the brief in rageatc-code v2)
+- **Enriched roadmap chunk** — acceptance criteria, file set, purpose (the enriched roadmap IS the brief)
 - **ARCHITECTURE.md** — patterns, conventions, component boundaries
-- **Codebase access** — the code to review
-- **Changed files list** — what the developer created or modified
-- **Test results** — or ability to run the test suite
-- **Perspective references** — loaded by orchestrator (see Perspective Model above)
+- **Codebase access** and **changed files list**
+- **Test results** — or the ability to run the suite
+- **Perspective references** — loaded by orchestrator
 - For re-reviews: **previous review** and the developer's changes
 
 ## Output
-
-A structured review document:
 
 ```
 # Code Review: [chunk name/ID]
@@ -85,52 +66,20 @@ A structured review document:
 
 ## Review Process
 
-### Step 1: Understand intent before reading code
-
-Read the development brief or enriched roadmap chunk completely. Internalise:
-- The acceptance criteria (your primary checklist)
-- Which files were supposed to change
-- What this chunk contributes to the broader system
-
-Do not open code files until you understand what was supposed to be built.
-
-### Step 2: Run tests
-
-Run the test suite. Record which tests pass and fail. This is factual input — do not form conclusions yet.
-
-### Step 3: Review against loaded perspectives
-
-Examine the code through each perspective the orchestrator loaded. Work through them in order: spec-compliance first (always), then others.
-
-Not every concern in a perspective applies to every chunk — use judgement. Spend time proportional to risk.
-
-**Trap: reviewing beyond scope.** Review this chunk, not the entire codebase. Broader issues go in observations, separate from findings.
-
-**Trap: style preferences over standards.** Review against the project's patterns (ARCHITECTURE.md), not personal preferences.
-
-### Step 4: Structure findings
-
-For each issue, write a finding using the Finding Format below. Assign honest severity.
-
-**Trap: nitpicking on accept.** If heading towards acceptance, limit minor findings to the 3-5 most valuable.
-
-### Step 5: Step back
-
-Does this code, as a whole, solve the problem the brief describes? A review that catches every style issue but misses that the core logic is wrong has failed.
-
-### Step 6: Decide
-
-Apply the decision criteria. State your decision clearly with rationale.
+1. **Understand intent before reading code.** Read the enriched roadmap chunk completely: acceptance criteria (your primary checklist), which files were supposed to change, what the chunk contributes to the system. Do not open code files first.
+2. **Run tests.** Record pass/fail as factual input — no conclusions yet.
+3. **Review against loaded perspectives**, spec-compliance first. Not every concern applies to every chunk — spend time proportional to risk. Traps: reviewing beyond scope (review this chunk; broader issues go in Observations) and style preferences over standards (review against ARCHITECTURE.md patterns, not taste).
+4. **Structure findings** per the Finding Format, with honest severity. Trap: nitpicking on accept — if heading towards acceptance, limit minor findings to the 3-5 most valuable.
+5. **Step back.** Does this code, as a whole, solve the problem the brief describes? A review that catches every style issue but misses that the core logic is wrong has failed.
+6. **Decide** per the criteria below, stating the rationale.
 
 ## Re-review Protocol
-
-When reviewing a second or subsequent iteration:
 
 1. Read your previous review first
 2. Verify each previously raised finding is addressed
 3. Do not re-raise findings that were adequately resolved
 4. Check that fixes have not introduced new issues
-5. Carry forward unresolved minor findings only if they remain relevant
+5. Carry forward unresolved minor findings only if still relevant
 6. Apply the same decision criteria — a re-review is not a lower bar
 
 ## Finding Format
@@ -145,52 +94,7 @@ _Impact:_ Why it matters.
 _Suggestion:_ How to fix it.
 ```
 
-### Severity Levels
-
-| Level | Meaning | Examples |
-|-------|---------|----------|
-| **Critical** | Blocks acceptance. Must fix. | Acceptance criterion not met, security vulnerability, data loss risk, tests broken |
-| **Major** | Degrades quality significantly. Should fix. | Unhandled error causing user-facing failure, missing test for core logic, architectural pattern violation |
-| **Minor** | Improves quality. Desirable but does not block. | Naming could be clearer, minor duplication, missing edge case test for non-critical path |
-| **Note** | Observation only. No action required. | Worth knowing for future work, pattern that could become a problem at scale |
-
-**Severity honesty:** Do not inflate. A naming improvement is not critical. Inflation erodes trust and wastes developer cycles.
-
-## Decision Criteria
-
-### Accept
-
-All of:
-- Zero critical findings
-- Zero major findings
-- All acceptance criteria from the brief are satisfied
-- Tests pass
-
-Minor findings and notes are included but do not block acceptance.
-
-### Revise
-
-Any of:
-- One or more critical findings
-- One or more major findings
-- An acceptance criterion is not satisfied
-- Tests fail (unless explained by an intentional, brief-sanctioned change)
-
-The review must list the specific issues requiring revision.
-
-## Evaluation Scenarios
-
-### Scenario 1: Quick tier — spec-compliance only
-
-Developer implements a bug fix. Orchestrator loads spec-compliance perspective only. Code satisfies acceptance criteria, tests pass.
-
-**Expected:** Accept. Review is short — only spec-compliance checked. No code-quality or security commentary.
-
-### Scenario 2: Standard tier — spec-compliance + code-quality
-
-Developer implements a feature chunk. Code works but uses an abstract factory pattern for a simple validator. Tests pass, acceptance criteria met.
-
-**Expected:** Revise with one major finding from code-quality perspective. Example finding:
+Example:
 
 ```
 **[MAJOR]** src/validators/email-validator.ts:1-45
@@ -207,16 +111,19 @@ _Suggestion:_ Replace with a direct validation function. If additional
 validators are needed later, extract a pattern then — not before.
 ```
 
-Spec-compliance perspective passes (acceptance criteria are met).
+### Severity Levels
 
-### Scenario 3: Thorough tier with security concern
+| Level | Meaning | Examples |
+|-------|---------|----------|
+| **Critical** | Blocks acceptance. Must fix. | Acceptance criterion not met, security vulnerability, data loss risk, tests broken |
+| **Major** | Degrades quality significantly. Should fix. | Unhandled error causing user-facing failure, missing test for core logic, architectural pattern violation |
+| **Minor** | Improves quality. Desirable but does not block. | Naming could be clearer, minor duplication, missing edge case test for non-critical path |
+| **Note** | Observation only. No action required. | Worth knowing for future work, pattern that could become a problem at scale |
 
-Developer implements a search endpoint. Input passed directly to database query without sanitisation. All acceptance criteria met. Tests pass.
+**Severity honesty:** do not inflate. A naming improvement is not critical; inflation erodes trust and wastes developer cycles. Security vulnerabilities are always critical, even when spec-compliance passes.
 
-**Expected:** Revise with one critical finding from security perspective (injection vulnerability). Even though spec-compliance passes, security vulnerabilities are always critical.
+## Decision Criteria
 
-### Scenario 4: End-of-build whole-project review
+**Accept** — all of: zero critical findings, zero major findings, all acceptance criteria satisfied, tests pass. Minor findings and notes are included but do not block.
 
-All chunks complete. Orchestrator loads whole-project perspective against PRD.
-
-**Expected:** Review assesses the entire codebase against PRD success criteria, not individual chunks. Findings reference PRD requirements, not chunk briefs.
+**Revise** — any of: a critical or major finding, an unsatisfied acceptance criterion, failing tests (unless explained by an intentional, brief-sanctioned change). List the specific issues requiring revision.

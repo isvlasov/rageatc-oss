@@ -5,19 +5,7 @@ description: Creates the standard project file structure for a software project.
 
 # Scaffolding a Project
 
-## Purpose
-
-Create the standard file structure for a rageatc-code-oss project. Run this once per new project, before architecture and decomposition begin. The scaffold creates empty templates and a pre-populated CLAUDE.md — content is filled in by later skills.
-
-## Scope
-
-**This skill creates:**
-- All persistent project files with minimal structure
-- A pre-populated CLAUDE.md that orients the orchestrator in new sessions
-
-**Out of scope:**
-- Filling in document content — that is the job of managing-product (PRD), architecting-software (ARCHITECTURE), decomposing-work and enriching-roadmap (ROADMAP.md), and planning-software (ORCHESTRATION-PLAN.md)
-- Running on an existing project with files already in place (check first)
+Creates the standard file structure for a rageatc-code-oss project — run once per new project, before architecture and decomposition. The scaffold creates empty templates and a pre-populated CLAUDE.md; content is filled in by later skills (managing-product → PRD, architecting-software → ARCHITECTURE, decomposing-work/enriching-roadmap → ROADMAP, planning-software → ORCHESTRATION-PLAN). Not for projects with files already in place — check first.
 
 ## Inputs Required
 
@@ -162,17 +150,3 @@ Templates owned by other skills (referenced, not duplicated):
 **Tier changes after scaffolding:** If the tier is upgraded to Thorough after initial scaffolding, create `docs/decisions/` at that point.
 
 **Quick tier with existing architecture:** ARCHITECTURE.md is still created — it is always present, even if shallow. Depth is determined by architecting-software, not by scaffolding.
-
-## Evaluation Scenarios
-
-1. **New greenfield project, Thorough tier**
-   - Input: project root does not exist, project name "Payments API", tier Thorough
-   - Expected: all 7 files created plus `docs/decisions/`, CLAUDE.md populated with project name "Payments API", tier set to "Thorough", source of truth table listing all documents including STATUS.md, session resumption steps starting with STATUS.md. STATUS.md has initial content. No content beyond headings in PRD/ROADMAP.md/ORCHESTRATION-PLAN.md/LEARNINGS.md.
-
-2. **New project, Quick tier**
-   - Input: project root does not exist, project name "Fix auth bug", tier Quick
-   - Expected: all 7 files created, no `docs/decisions/` directory, CLAUDE.md populated with tier Quick, STATUS.md with initial content
-
-3. **Project root already contains PRD.md**
-   - Input: project root exists with PRD.md already present
-   - Expected: skill stops, lists existing files, asks orchestrator which files to create — does not overwrite anything

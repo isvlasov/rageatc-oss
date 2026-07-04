@@ -5,17 +5,9 @@ description: Evaluates software quality from an end user's perspective. Use when
 
 # Evaluating as a User
 
-## Purpose
+Methodology and judgement for evaluating a running product as a real user would: derive what to test from the PRD, structure the evaluation, assess quality dimensions, format findings. Covers **what to evaluate and how to think about quality** — browser mechanics are in playwright-cli (preloaded); agent role, inputs, status codes, and handoff are in the agent definition.
 
-Teach the methodology and judgement needed to evaluate a running product as a real user would. Defines how to derive what to test from the PRD, how to structure the evaluation, what quality dimensions to assess, and how to format findings.
-
-This skill covers **what to evaluate and how to think about quality**. Browser interaction mechanics are in playwright-cli (preloaded). Agent role, inputs, status codes, and handoff are in the agent definition.
-
-## Scope
-
-**Applies to:** web applications, CLI tools, APIs.
-
-**Does not cover:** source code review (reviewing-code), automated test generation, accessibility audits (WCAG), or performance benchmarking.
+**Applies to:** web applications, CLI tools, APIs. **Not covered:** source code review (reviewing-code), automated test generation, accessibility audits (WCAG), performance benchmarking.
 
 ## Workflow
 
@@ -46,7 +38,17 @@ Attempt each derived journey in sequence. As you go:
 
 When a journey succeeds, note which quality dimensions (Step 4) were satisfied or strained along the way. When a journey fails, record at what step and what the failure was.
 
-**If a severity-4 issue is encountered mid-journey:** record it, then attempt to continue or skip to the next journey. Do not abandon the evaluation.
+**If a severity-4 issue is encountered mid-journey:** record it, then attempt to continue or skip to the next journey. Do not abandon the evaluation — continue with remaining journeys and universal checks, and highlight the catastrophic finding in the final report.
+
+Example walkthrough entry:
+
+```
+Journey 1, Step 3 — Submit registration form
+Did: Filled in name, email, and password fields; clicked "Create account"
+Expected: Loading state on button, then redirect to dashboard or confirmation screen
+Saw: Button remained active with no visual change for ~4 seconds, then page refreshed to the same form with no error message
+Quality lens: Communicativeness failure (no feedback); Reliability feel strained (unpredictable outcome)
+```
 
 ### Step 3: Apply universal checks
 
@@ -143,53 +145,6 @@ A finding is actionable when a developer reading it knows exactly what to change
 Vague finding (not actionable): "The onboarding experience is confusing."
 
 Actionable finding: `**[SEVERITY-3]** Onboarding — Step 2 (account setup) — After clicking "Create account", no confirmation or loading indicator appears for ~3 seconds. _Impact:_ Users assume the click did not register and click again, creating duplicate submissions. _Suggestion:_ Show a spinner or disabled state on the button immediately on click; display a "Creating your account..." message.`
-
-## Evaluation Scenarios
-
-### Scenario 1: Web app with clear PRD
-
-PRD has three P0 requirements. The app is running at localhost.
-
-**Expected:** Agent derives three user journeys (one per P0), runs each in the browser using playwright-cli, applies all six universal checks, assesses all five quality dimensions during the walk, runs exploratory evaluation, and produces a walkthrough.md and findings.md with severity-rated, actionable findings.
-
-**Example walkthrough entry (Step 2):**
-
-```
-Journey 1, Step 3 — Submit registration form
-Did: Filled in name, email, and password fields; clicked "Create account"
-Expected: Loading state on button, then redirect to dashboard or confirmation screen
-Saw: Button remained active with no visual change for ~4 seconds, then page refreshed to the same form with no error message
-Quality lens: Communicativeness failure (no feedback); Reliability feel strained (unpredictable outcome)
-```
-
-### Scenario 2: CLI tool with no design system
-
-PRD describes a CLI utility with two core commands. No system.md.
-
-**Expected:** Agent derives journeys as command sequences, runs them in the terminal, applies universal checks adapted for CLI (first run with no args, error message quality, output consistency, feedback on completion). Skips design compliance step. Produces findings with terminal output evidence in walkthrough.md instead of screenshots.
-
-**Example finding (CLI-adapted format):**
-
-```
-**[SEVERITY-3]** CLI — first run with no arguments
-
-_Finding:_ Running `mytool` with no arguments exits silently with code 1. No usage information, no hint that `--help` exists.
-
-_Impact:_ A new user has no way to discover how to use the tool without consulting external documentation. Standard CLI convention is to print usage on invocation with no args.
-
-_Suggestion:_ When invoked with no arguments, print a short usage summary (same output as `--help`) before exiting. Exit code 0 for informational output; exit code 1 only for genuine errors.
-
-_Evidence:_ walkthrough.md step 1 — terminal output:
-$ mytool
-$ echo $?
-1
-```
-
-### Scenario 3: Product with a severity-4 issue mid-evaluation
-
-During journey 1, the primary feature crashes with an unhandled exception.
-
-**Expected:** Agent records the severity-4 finding, notes the step at which evaluation was blocked, attempts any remaining steps or alternative paths, continues with remaining journeys and universal checks (rather than abandoning entirely), and returns DONE_WITH_CONCERNS with the catastrophic finding highlighted.
 
 ## Common Traps
 

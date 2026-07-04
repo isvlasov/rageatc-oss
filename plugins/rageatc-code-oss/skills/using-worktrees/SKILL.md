@@ -25,7 +25,7 @@ This skill covers git worktree setup, lifecycle, and known limitations for ragea
 
 The orchestrator creates and manages worktrees manually using `git worktree add`, then points developer-agents to the worktree directory.
 
-**Why manual, not automated:** Claude Code's `isolation: "worktree"` subagent frontmatter has critical open bugs (as of early 2026) — permission bypass doesn't work, and silent data loss on cleanup has been reported. The manual approach is reliable. See Known Limitations below.
+**Why manual, not automated:** Claude Code's `isolation: "worktree"` subagent frontmatter had critical bugs when this approach was chosen (Feb 2026; GitHub #29110, closed unresolved) — permission bypass ineffective and silent data loss on cleanup. The manual approach is reliable regardless. Re-verify the frontmatter route against current Claude Code behaviour before relying on it; see Known Limitations.
 
 ```
 Orchestrator:
@@ -150,28 +150,12 @@ git branch -D chunk-003/recipe-service
 
 ## Known Limitations
 
-### Subagent Permission Issues
+Reported against Claude Code's `isolation: "worktree"` frontmatter (Feb 2026, GitHub #29110 — closed without a stated fix; re-verify against current behaviour):
 
-**Problem:** Developer-agents running in worktrees via `isolation: "worktree"` subagent frontmatter may not be able to run bash commands (tests, git commit). The `permissionMode: "bypassPermissions"` flag is broken in this context (GitHub #29110, open as of early 2026).
-
-**Workaround:** If the developer-agent reports BLOCKED due to permission issues:
-1. Orchestrator reviews the agent's code output in the worktree
-2. Orchestrator runs tests from the main session
-3. Orchestrator commits from the main session
-
-### Silent Data Loss
-
-**Problem:** Worktrees created via `isolation: "worktree"` can be silently deleted during cleanup, destroying uncommitted work with no warning.
-
-**Prevention:** Always commit work before exiting a worktree session. The manual `git worktree add` approach avoids the auto-cleanup behaviour entirely.
-
-### Background Agents
-
-`background: true` and `isolation: "worktree"` do not currently work together — background agents run in the main repository regardless of isolation setting.
-
-### Branch Naming
-
-The `isolation: "worktree"` frontmatter generates opaque branch names (`worktree-agent-{hash}`). Manual worktree creation avoids this — name branches after chunks for traceability.
+- **Subagent permissions:** agents in frontmatter-isolated worktrees could not run bash (tests, git commit) — `permissionMode: "bypassPermissions"` was ineffective. Workaround if a developer-agent reports BLOCKED on permissions: orchestrator reviews the code output, runs tests, and commits from the main session.
+- **Silent data loss:** frontmatter-created worktrees could be deleted during cleanup, destroying uncommitted work. Always commit before exiting a worktree session; manual `git worktree add` avoids auto-cleanup entirely.
+- **Background agents:** `background: true` + `isolation: "worktree"` did not compose — background agents ran in the main repository.
+- **Branch naming:** frontmatter isolation generates opaque branch names (`worktree-agent-{hash}`); manual creation lets you name branches after chunks.
 
 ## When to Use Worktrees vs Branches
 
@@ -181,19 +165,6 @@ The `isolation: "worktree"` frontmatter generates opaque branch names (`worktree
 | Standard workflow (sequential chunks) | Worktree per chunk — isolation without switching |
 | Thorough workflow (parallel chunks) | Worktree per chunk — enables true parallelism |
 | Single developer, small project | Branch may suffice — worktree overhead not always justified |
-
-## Quick Reference
-
-| Situation | Action |
-|-----------|--------|
-| `.worktrees/` exists | Use it (verify ignored) |
-| `worktrees/` exists | Use it (verify ignored) |
-| Both exist | Use `.worktrees/` |
-| Neither exists | Check CLAUDE.md → ask user |
-| Directory not ignored | Add to .gitignore + commit |
-| Tests fail during baseline | Report failures + ask |
-| No package.json/Cargo.toml | Skip dependency install |
-| Agent can't run bash in worktree | Orchestrator runs tests/commits from main session |
 
 ## Red Flags
 
@@ -209,11 +180,3 @@ The `isolation: "worktree"` frontmatter generates opaque branch names (`worktree
 - Name branches after chunks for traceability
 - Verify clean test baseline before assigning to developer
 - Merge to main only after review accepts
-
-## Evaluation Scenarios
-
-1. **Orchestrator needs to set up a worktree for chunk-003.** Expected: checks for .worktrees/ directory, verifies it's gitignored, creates worktree with chunk-named branch, runs project setup, verifies tests pass, then assigns to developer-agent. Violation: using `isolation: "worktree"` frontmatter without awareness of permission bugs.
-
-2. **Developer-agent in a worktree reports BLOCKED — can't run bash commands.** Expected: orchestrator runs tests from main session, reviews output, commits if tests pass. Violation: retrying the same agent invocation or abandoning the chunk.
-
-3. **Two chunks in the Thorough workflow have non-overlapping file sets.** Expected: orchestrator creates two worktrees, launches developer-agents in parallel, merges each independently after review. Violation: running them sequentially when parallelism is safe.

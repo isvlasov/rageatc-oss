@@ -6,22 +6,7 @@ allowed-tools: Bash(playwright-cli:*)
 
 # Browser Automation with playwright-cli
 
-## Quick start
-
-```bash
-# open new browser
-playwright-cli open
-# navigate to a page
-playwright-cli goto https://playwright.dev
-# interact with the page using refs from the snapshot
-playwright-cli click e15
-playwright-cli type "page.click"
-playwright-cli press Enter
-# take a screenshot (rarely used, as snapshot is more common)
-playwright-cli screenshot
-# close the browser
-playwright-cli close
-```
+Workflow: `open` a browser, `goto` a page, read the snapshot the CLI returns, then interact with elements via their refs (`e15`) from that snapshot.
 
 ## Commands
 
@@ -37,6 +22,8 @@ playwright-cli click e3
 playwright-cli dblclick e7
 playwright-cli fill e5 "user@example.com"
 playwright-cli drag e2 e8
+playwright-cli drop e5 --path=./file.png   # drop files onto an element from outside the page
+playwright-cli drop e5 --data="k=v"        # drop data onto an element
 playwright-cli hover e4
 playwright-cli select e9 "option-value"
 playwright-cli upload ./document.pdf
@@ -87,6 +74,7 @@ playwright-cli mousewheel 0 100
 playwright-cli screenshot
 playwright-cli screenshot e5
 playwright-cli screenshot --filename=page.png
+playwright-cli screenshot --hires        # full device pixel ratio
 playwright-cli pdf --filename=page.pdf
 ```
 
@@ -117,19 +105,12 @@ playwright-cli cookie-set session_id abc123 --domain=example.com --httpOnly --se
 playwright-cli cookie-delete session_id
 playwright-cli cookie-clear
 
-# LocalStorage
+# LocalStorage — same verbs exist for sessionstorage-*
 playwright-cli localstorage-list
 playwright-cli localstorage-get theme
 playwright-cli localstorage-set theme dark
 playwright-cli localstorage-delete theme
 playwright-cli localstorage-clear
-
-# SessionStorage
-playwright-cli sessionstorage-list
-playwright-cli sessionstorage-get step
-playwright-cli sessionstorage-set step 3
-playwright-cli sessionstorage-delete step
-playwright-cli sessionstorage-clear
 ```
 
 ### Network
@@ -168,28 +149,34 @@ playwright-cli open --headed --browser=firefox https://example.com/
 
 # Use --no-sandbox when running in restricted environments (containers, CI)
 playwright-cli open --no-sandbox
-playwright-cli open --no-sandbox --headed https://example.com/
 
 # Use specific browser when creating session
 playwright-cli open --browser=chrome
 playwright-cli open --browser=firefox
 playwright-cli open --browser=webkit
 playwright-cli open --browser=msedge
-# Connect to browser via extension
-playwright-cli open --extension
 
 # Use persistent profile (by default profile is in-memory)
 playwright-cli open --persistent
 # Use persistent profile with custom directory
 playwright-cli open --profile=/path/to/profile
 
-# Start with config file
+# Start with config file (default: .playwright/cli.config.json)
 playwright-cli open --config=my-config.json
 
 # Close the browser
 playwright-cli close
 # Delete user data for the default session
 playwright-cli delete-data
+```
+
+## Attach to an existing browser
+
+```bash
+playwright-cli attach --extension=chrome   # connect via Playwright Extension
+playwright-cli attach --cdp=chrome         # attach to running Chrome/Edge by channel
+playwright-cli attach --cdp=<url>          # attach via CDP endpoint
+playwright-cli detach                      # detach, leaving the external browser running
 ```
 
 ## Install browsers
@@ -215,9 +202,7 @@ After each command, playwright-cli provides a snapshot of the current browser st
 [Snapshot](.playwright-cli/page-2026-02-14T19-22-42-679Z.yml)
 ```
 
-You can also take a snapshot on demand using `playwright-cli snapshot` command.
-
-If `--filename` is not provided, a new snapshot file is created with a timestamp. Default to automatic file naming, use `--filename=` when artifact is a part of the workflow result.
+You can also take a snapshot on demand with `playwright-cli snapshot`. If `--filename` is not provided, a new snapshot file is created with a timestamp. Default to automatic naming; use `--filename=` when the artifact is part of the workflow result.
 
 ## Browser Sessions
 
@@ -239,62 +224,13 @@ playwright-cli kill-all
 
 ## Local installation
 
-In some cases user might want to install playwright-cli locally. If running globally available `playwright-cli` binary fails, use `npx playwright-cli` to run the commands. For example:
-
-```bash
-npx playwright-cli open https://example.com
-npx playwright-cli click e1
-```
+If a globally available `playwright-cli` binary is missing or fails, install the CLI locally: `npm install -g @playwright/cli@latest`. Note the package is `@playwright/cli` — the unscoped npm package `playwright-cli` is an unrelated legacy package.
 
 ## Security defaults
 
 - `file://` URLs are blocked by default — only `http:`, `https:`, `about:`, and `data:` schemes are allowed
 - File uploads are restricted to the workspace root
 - These are security defaults, not bugs
-
-## Example: Form submission
-
-```bash
-playwright-cli open https://example.com/form
-playwright-cli snapshot
-
-playwright-cli fill e1 "user@example.com"
-playwright-cli fill e2 "password123"
-playwright-cli click e3
-playwright-cli snapshot
-playwright-cli close
-```
-
-## Example: Multi-tab workflow
-
-```bash
-playwright-cli open https://example.com
-playwright-cli tab-new https://example.com/other
-playwright-cli tab-list
-playwright-cli tab-select 0
-playwright-cli snapshot
-playwright-cli close
-```
-
-## Example: Debugging with DevTools
-
-```bash
-playwright-cli open https://example.com
-playwright-cli click e4
-playwright-cli fill e7 "test"
-playwright-cli console
-playwright-cli network
-playwright-cli close
-```
-
-```bash
-playwright-cli open https://example.com
-playwright-cli tracing-start
-playwright-cli click e4
-playwright-cli fill e7 "test"
-playwright-cli tracing-stop
-playwright-cli close
-```
 
 ## Specific tasks
 

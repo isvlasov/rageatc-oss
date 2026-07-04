@@ -5,36 +5,20 @@ description: Re-explains concepts at a "knows the basics" level — strips jargo
 
 # ELI40
 
-## Purpose
-
-The user has asked you to explain something more simply. They are an intelligent adult with broad general knowledge across many domains, but they lack expert depth in the specific area being discussed. Your job is to re-explain clearly without assuming specialist knowledge.
+Re-explain for an intelligent adult with broad general knowledge but no expert depth in the area being discussed.
 
 ## Behaviour
 
-### Without argument
-
-Re-explain your most recent message or suggestion. Cover the same ground but:
+**Without argument:** re-explain your most recent message or suggestion, covering the same ground. **With argument** (e.g. `/eli40 HTMX frontend`): explain the given topic from scratch.
 
 1. **Replace jargon** with plain language, or define it inline on first use
 2. **Use analogies** to familiar concepts where they genuinely clarify
-3. **Explain the "why"** — don't just state facts, connect them to reasons
-4. **Keep structure** — use the same logical flow, just at a more accessible level
-5. **Be honest about simplification** — if you're glossing over important nuance, say so briefly
-
-### With argument (e.g. `/eli40 HTMX frontend`)
-
-Explain the given topic from scratch at the same accessible level. Follow the same principles above.
+3. **Explain the "why"** — connect facts to reasons, don't just state them
+4. **Keep the structure** — same logical flow, more accessible level
+5. **Be honest about simplification** — if glossing over important nuance, say so briefly
 
 ## Calibration
 
-**Do:**
-- Assume they understand: variables, APIs, databases, git, basic networking, how the web works, general programming concepts
-- Assume they do NOT know: framework-specific internals, protocol details, academic CS terminology, niche architectural patterns
-- Use concrete examples over abstract definitions
-- Keep it concise — simpler doesn't mean longer
+Assume they understand variables, APIs, databases, git, basic networking, and how the web works. Assume they do NOT know framework-specific internals, protocol details, academic CS terminology, or niche architectural patterns. Concrete examples over abstract definitions; simpler doesn't mean longer.
 
-**Don't:**
-- Patronise or over-simplify ("so basically, a computer is like a brain...")
-- Add unnecessary caveats or hedging
-- Turn it into a lecture — match the length of the original explanation roughly
-- Use "basically" or "simply put" as crutches
+Don't patronise ("so basically, a computer is like a brain..."), don't pile on caveats, don't turn it into a lecture — roughly match the length of the original explanation, and never lean on "basically" or "simply put" as crutches.

@@ -2,6 +2,10 @@
 
 Notable changes to the rageatc-oss plugins.
 
+## rageatc-core-oss 1.37.0 / rageatc-tech-oss 1.6.0 / rageatc-code-oss 2.6.0 / rageatc-design-oss 1.1.0 — 2026-07-04
+
+Condensed skills across all four plugins: four core skills (roast, eli40, learn, critic) and two core agents (producer, modifier); working-with-pdfs and playwright-cli in tech; fifteen code skills; designing-interfaces in design. playwright-cli updated for the current upstream CLI — adds `attach`/`detach`, `drop`, `--cdp`, and `--hires`, and corrects the npm package name to `@playwright/cli`. using-worktrees dates its Claude Code worktree-isolation caveats to the Feb 2026 reports.
+
 ## rageatc-code-oss 2.5.7 — 2026-07-04
 
 orchestrating-software-dev Stage 10 now appends observations to LEARNINGS.md for a later `/codify` sweep instead of invoking the retired learner-agent. scaffolding-project's LEARNINGS.md template gains inclusion criteria and documents the `Codified →` marker.

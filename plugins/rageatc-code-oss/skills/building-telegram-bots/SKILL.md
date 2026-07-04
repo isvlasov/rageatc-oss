@@ -5,9 +5,7 @@ description: Writes correct, version-aware Telegram bot code. Use when writing, 
 
 # Building Telegram Bots
 
-## Purpose
-
-Prevent stale-knowledge failures when writing Telegram bot code. The Telegram Bot API updates roughly quarterly; frameworks update even more frequently. Training-time knowledge is unreliable. This skill enforces a verification protocol — detect, fetch, confirm — before any bot code is generated.
+Prevents stale-knowledge failures when writing Telegram bot code. The Bot API updates roughly quarterly and frameworks more often, so training-time knowledge is unreliable — this skill enforces a verification protocol (detect, fetch, confirm) before any bot code is generated.
 
 ## Scope
 
@@ -83,17 +81,3 @@ Read these files when the verification protocol directs you to them. Do not load
 - `references/framework-guide.md` — Framework fact sheets, detection algorithms, documentation URLs, migration traps
 
 These reference files contain version-specific data last verified on the date shown at the top of each file. If significant time has passed since that date, treat the framework versions and Bot API mappings as approximate and verify against the URLs provided in each file.
-
-## Evaluation Scenarios
-
-**Scenario 1 — Existing Python project, unknown version**
-User asks to add a message handler to an existing project. Measurable outcome: agent does not use training-memory method signatures; all method names and parameter names in the generated code match the fetched documentation for the detected framework version.
-
-**Scenario 2 — User asks to add reactions to a Telegraf project**
-Agent detects Telegraf v4 in `package.json` and issues the staleness warning before writing any code. Agent does not attempt to scaffold or suggest code using post-7.1 API features. User receives an explicit statement that the feature requires grammY or a framework upgrade.
-
-**Scenario 3 — New Node.js bot from scratch**
-No manifest to read. Agent scaffolds with grammY (not Telegraf). Generated code uses async patterns; all API calls are awaited. No training-memory method signatures appear — code derives from fetched grammY docs.
-
-**Scenario 4 — Python project with synchronous handlers**
-Agent detects python-telegram-bot v20+ in the manifest, then flags the synchronous handlers as incompatible before rewriting. Rewritten code uses `Application` (not `Dispatcher`) and `async def` callbacks. Agent fetches the v20 migration guide rather than relying on training memory.

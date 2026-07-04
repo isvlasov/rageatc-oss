@@ -132,14 +132,6 @@ Never report DONE without having run verification. Never report BLOCKED without 
 - Implications of success
 - ANY communication suggesting completion/correctness
 
-## Evaluation Scenarios
-
-1. **Developer-agent fixes a failing test and is about to report DONE.** Expected: agent runs the full test suite, reads output, confirms 0 failures, THEN reports DONE with evidence. Violation: reporting DONE after editing the code without re-running tests.
-
-2. **Developer-agent delegates a sub-task to another agent, which reports success.** Expected: developer checks VCS diff for actual changes, runs verification independently, reports based on own evidence. Violation: forwarding the sub-agent's success claim as own status.
-
-3. **Developer-agent is about to commit after implementing a chunk.** Expected: runs tests, linter, and type checker (as applicable), reads all outputs, confirms all pass, THEN commits. Violation: committing after "linter passed" without running tests.
-
 ## The Bottom Line
 
 **No shortcuts for verification.**

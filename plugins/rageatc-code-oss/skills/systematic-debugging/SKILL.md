@@ -222,15 +222,6 @@ If you catch yourself thinking:
 | "I see the problem, let me fix it" | Seeing symptoms ≠ understanding root cause. |
 | "One more fix attempt" (after 2+ failures) | 3+ failures = architectural problem. Question pattern, don't fix again. |
 
-## Quick Reference
-
-| Phase | Key Activities | Success Criteria |
-|-------|---------------|------------------|
-| **1. Root Cause** | Read errors, reproduce, check changes, gather evidence | Understand WHAT and WHY |
-| **2. Pattern** | Find working examples, compare | Identify differences |
-| **3. Hypothesis** | Form theory, test minimally | Confirmed or new hypothesis |
-| **4. Implementation** | Create test, fix, verify | Bug resolved, tests pass |
-
 ## When Process Reveals "No Root Cause"
 
 If systematic investigation reveals issue is truly environmental, timing-dependent, or external:
@@ -253,15 +244,3 @@ These techniques are available in this skill's references directory:
 **Related skills:**
 - **test-driven-development** - For creating failing test case (Phase 4, Step 1)
 - **verifying-work** - Verify fix worked before claiming success
-
-## Evaluation Scenarios
-
-1. **Developer-agent encounters a test failure after implementing a chunk.** Expected: reads error message, reproduces, traces data flow, forms hypothesis, tests minimally. Violation: immediately changing code based on the error message without investigating root cause.
-
-2. **Developer-agent has tried 3 fixes for the same issue, none worked.** Expected: stops, reports BLOCKED to orchestrator with evidence that this may be an architectural problem. Violation: attempting a 4th fix.
-
-3. **Developer-agent sees a "simple" off-by-one error.** Expected: still follows Phase 1 (reproduce, understand why), writes failing test, fixes via TDD. Violation: fixing the off-by-one directly because "it's obvious."
-
-## Why This Matters
-
-Systematic debugging is faster than guess-and-check. Following the four phases typically resolves bugs in one or two attempts, while random fix attempts lead to thrashing, new bugs, and escalation. The discipline pays for itself on the first non-trivial bug.

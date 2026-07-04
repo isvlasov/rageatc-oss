@@ -37,7 +37,7 @@ ctx7 library nextjs "How to set up app router with middleware"
 ctx7 library prisma "How to define one-to-many relations with cascade delete"
 ```
 
-Always pass a `query` argument -- it is required and directly affects result ranking. Use the user's intent to form the query, which helps disambiguate when multiple libraries share a similar name. Do not include any sensitive or confidential information such as API keys, passwords, credentials, personal data, or proprietary code in your query.
+Always pass a `query` argument -- it is required and directly affects result ranking. Use the user's intent to form the query, which helps disambiguate when multiple libraries share a similar name.
 
 ### Result fields
 
@@ -90,7 +90,7 @@ ctx7 docs /prisma/prisma "How to define one-to-many relations with cascade delet
 
 ### Writing good queries
 
-The query directly affects the quality of results. Be specific and include relevant details. Do not include any sensitive or confidential information such as API keys, passwords, credentials, personal data, or proprietary code in your query.
+The query directly affects the quality of results. Be specific and include relevant details.
 
 | Quality | Example |
 |---------|---------|

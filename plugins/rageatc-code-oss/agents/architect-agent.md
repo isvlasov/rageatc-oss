@@ -51,6 +51,7 @@ Saved to the specified output directory:
 
 - **ARCHITECTURE.md** — in project root; depth scaled to workflow tier
 - **ADR files** — `docs/decisions/NNNN-title.md` for significant decisions (Standard/Thorough)
+
 ## Handoff
 
 1. Confirm files saved with full paths

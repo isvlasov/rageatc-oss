@@ -5,56 +5,23 @@ description: Transforms an approved enriched roadmap into a self-contained orche
 
 # Planning Software
 
-## Purpose
+Produces a self-contained orchestration plan from an approved enriched roadmap. The plan is the orchestrator's execution contract — it records the workflow tier, tracks chunk progress, and contains the full per-chunk protocol so any orchestrator session (including a fresh one) can resume without conversation history.
 
-Produce a self-contained orchestration plan from an approved enriched roadmap. The plan is the orchestrator's execution contract — it records the workflow tier, tracks chunk progress, and contains the full per-chunk protocol so any orchestrator session (including a fresh one) can resume work without reading conversation history.
+The plan describes **process** (agent sequence, review perspectives, gates); the roadmap describes **content** (what to build in each chunk). Separate documents, separate owners — never duplicate roadmap content into the plan.
 
-The plan describes **process** (agent sequence, review perspectives, gates). The roadmap describes **content** (what to build in each chunk). These are separate documents with separate owners. Never duplicate roadmap content into the plan.
+**Inputs** (request anything missing before proceeding): approved enriched ROADMAP.md; workflow tier (decided upstream by orchestrating-software-dev); project name; confirmation that PRD.md and ARCHITECTURE.md exist (referenced, not duplicated).
 
-## Scope and Constraints
+**Outputs:** ORCHESTRATION-PLAN.md (the workflow contract) and an empty append-only ORCHESTRATION-LOG.md, both in the project root.
 
-**This skill covers:**
-- Creating ORCHESTRATION-PLAN.md from an approved enriched roadmap
-- Scaling plan depth to the selected workflow tier (Quick, Standard, Thorough)
-- Initialising an empty ORCHESTRATION-LOG.md alongside the plan
-
-**This skill does NOT cover:**
-- Roadmap creation or enrichment — that is decomposing-work and enriching-roadmap
-- Deciding the workflow tier — that is orchestrating-software-dev
-- Per-chunk execution itself — that is developer-agent and reviewer-agent work
-- Defining the ORCHESTRATION-LOG.md format — that is orchestrating-software-dev
-
-## Inputs Required
-
-Before producing the plan, confirm you have:
-
-- **Approved enriched roadmap** — ROADMAP.md with all chunks, acceptance criteria, and file sets
-- **Workflow tier** — Quick, Standard, or Thorough (determined before this skill is invoked)
-- **Project name** — for plan header
-- **Upstream artefacts** — confirm PRD.md and ARCHITECTURE.md exist (they are referenced in the plan, not duplicated)
-
-If any input is missing, request it before proceeding.
-
-## Outputs
-
-1. **ORCHESTRATION-PLAN.md** — the workflow contract (see Template below)
-2. **ORCHESTRATION-LOG.md** — empty append-only log, created alongside the plan
-
-Both files live in the project root alongside PRD.md, ARCHITECTURE.md, and ROADMAP.md.
+**Not covered:** roadmap creation/enrichment, tier selection, per-chunk execution itself, the log entry format (defined in orchestrating-software-dev).
 
 ## Workflow
 
 ### Step 1: Read the enriched roadmap
 
-Read ROADMAP.md completely. Note:
-- Total chunk count and IDs (e.g., chunk-001 through chunk-007)
-- Whether chunks are phased (Thorough only) or flat
-- Any parallel dispatch annotations
-- Which chunk is currently in-progress, if work has already started
+Read ROADMAP.md completely. Note: total chunk count and IDs; phased (Thorough) or flat; parallel dispatch annotations; any chunk already in-progress.
 
 ### Step 2: Determine plan depth from workflow tier
-
-Apply the scale rules:
 
 | Tier | Plan depth |
 |------|------------|
@@ -64,18 +31,18 @@ Apply the scale rules:
 
 ### Step 3: Write the orchestration plan
 
-Use the Template section below. Populate each section with the data from Steps 1-2:
+Populate the Template below:
 
 - **Header** — project name, tier, date, pointers to upstream artefacts
-- **Upstream steps** — mark all complete (they're done by the time this skill runs). Quick lists PRD + architecture only; Standard/Thorough add decomposition + enrichment.
-- **Build Progress** — one todo per chunk from ROADMAP.md, chunk-level only (no sub-steps). Add whole-project review for Standard/Thorough. Status markers: `[ ]` not started, `[~]` in-progress, `[x]` complete.
-- **Per-Chunk Execution Protocol** — written once, used for every chunk. Covers assignment, developer execution, status code handling, review perspectives per tier, and post-chunk updates. For Thorough tier with parallel chunks, note which chunks can run concurrently.
-- **Completion** — Quick omits this. Standard/Thorough include whole-project review against PRD.
+- **Upstream steps** — mark all complete (they are done by the time this skill runs). Quick lists PRD + architecture only; Standard/Thorough add interface design, decomposition, enrichment.
+- **Build Progress** — one todo per chunk, chunk-level only (no sub-steps); whole-project review entry for Standard/Thorough. Markers: `[ ]` not started, `[~]` in-progress, `[x]` complete.
+- **Per-Chunk Execution Protocol** — written once, used for every chunk. For Thorough with parallel chunks, note which can run concurrently.
+- **Completion** — Quick omits; Standard/Thorough include whole-project review against PRD.
 - **Resumption Note** — tells a fresh session how to find the current position.
 
 ### Step 4: Initialise ORCHESTRATION-LOG.md
 
-Create an empty ORCHESTRATION-LOG.md file with a header comment only. The format for log entries is defined in orchestrating-software-dev — do not define it here.
+Create it with a header comment only — the entry format lives in orchestrating-software-dev:
 
 ```markdown
 # Orchestration Log
@@ -85,9 +52,7 @@ Create an empty ORCHESTRATION-LOG.md file with a header comment only. The format
 
 ## Template
 
-Use this template to produce ORCHESTRATION-PLAN.md. Adapt to the workflow tier (see annotations).
-
-**Note:** The per-chunk protocol below intentionally summarises content from orchestrating-software-dev so the plan is self-contained for cross-session resumption. If the protocol changes in orchestrating-software-dev, update this template to match.
+Adapt to the workflow tier per the annotations. The per-chunk protocol intentionally summarises orchestrating-software-dev content so the plan is self-contained for cross-session resumption — if the protocol changes there, update this template to match.
 
 ```markdown
 # Orchestration Plan — [Project Name]
@@ -194,48 +159,10 @@ New session? Read this file. Find the first `[~]` or `[ ]` chunk in Build Progre
 
 ## Edge Cases
 
-**Resuming mid-chunk:** If a chunk is marked `[~]` (in-progress), check ORCHESTRATION-LOG.md for the last completed step. Re-read the relevant chunk from ROADMAP.md and resume from where the developer-agent left off.
+**Resuming mid-chunk:** for a `[~]` chunk, check ORCHESTRATION-LOG.md for the last completed step, re-read the chunk from ROADMAP.md, and resume where the developer-agent left off.
 
-**Tier change after plan creation:** Do not modify an existing plan's tier mid-project. If scope expands significantly, note it in ORCHESTRATION-LOG.md and create a revised plan.
+**Tier change after plan creation:** do not modify an existing plan's tier mid-project. If scope expands significantly, note it in ORCHESTRATION-LOG.md and create a revised plan.
 
-**Parallel chunks (Thorough only):** If ROADMAP.md annotates chunks as parallelisable, note this in the Build Progress list (e.g., `- [ ] chunk-003: [name] [parallel with chunk-004]`). The orchestrator dispatches these concurrently when file sets do not conflict.
+**Parallel chunks (Thorough only):** note parallelisable chunks in Build Progress (e.g., `- [ ] chunk-003: [name] [parallel with chunk-004]`); dispatch concurrently when file sets do not conflict.
 
-**Quick tier with security concern:** Override the default spec-compliance-only perspective. Load security perspective for any chunk handling authentication, user input, or sensitive data.
-
-## Evaluation Scenarios
-
-### Scenario 1 — Quick tier plan
-
-**Input:** Approved ROADMAP.md with 2 flat chunks for a bug fix. Tier: Quick.
-
-**Expected output:** Short ORCHESTRATION-PLAN.md — upstream steps show PRD and architecture update only; Build Progress lists 2 chunks with no whole-project review; protocol section shows spec-compliance only; no phases. Whole file under 60 lines.
-
-### Scenario 2 — Standard tier plan
-
-**Input:** Approved enriched ROADMAP.md with 5 sequential vertical-slice chunks for a new feature. Tier: Standard.
-
-**Expected Build Progress section:**
-```markdown
-## Build Progress
-
-- [ ] chunk-001: Walking Skeleton
-- [ ] chunk-002: User Service
-- [ ] chunk-003: Recipe Service
-- [ ] chunk-004: Shopping Service
-- [ ] chunk-005: Frontend Pages
-- [ ] Whole-project review
-```
-
-Protocol shows spec-compliance → code-quality perspectives. Completion section includes whole-project review step. Resumption note present.
-
-### Scenario 3 — Thorough tier plan with phases
-
-**Input:** Approved enriched ROADMAP.md with 9 chunks in 3 phases, some marked parallelisable. Tier: Thorough.
-
-**Expected output:** Full ORCHESTRATION-PLAN.md with phase groupings in Build Progress; parallel annotations noted; protocol shows spec-compliance → code-quality → security; completion section includes whole-project review. Plan is complete enough that a fresh orchestrator session reading it cold can identify the current phase, the next chunk, and which perspectives to load.
-
-### Scenario 4 — Cross-session resumption
-
-**Input:** An existing ORCHESTRATION-PLAN.md with chunk-001 marked `[x]`, chunk-002 marked `[~]`, remaining chunks `[ ]`.
-
-**Expected behaviour:** Orchestrator reads plan, identifies chunk-002 as in-progress, checks ORCHESTRATION-LOG.md for last completed step, resumes chunk-002 from that point without asking the user for context.
+**Quick tier with security concern:** override the spec-compliance-only default — load the security perspective for any chunk handling authentication, user input, or sensitive data.
