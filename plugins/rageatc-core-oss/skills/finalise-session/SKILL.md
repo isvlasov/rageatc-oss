@@ -10,31 +10,13 @@ Run `/handover` (write mode) to update project files, then commit and push.
 
 ## Step 1: Handover
 
-Run `/handover` in write mode — review the session, update root files, sync CLAUDE.md pointers, check referenced files.
+Run `/handover` — review the session, update root files, sync CLAUDE.md pointers, check referenced files.
 
-## Step 2: Commit and Push
+## Step 2: Commit and push
 
-Check for uncommitted changes:
+Run `git status` first; if nothing changed, skip this step. Otherwise: stage the relevant files, commit with a message that reflects the session's work (no approval needed — the user asked by invoking this skill), and push. If push fails (e.g. no remote configured), report it but don't block.
 
-```bash
-git status
-```
+## Step 3: Report
 
-If changes exist:
-1. Stage relevant files
-2. Generate a meaningful commit message and commit — do not ask for approval
-3. Push to remote
-
-If no changes, skip this step.
-
-## Step 3: Confirm Completion
-
-Report to user:
-- Files updated by handover (summary from /handover report)
-- Repository committed and pushed: Yes / No / No changes
-
-## Notes
-
-- Always check git status before committing — don't commit if nothing changed
-- Use meaningful commit messages that reflect the session's work
-- If push fails (e.g., no remote configured), report the issue but don't block
+- Files updated by handover (from its report)
+- Committed and pushed: yes / no / no changes
