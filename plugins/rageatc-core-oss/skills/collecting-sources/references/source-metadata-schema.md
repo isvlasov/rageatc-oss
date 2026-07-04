@@ -1,47 +1,28 @@
 # Source Metadata Schema v1.0
 
-**Version:** 1.0
-**Created:** 2026-01-21
-**Purpose:** Define canonical YAML schema for source metadata in two-phase research system
-**Status:** Approved for implementation
+Canonical YAML schema for source metadata in two-phase research. Each source file (`.txt`, `.md`, `.pdf`, `.html`) has a companion `.meta.yaml` capturing bibliographic information, RADAR reliability assessment, and provenance. Written by the source-collector agent during collection; read by synthesis agents for context and filtering; auditable by orchestrator and researchers.
 
-## Overview
-
-This document specifies the YAML metadata schema for source files collected during research. Each source file (`.md`, `.pdf`, `.html`) has a companion metadata file (`.meta.yaml`) that captures bibliographic information, reliability assessment, and provenance tracking.
-
-**Design principles:**
-- Human-readable YAML format over JSON
-- Dublin Core foundation for interoperability
-- RADAR framework integration for credibility assessment
-- Extensible structure for future fields
-- Balance between completeness and practicality
-
-**Use cases:**
-- Source-collector agent writes metadata during collection
-- Source-synthesiser agent reads metadata for context and filtering
-- Orchestrator validates metadata completeness
-- Researchers audit source credibility and provenance
+Design: human-readable YAML, Dublin Core foundation, RADAR integration, extensible.
 
 ## Storage Pattern
 
-Each source file has a corresponding metadata file with `.meta.yaml` extension:
-
 ```
-work/<task-id>/sources/
-├── papers/
-│   ├── source_001.pdf
-│   └── source_001.meta.yaml
-├── web/
-│   ├── source_003.md
-│   └── source_003.meta.yaml
-└── index.json (optional catalogue)
+work/<task-id>/
+├── source_index.md
+└── sources/
+    ├── papers/
+    │   ├── src_001.txt
+    │   └── src_001.meta.yaml
+    └── web/
+        ├── src_003.md
+        └── src_003.meta.yaml
 ```
 
 ## Schema Specification
 
 ### Core Fields (Always Required)
 
-Core fields derive from Dublin Core metadata standard and are required for all source types.
+Derived from Dublin Core; required for all source types.
 
 ```yaml
 source_id: string # "src_NNN" format (zero-padded)
@@ -51,9 +32,9 @@ fetch_date: string # ISO 8601 datetime "YYYY-MM-DDTHH:MM:SSZ"
 authors: list[string] # ["Unknown"] if unavailable
 publication_date: string # "YYYY-MM-DD", "YYYY-MM", or "YYYY"; "unknown" if unavailable
 source_type: enum # "academic_paper" | "web_page" | "blog" | "documentation"
-format: enum # "pdf" | "html" | "markdown"
-file_path: string # Relative path from workspace root
-content_hash: string # "sha256:HEX_DIGEST" (64 hex characters)
+format: enum # "pdf" | "html" | "markdown" | "plaintext"
+file_path: string # Relative path from workspace root; "unavailable" for paywalled sources
+content_hash: string # "sha256:HEX_DIGEST" (64 hex characters); "unavailable" for paywalled sources
 metadata_version: string # "1.0"
 ```
 
@@ -69,6 +50,7 @@ abstract: string # Recommended
 venue: string # Conference/journal name, recommended
 citation_count: integer # Optional
 topics: list[string] # Recommended
+retrieval_method: string # Optional — strategy that succeeded: "CORE API" | "Unpaywall MCP" | "arXiv direct" | "PubMed Central" | "WebFetch" | "metadata-only"
 ```
 
 #### Web Page Fields
@@ -99,7 +81,7 @@ topics: list[string] # Recommended
 
 ### RADAR Reliability Fields
 
-RADAR framework fields for source credibility assessment. The `reliability_score` is calculated as: **(relevance + authority + date + accuracy + rationale) / 25.0** (arithmetic mean of 1-5 scores, normalised to 0.0-1.0).
+`reliability_score` = **(relevance + authority + date + accuracy + rationale) / 25.0** (arithmetic mean of 1–5 scores, normalised to 0.0–1.0).
 
 ```yaml
 radar_assessment:
@@ -131,28 +113,24 @@ radar_assessment:
 
 ### Provenance Fields
 
-Fields tracking collection metadata for reproducibility and audit trails.
-
 ```yaml
 provenance:
   collected_by: string # Agent/tool that collected source
-  collection_method: string # "WebFetch", "WebSearch", "manual-upload"
+  collection_method: string # "CORE API", "Unpaywall MCP", "WebFetch", "manual-upload", etc.
   collected_at: string # ISO 8601 datetime
   task_id: string # Task workspace identifier
-  notes: string # Optional collection notes
+  notes: string # Optional collection notes (e.g. retrieval attempts for paywalled sources)
 ```
 
 ### Missing Data Conventions
 
-**Consistent handling of unknown/missing values:**
 - Strings: use `"unknown"` (lowercase)
 - Lists: use `["Unknown"]` for single unknown author; empty list `[]` when absence is meaningful
 - Dates: use `"unknown"` string
 - Integers/floats: omit field if optional; document sentinel values if required
+- Paywalled content: `file_path: "unavailable"`, `content_hash: "unavailable"`
 
-## Complete Examples
-
-### Example 1: Academic Paper
+## Complete Example
 
 ```yaml
 source_id: "src_001"
@@ -172,9 +150,10 @@ abstract: "The dominant sequence transduction models are based on complex recurr
 venue: "Neural Information Processing Systems (NeurIPS) 2017"
 citation_count: 89234
 topics: ["neural networks", "attention mechanism", "transformers", "sequence transduction"]
+retrieval_method: "arXiv direct"
 
 radar_assessment:
-  reliability_score: 0.95
+  reliability_score: 0.92
   relevance:
     score: 5
     notes: "Foundational paper for transformer architecture"
@@ -195,153 +174,10 @@ radar_assessment:
 
 provenance:
   collected_by: "source-collector-agent-v1.0"
-  collection_method: "WebFetch"
+  collection_method: "arXiv direct"
   collected_at: "2026-01-21T14:30:00Z"
   task_id: "transformer-architecture-research"
   notes: "Retrieved from arXiv"
-```
-
-### Example 2: Web Page
-
-```yaml
-source_id: "src_012"
-title: "Metadata for RAG: Improve Contextual Retrieval"
-url: "https://unstructured.io/insights/how-to-use-metadata-in-rag-for-better-contextual-results"
-fetch_date: "2026-01-21T10:15:00Z"
-authors: ["Unstructured.io Team"]
-publication_date: "2025-12"
-source_type: "web_page"
-format: "markdown"
-file_path: "sources/web/src_012.md"
-content_hash: "sha256:b2c8d9e1f4a7b2c5d8e1f4a7b2c5d8e1f4a7b2c5d8e1f4a7b2c5d8e1f4a7b2c5"
-metadata_version: "1.0"
-
-description: "Comprehensive guide to metadata best practices in RAG systems"
-site_name: "Unstructured.io"
-topics: ["RAG", "metadata", "retrieval", "information extraction"]
-last_modified: "2025-12-15"
-
-radar_assessment:
-  reliability_score: 0.80
-  relevance:
-    score: 5
-    notes: "Directly addresses metadata for RAG"
-  authority:
-    score: 4
-    notes: "Established company in unstructured data space"
-  date:
-    score: 5
-    notes: "Published December 2025, very current"
-  accuracy:
-    score: 4
-    notes: "Claims supported by examples"
-  rationale:
-    score: 3
-    notes: "Educational with commercial interest"
-  assessed_at: "2026-01-21T10:30:00Z"
-  assessed_by: "source-collector-agent-v1.0"
-
-provenance:
-  collected_by: "source-collector-agent-v1.0"
-  collection_method: "WebFetch"
-  collected_at: "2026-01-21T10:15:00Z"
-  task_id: "research-system-upgrade"
-  notes: "HTML converted to Markdown"
-```
-
-### Example 3: Blog Post
-
-```yaml
-source_id: "src_024"
-title: "Best Practices in Retrieval Augmented Generation"
-url: "https://gradientflow.substack.com/p/best-practices-in-retrieval-augmented"
-fetch_date: "2026-01-21T11:45:00Z"
-authors: ["Goldbloom, Anthony"]
-publication_date: "2024-03-12"
-source_type: "blog"
-format: "markdown"
-file_path: "sources/blogs/src_024.md"
-content_hash: "sha256:c5d8e1f4a7b2c5d8e1f4a7b2c5d8e1f4a7b2c5d8e1f4a7b2c5d8e1f4a7b2c5d8"
-metadata_version: "1.0"
-
-blog_name: "Gradient Flow"
-description: "Analysis of production RAG system design patterns"
-topics: ["RAG", "best practices", "production systems", "AI engineering"]
-
-radar_assessment:
-  reliability_score: 0.75
-  relevance:
-    score: 4
-    notes: "Relevant to RAG generally"
-  authority:
-    score: 4
-    notes: "Recognised AI practitioner"
-  date:
-    score: 3
-    notes: "Published March 2024, reasonably current"
-  accuracy:
-    score: 4
-    notes: "Practical advice based on experience"
-  rationale:
-    score: 4
-    notes: "Educational, minor commercial bias"
-  assessed_at: "2026-01-21T12:00:00Z"
-  assessed_by: "source-collector-agent-v1.0"
-
-provenance:
-  collected_by: "source-collector-agent-v1.0"
-  collection_method: "WebFetch"
-  collected_at: "2026-01-21T11:45:00Z"
-  task_id: "research-system-upgrade"
-  notes: "Substack post converted to Markdown"
-```
-
-### Example 4: Documentation
-
-```yaml
-source_id: "src_037"
-title: "Dublin Core Metadata Element Set"
-url: "https://www.dublincore.org/specifications/dublin-core/dces/"
-fetch_date: "2026-01-21T13:20:00Z"
-authors: ["Dublin Core Metadata Initiative"]
-publication_date: "2012-06-14"
-source_type: "documentation"
-format: "html"
-file_path: "sources/docs/src_037.html"
-content_hash: "sha256:d8e1f4a7b2c5d8e1f4a7b2c5d8e1f4a7b2c5d8e1f4a7b2c5d8e1f4a7b2c5d8e1"
-metadata_version: "1.0"
-
-product_name: "Dublin Core Metadata Initiative"
-doc_version: "1.1"
-section: "Specifications"
-topics: ["metadata standards", "dublin core", "information architecture"]
-
-radar_assessment:
-  reliability_score: 0.95
-  relevance:
-    score: 5
-    notes: "Canonical Dublin Core specification"
-  authority:
-    score: 5
-    notes: "Official standards body (DCMI)"
-  date:
-    score: 3
-    notes: "Published 2012, stable standard"
-  accuracy:
-    score: 5
-    notes: "Authoritative specification"
-  rationale:
-    score: 5
-    notes: "Standards documentation, objective"
-  assessed_at: "2026-01-21T13:30:00Z"
-  assessed_by: "source-collector-agent-v1.0"
-
-provenance:
-  collected_by: "source-collector-agent-v1.0"
-  collection_method: "WebFetch"
-  collected_at: "2026-01-21T13:20:00Z"
-  task_id: "research-system-upgrade"
-  notes: "Preserved as HTML for formatting"
 ```
 
 ## Validation Rules
@@ -373,8 +209,8 @@ provenance:
 
 ### Consistency Rules
 
-1. **File path consistency**: `file_path` must point to existing file
-2. **Hash consistency**: `content_hash` must match SHA-256 of file at `file_path`
+1. **File path consistency**: `file_path` must point to an existing file (unless `"unavailable"` for paywalled sources)
+2. **Hash consistency**: `content_hash` must match SHA-256 of file at `file_path` (unless `"unavailable"`)
 3. **Date consistency**: `fetch_date` >= `publication_date` (if known)
 4. **Source type consistency**: Source-specific fields present when `source_type` requires them
 5. **RADAR score consistency**: `reliability_score` equals `(relevance + authority + date + accuracy + rationale) / 25.0`
@@ -382,32 +218,7 @@ provenance:
 
 ## Extensibility
 
-### Adding New Fields
-
-1. **New optional fields**: Add without affecting existing files
-2. **New source types**: Add enum value, define required fields
-3. **New formats**: Add enum value as needed
-4. **Custom fields**: Prefix with `custom_` to avoid collision with future standard fields
-
-**Example custom field:**
-```yaml
-custom_internal_project_code: "PROJ-2026-042"
-```
-
-### Schema Versioning
-
-When incompatible changes are required:
-1. Increment `metadata_version` major number (`1.0` → `2.0`)
-2. Update specification with migration guide
-3. Maintain backward compatibility during transition
-4. Provide migration tools
-
-**Future-proofing:**
-- Parsers should ignore unknown fields rather than error
-- Required fields only added with major version increment
-- Field semantics remain stable within major version
-
----
-
-**Schema version:** 1.0
-**Specification status:** Ready for implementation
+- **New optional fields**: add without affecting existing files. Prefix custom fields with `custom_` to avoid collision with future standard fields.
+- **New source types or formats**: add enum value; define required fields for new source types.
+- **Incompatible changes**: increment the major version (`1.0` → `2.0`) with a migration guide. Field semantics remain stable within a major version; required fields are only added at a major increment.
+- **Parsers**: ignore unknown fields rather than erroring.

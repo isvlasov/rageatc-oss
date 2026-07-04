@@ -56,17 +56,18 @@ Save to `work/<task-id>/review_v[N].md`:
 
 ### Stage 2 — Assess
 
-Evaluate against five core dimensions, documenting specific observations with locations:
+Evaluate against six core dimensions, documenting specific observations with locations:
 
 - **Completeness** — required components present; checklist items addressed; no placeholders remain
 - **Clarity** — understandable to the intended audience; terms defined at first use; examples for abstract concepts
 - **Correctness** — factually accurate; internally consistent; references valid
 - **Consistency** — one term per concept throughout; formatting patterns repeated; aligned with cited standards
 - **Fitness for purpose** — the brief's target audience can apply it successfully; stated goals met; scope neither too narrow nor too broad
+- **Signal-to-noise** — every passage changes something for the intended reader (their understanding, decision, or action); flag text that doesn't: filler, internal repetition, ceremony, explaining what the reader already knows. Noise is a quality defect, not a style preference — it buries the signal and costs the reader attention. Detail needed only conditionally belongs in references or appendices, not the body. Noise repeating across the artefact is systemic (Stage 4)
 
 Then apply artefact-specific criteria:
 
-- **Skills** — frontmatter format; description discoverability (trigger keywords, without summarising the workflow); body lean and imperative per writing-skills (no Purpose restating the description, no when-to-use or evaluation scenarios in the body); progressive disclosure one level deep
+- **Skills** — frontmatter format; description discoverability (trigger keywords, without summarising the workflow); body lean and imperative per writing-skills (no Purpose restating the description, no when-to-use or evaluation scenarios in the body, no piled-up MUST/ALWAYS emphasis); progressive disclosure one level deep
 - **Agents** — role clarity and scope boundaries; input/output specifications; responsibility separation from other agents
 - **Workflows** — step sequencing and dependencies; decision points and branching; error handling; integration with existing processes
 - **Documentation** — audience appropriateness; information architecture; examples; readability
@@ -120,7 +121,7 @@ Assess systematically, identify root causes, give actionable feedback. Do not re
 
 ## Final checklist
 
-- [ ] All five dimensions and artefact-specific criteria assessed
+- [ ] All six dimensions and artefact-specific criteria assessed
 - [ ] Every issue has symptom, root cause, impact, and where-to-next
 - [ ] Every issue cites a specific location and example
 - [ ] Priorities carry clear rationale; prescriptive vs suggestive made explicit

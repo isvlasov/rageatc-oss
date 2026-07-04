@@ -5,494 +5,140 @@ description: Verifies claims and assesses source credibility. Use when fact-chec
 
 # Verifying Claims
 
-## Purpose
+Medium freedom: follow the phases sequentially (extract → mode → assess sources → weight → triangulate → resolve conflicts → calibrate), adapting verification depth to claim significance and risk.
 
-Systematically verify factual claims in both AI-generated and human-generated content using established journalism standards, academic source evaluation frameworks, and AI-specific hallucination detection methods.
+Non-negotiable standards:
 
-This skill enables rigorous fact-checking through:
-- Claim categorisation (factual/interpretive/opinion)
-- Multi-source triangulation and cross-referencing
-- Source quality assessment using established criteria
-- AI hallucination detection (semantic entropy, extrinsic checks)
-- Conflicting source resolution protocols
-- Transparent confidence calibration
-
-## When to Use This Skill
-
-**Primary triggers:**
-- User requests fact-checking, claim verification, or accuracy assessment
-- Reviewing research outputs or AI-generated content for reliability
-- Validating sources cited in documents or reports
-- Detecting potential hallucinations in AI responses
-- Resolving conflicting information across sources
-- Assessing information quality before relying on it
-
-**Integration contexts:**
-- Used by researcher-agent to validate research findings
-- Used by critic-agent to assess factual accuracy in artefacts
-- Used by producer-agent to ensure reliable sourcing
-- Used as verification gate before finalising deliverables
-
-## Inputs Required
-
-**Always required:**
-- [ ] **Claim(s) to verify** - Specific statements requiring fact-checking
-- [ ] **Verification mode** - Retrospective (sources provided) OR Proactive (find sources)
-
-**Context-dependent:**
-- [ ] **Provided sources** (for retrospective verification) - Documents, research, context materials
-- [ ] **Domain context** - Field-specific considerations (medical, legal, technical, etc.)
-- [ ] **Risk level** - Significance of accuracy (high-stakes decisions vs casual inquiry)
-- [ ] **Time constraints** - Available time affects verification depth
-
-## Outputs Produced
-
-**Core verification report:**
-1. **Claims extracted** - Specific factual assertions identified
-2. **Categorisation** - Each claim classified (factual/interpretive/opinion/uncheckable)
-3. **Sources evaluated** - Quality assessment using RADAR criteria for each source
-4. **Verification findings** - Evidence for/against each claim with source attribution
-5. **Confidence assessment** - Calibrated rating (confirmed/likely/possible/unverified/disputed)
-6. **Audit trail** - Complete documentation of verification process
-
-**Optional outputs:**
-- Recommendations for addressing unverified or disputed claims
-- Flags for claims requiring domain expert review
-- Suggested corrections for identified inaccuracies
-
-## Operating Principles
-
-**Medium freedom with preferred patterns:**
-- Follow the core workflow sequentially (claim categorisation → source mode → verification → confidence assignment)
-- Apply SIFT method and triangulation protocols as standard practice
-- Use RADAR criteria for source quality assessment (see `references/source-evaluation-radar.md`)
-- Adapt verification depth based on claim significance and risk
-- Exercise judgement on when to escalate to domain experts
-
-**Non-negotiable standards:**
-- Apply identical verification standards to all claims (non-partisanship)
-- Document all sources consulted with transparent audit trail
-- Use calibrated confidence language (never present uncertain claims as certain)
+- Identical verification standards for all claims (non-partisanship)
+- Document every source consulted — transparent audit trail
+- Calibrated confidence language; never present uncertain claims as certain
 - Surface disagreements between authoritative sources rather than hiding them
-- Prioritise primary sources over secondary sources over tertiary sources
+- Primary sources over secondary, secondary over tertiary
 
-## Core Workflow
+## Phase 1 — Extract and categorise claims
 
-### Phase 1: Claim Extraction and Categorisation
+**Extract** discrete, verifiable assertions: statements presented as fact; names, dates, numbers, statistics, events; asserted causal relationships and predictions; factual claims embedded in interpretive passages.
 
-**Step 1: Extract specific factual claims**
+Example: "The UK's ageing population, which reached 67.3 million in 2021, will strain healthcare resources" yields three claims — population 67.3 million in 2021 (factual), population ageing (factual, needs definition), will strain healthcare (interpretive/predictive).
 
-Identify discrete, verifiable assertions within the content.
+**Categorise** each claim:
 
-**Questions to guide extraction:**
-- What specific statements are presented as facts?
-- Which claims involve names, dates, numbers, statistics, or events?
-- What causal relationships or predictions are asserted?
-- Are there embedded factual claims within interpretive passages?
+- **Factual/verifiable** — provable with objective evidence (statistics, dates, events, findings) → full verification
+- **Interpretive/analytical** — facts plus judgement (causal claims, predictions, impact assessments) → verify the factual basis, assess the reasoning
+- **Opinion** — values, beliefs, preferences, aesthetics → do not fact-check; flag as opinion
 
-**Example:**
-- Content: "The UK's ageing population, which reached 67.3 million in 2021, will strain healthcare resources."
-- Extracted claims:
-  - Claim 1: "UK population reached 67.3 million in 2021" (factual)
-  - Claim 2: "UK population is ageing" (factual, requires definition)
-  - Claim 3: "Ageing population will strain healthcare resources" (interpretive/predictive)
+**Filter uncheckable claims** and note why: future predictions, personal experiences, vague claims ("many people believe…"), hypotheticals.
 
-**Step 2: Categorise each claim**
+**Prioritise** by significance (affects key conclusions or decisions), specificity, risk, and feasibility.
 
-Use the three-category taxonomy to determine verification approach.
+## Phase 2 — Select verification mode
 
-**Category 1: Factual/Verifiable Claims**
-- Definition: Statements provable or disprovable using objective evidence
-- Characteristics: Specific, testable, has objective truth value
-- Examples: Statistics, dates, historical events, scientific findings
-- Action: **Proceed with full verification**
+**Mode A — Retrospective (sources provided).** Check claims against provided documents; the standard mode for detecting extrinsic hallucinations in AI-generated content. Compare each claim systematically against the sources and flag:
 
-**Category 2: Interpretive/Analytical Claims**
-- Definition: Combines facts with interpretation, analysis, or prediction
-- Characteristics: Requires reasoning assessment, involves judgement
-- Examples: Causal claims, predictions, impact assessments
-- Action: **Verify factual basis, assess reasoning quality**
+- **Contradiction** — claim conflicts with sources (high severity)
+- **Unsupported** — sources should cover it but don't (medium severity)
+- **Supported** — explicitly backed by the sources (low/none)
 
-**Category 3: Opinion/Non-Verifiable Statements**
-- Definition: Values, beliefs, preferences, or personal experiences
-- Characteristics: Subjective, no objective standard for verification
-- Examples: Aesthetic judgements, moral prescriptions, preferences
-- Action: **Do not attempt to fact-check; flag as opinion**
+Check: are statistics and numbers present in the sources? Are quotes actually from the cited source? Are causal claims supported? Are dates, names, and details consistent? Does the output acknowledge limitations the sources mention? Is its confidence calibrated to source certainty?
 
-**Step 3: Filter uncheckable claims**
+AI-specific detection methods: `references/hallucination-detection.md`.
 
-Identify claims that cannot be verified even if factual in nature.
+**Mode B — Proactive (find sources).** No sources provided, or provided sources insufficient. Apply SIFT:
 
-**Uncheckable categories:**
-- **Predictions about the future** - Cannot verify until time passes
-- **Personal experiences** - No external verification possible
-- **Vague claims** - "Many people believe..." (who? how many?)
-- **Hypotheticals** - "If X had happened, Y would have occurred"
+- **Stop** — pause before accepting; a strong emotional reaction or an extraordinary claim means more checking, not less
+- **Investigate the source** — lateral reading: leave the source and search what trusted sources say about it ("[source] bias", "[source] credibility", fact-checking sites, Wikipedia entries on the organisation)
+- **Find better coverage** — seek consensus across reputable sources; prioritise primary sources and official data; peer-reviewed research for scientific claims
+- **Trace claims, quotes, and media** — follow quotes and statistics to their original context; confirm claim-makers are quoted accurately and images aren't decontextualised
 
-**Action:** Flag as uncheckable and note why verification is impossible.
+## Phase 3 — Assess source quality (RADAR)
 
-**Step 4: Prioritise verification efforts**
+Apply to each source before weighting its evidence:
 
-For multiple claims, assess priority based on:
-- **Significance** - Claims affecting key conclusions or decisions (highest priority)
-- **Specificity** - Concrete, checkable assertions (easier to verify efficiently)
-- **Risk** - High-stakes contexts require thorough verification
-- **Feasibility** - Available sources and expertise
+- **Rationale** — why was this created? Important omissions? Neutral or emotionally charged language?
+- **Authority** — author credentials; affiliation with reputable institutions?
+- **Date** — current enough for the field's pace?
+- **Accuracy** — cites reliable sources? Key claims verifiable elsewhere?
+- **Relevance** — directly addresses the question?
 
-Focus resources on high-priority factual claims.
+Full rubric with red flags and scoring: `references/source-evaluation-radar.md`. Always prefer official/primary sources over third-party interpretation.
 
----
+## Phase 4 — Weight evidence by tier
 
-### Phase 2: Source Mode Selection and Discovery
+- **Tier 1 — Primary** (original research papers, official statistics, historical documents, legislation, official organisational statements): 90–100% confidence when multiple primary sources agree. When they exist, cite them directly.
+- **Tier 2 — Secondary** (literature reviews, meta-analyses, textbooks, reputable news reporting — Reuters, AP, BBC — expert analysis citing primary evidence): 70–89% confidence when multiple quality sources agree. Use when primary sources are inaccessible or need expert interpretation.
+- **Tier 3 — Tertiary** (encyclopaedias including Wikipedia, dictionaries, almanacs): orientation only — too far from firsthand information to cite. Use to find primary and secondary sources.
 
-**Choose verification approach based on context.**
+Context-dependent weighting adjustments: `references/evidence-hierarchy.md`.
 
-#### Mode A: Retrospective Verification (Sources Provided)
+## Phase 5 — Triangulate
 
-**When to use:** Checking claims against provided context, documents, or source material. Common for detecting extrinsic hallucinations in AI-generated content.
+Significant factual claims require **at least three independent, high-quality sources**.
 
-**Protocol:**
-1. **Extract claims from AI output or document**
-2. **Compare systematically against provided sources**
-3. **Flag contradictions** (claim conflicts with sources - severity high)
-4. **Flag unsupported claims** (claim unaddressed by sources when sources should cover it - severity medium)
-5. **Verify supported claims** (claim explicitly backed by provided sources - severity low/none)
+- **Verify independence**: not citing each other, different organisations, different methodologies or data. Three sources repeating one original claim is weak triangulation.
+- Check consistency across time periods, locations, and populations.
+- **Strong consensus** (3+ quality sources agree) → Confirmed. **Weak consensus** (2 agree, 1 disagrees) → Likely; investigate the outlier and weight by quality. **No consensus** → Phase 6.
+- Record sources consulted, points of agreement and disagreement, quality assessments, and the rationale for the final rating.
 
-**Extrinsic hallucination checklist:**
-- [ ] Are statistics and numbers present in provided sources?
-- [ ] Are quoted statements actually from cited sources?
-- [ ] Are causal claims supported by provided research?
-- [ ] Are dates, names, and specific details consistent with sources?
-- [ ] Does output acknowledge limitations mentioned in sources?
-- [ ] Are confidence levels calibrated to source certainty?
+## Phase 6 — Resolve conflicting sources
 
-**Key focus:** Detecting when AI ignores or contradicts provided ground truth.
+1. **Identify the disagreement precisely** — facts or interpretation? Same question? Different contexts (dates, definitions, methodologies)?
+2. **Analyse methodologies** — could method, assumptions, or data access explain the discrepancy?
+3. **Assess source quality** — RADAR each; weight by primary vs secondary, domain expertise, track record, recency, independence
+4. **Seek additional sources to break the tie** — primary sources, authoritative bodies, systematic reviews, fact-checking organisations
+5. **Attribute transparently** — surface the conflict rather than quietly averaging it away: "Source A argues X, while Source B maintains Y". Assign Disputed when authoritative sources disagree and resolution is unclear.
 
-For detailed AI hallucination detection methods, see `references/hallucination-detection.md`.
+## Phase 7 — Calibrate confidence and document
 
-#### Mode B: Proactive Validation (Find Sources)
+| Level | Criteria | Language |
+|-------|----------|----------|
+| **Confirmed** (90–100%) | Multiple high-quality independent sources agree; primary sources consistent; no credible contradiction | "Confirmed", "Verified" |
+| **Likely** (70–89%) | Majority of quality sources agree; minor gaps remain | "Likely", "Strong evidence suggests" |
+| **Possible** (50–69%) | Some credible support; limited independent verification | "Possible", "Some evidence suggests" |
+| **Unverified** (30–49%) | Single-source claim or no authoritative corroboration found | "Unverified", "Cannot confirm" |
+| **Disputed** | Authoritative sources explicitly disagree; expert opinion divided | "Disputed", "Experts disagree" |
 
-**When to use:** No sources provided, or provided sources insufficient. Requires web search and source discovery.
+Percentages are indicative ranges, not calculated scores — the qualitative criteria govern.
 
-**Protocol - Apply SIFT Method:**
+**Audit trail** — claims, categorisation rationale, sources with RADAR summaries, search strategies, findings, triangulation results, conflict resolution, confidence rationale, limitations. Standard: a reader can reproduce the verification.
 
-**S - Stop**
-- Pause before accepting or sharing claim
-- Check your emotional reaction (strong emotions = increased checking needed)
-- Assess claim plausibility (extraordinary claims require extraordinary evidence)
+**Corrections** when verification reveals errors: state the incorrect claim against the corrected information with sources; make the correction prominent; record the date, who identified it, and the process; scale to severity (brief note → detailed correction → flag for retraction).
 
-**I - Investigate the Source**
-- Practice lateral reading: leave the source and open new tabs
-- Search what trusted sources say about the original source
-- Check fact-checking sites (Snopes, FactCheck.org, PolitiFact)
-- Look for Wikipedia entries on organisations or publications
-- Search "[source name] + bias" or "[source name] + credibility"
-
-**F - Find Better Coverage**
-- Search for other trusted sources on the same topic
-- Look for consensus across multiple reputable sources
-- Prioritise primary sources (original research, official data)
-- Check if major news organisations (Reuters, AP, BBC) covered the story
-- Seek peer-reviewed research for scientific claims
-
-**T - Trace Claims, Quotes, and Media**
-- Follow quotes back to original context
-- Verify images haven't been taken out of context
-- Check if statistics are cited correctly
-- Look for original research papers or official documents
-- Confirm claim-makers are quoted accurately
-
----
-
-### Phase 3: Source Quality Assessment
-
-**Evaluate every source using RADAR criteria.**
-
-Apply systematically to each source before weighting its evidence. For detailed RADAR framework with red flags and scoring guidance, see `references/source-evaluation-radar.md`.
-
-**Quick RADAR summary:**
-
-- **R - Rationale (Purpose and Bias)**: Why was this created? Are important facts omitted? Is language neutral or emotionally charged?
-- **A - Authority (Credibility)**: What are the author's credentials? Is the author affiliated with reputable institutions?
-- **D - Date (Currency)**: When was this published? Is this information still current for the field?
-- **A - Accuracy (Verification)**: Does this cite reliable sources? Can you verify key claims elsewhere?
-- **R - Relevance (Applicability)**: Does this directly address your research question?
-
-**Priority:** Always prefer official/primary sources over third-party interpretations.
-
----
-
-### Phase 4: Evidence Hierarchy and Weighting
-
-**Apply systematic source weighting using the primary/secondary/tertiary framework.**
-
-#### Tier 1: Primary Sources (Highest Weight)
-
-**Definition:** Original documents of events, discoveries, or research.
-
-**Examples:** Original research papers, official statistics (ONS, census), historical documents, legislation, patents, official organisational statements
-
-**Weight:** 90-100% confidence when multiple primary sources agree
-
-**Standard:** "Always prefer primary sources over secondary sources." When primary sources exist, cite them directly.
-
-#### Tier 2: Secondary Sources (High Weight)
-
-**Definition:** Analysis, reviews, or summaries of primary sources providing context and interpretation.
-
-**Examples:** Literature reviews and meta-analyses, academic textbooks, reputable news reporting (Reuters, AP, BBC), systematic reviews, expert analysis citing primary evidence
-
-**Weight:** 70-89% confidence when multiple quality secondary sources agree
-
-**Use cases:** When primary sources are inaccessible or require expert interpretation.
-
-#### Tier 3: Tertiary Sources (Low Weight)
-
-**Definition:** Indexes or consolidations of primary and secondary sources without new analysis.
-
-**Examples:** Encyclopaedias (including Wikipedia), dictionaries, handbooks, fact books and almanacs
-
-**Weight:** Useful for orientation only; insufficient for citation
-
-**Standard:** "Tertiary sources are usually not acceptable as cited sources in research because they are so far from firsthand information."
-
-**Appropriate use:** Initial orientation, finding primary/secondary sources, quick fact checks requiring verification.
-
-For context-dependent adjustments and detailed weighting guidance, see `references/evidence-hierarchy.md`.
-
----
-
-### Phase 5: Multi-Source Triangulation
-
-**Verify significant factual claims with at least three independent, high-quality sources.**
-
-#### Triangulation Protocol
-
-**Step 1: Ensure source independence**
-
-Verify sources are truly independent:
-- Not citing each other directly
-- Different organisations/institutions
-- Different methodologies or data sources
-- Different perspectives or contexts
-
-**Red flag:** Three sources all citing the same original claim without independent verification provides weak triangulation.
-
-**Step 2: Apply data triangulation**
-
-Check claims across:
-- Different time periods (temporal consistency)
-- Different geographic locations (spatial consistency)
-- Different groups or populations (demographic consistency)
-
-**Step 3: Seek consensus**
-
-**Strong consensus (3+ high-quality sources agree):**
-- Confidence: Confirmed
-- Action: Accept as established fact with attribution
-
-**Weak consensus (2 sources agree, 1 disagrees):**
-- Confidence: Likely
-- Action: Investigate outlier, weight by source quality, note disagreement
-
-**No consensus (sources contradict):**
-- Confidence: Disputed
-- Action: Proceed to conflicting source resolution protocol (Phase 6)
-
-**Step 4: Document triangulation**
-
-Record for audit trail:
-- Which sources consulted
-- Points of agreement and disagreement
-- Quality assessment for each source
-- Rationale for final confidence rating
-
----
-
-### Phase 6: Handling Conflicting Sources
-
-**Five-step resolution protocol:**
-
-**1. Identify disagreement:** Pinpoint exactly what sources disagree about (facts vs interpretation? same question? different contexts? Example: Different unemployment figures may reflect different dates or methodologies)
-
-**2. Analyse methodologies:** Examine how each source arrived at their conclusion (methods used, assumptions, data access, limitations, could methodology explain discrepancy?)
-
-**3. Assess source quality:** Apply RADAR to each. Weight by: primary vs secondary, expertise in domain, track record, recency (context-dependent), independence
-
-**4. Seek additional sources:** Find third/fourth sources to break tie (search for primary sources, consult experts, check authoritative bodies, systematic reviews, fact-checking organisations). When multiple high-quality sources agree, outliers receive less weight.
-
-**5. Transparent attribution:** Present disagreement with caveats. **Core principle:** "Surface the conflict rather than quietly averaging it away." Use patterns like "Source A argues X, while Source B maintains Y" or "Most experts agree X, though [Source Y] argues Z" or "Evidence insufficient; experts divided." Assign "Disputed" when authoritative sources disagree and resolution unclear.
-
----
-
-### Phase 7: Confidence Calibration and Documentation
-
-**Assign calibrated confidence levels and create transparent audit trail.**
-
-#### Confidence Level Definitions
-
-**Confirmed (90-100% confidence)**
-- Multiple high-quality independent sources agree
-- Primary sources available and consistent
-- No credible contradictory evidence
-- Language: "Confirmed," "Established fact," "Verified"
-
-**Likely (70-89% confidence)**
-- Strong support from quality sources
-- Majority of sources agree
-- Minor uncertainties or gaps remain
-- Language: "Likely," "Probably," "Strong evidence suggests"
-
-**Possible (50-69% confidence)**
-- Some credible support
-- Limited independent verification
-- Significant uncertainties remain
-- Language: "Possible," "May be," "Some evidence suggests"
-
-**Unverified (30-49% confidence)**
-- Insufficient evidence to confirm
-- Single-source claims without corroboration
-- Unable to find authoritative sources
-- Language: "Unverified," "Cannot confirm," "Insufficient evidence"
-
-**Disputed (varies)**
-- Authoritative sources explicitly disagree
-- Methodological conflicts unresolved
-- Expert opinion divided
-- Language: "Disputed," "Experts disagree," "Conflicting evidence"
-
-**Note:** Confidence percentages are indicative ranges based on source quality and triangulation strength, not calculated scores. Use the qualitative criteria (multiple sources agree, etc.) as primary guidance.
-
-#### Documentation Requirements
-
-**Create complete audit trail:** Claims extracted, categorisation rationale, sources consulted (with RADAR), search strategies, verification findings, triangulation results, conflict resolution, confidence assignment rationale, limitations acknowledged.
-
-**Transparency standard:** Enable readers to reproduce your verification process.
-
-#### Correction Protocols
-
-**When verification reveals errors:**
-
-1. **Document clearly:** Specify incorrect claim vs corrected information, cite sources, note severity
-2. **Communicate transparently:** Make corrections prominent, explain what was wrong, acknowledge openly
-3. **Maintain audit trail:** Record date, who identified error, verification process, preserve original context
-4. **Proportionality:** Minor errors (brief note), significant errors (detailed correction), critical errors (flag for review/retraction)
-
-**Example:** "Correction [Date]: Original claim stated 'Marie Curie won three Nobel Prizes in Physics.' Verification confirms two Nobel Prizes: Physics (1903) and Chemistry (1911). Claim incorrect in number and field(s)."
-
-#### Final Verification Report Format
+**Per-claim report block:**
 
 ```
-## Claim: [Specific factual assertion]
+## Claim: [specific factual assertion]
 **Categorisation:** Factual/Interpretive/Opinion/Uncheckable
 **Mode:** Retrospective/Proactive
-**Sources:** [List with tier + RADAR summary]
-**Findings:** [Evidence for/against with attribution + triangulation]
+**Sources:** [list with tier + RADAR summary]
+**Findings:** [evidence for/against with attribution + triangulation]
 **Confidence:** Confirmed/Likely/Possible/Unverified/Disputed
-**Rationale:** [Why this confidence level]
-**Limitations:** [Uncertainties/scope boundaries]
+**Rationale:** [why this confidence level]
+**Limitations:** [uncertainties/scope boundaries]
 ```
 
----
+## Edge cases
 
-## Edge Cases and Constraints
+- **Mixed factual-opinion** — verify the factual component, flag the opinion: "terrible Prime Minister" (opinion) vs "resigned in 2022" (factual)
+- **Scientific consensus** — verify as a statement of expert consensus (check IPCC, scientific bodies for the level of agreement), not as absolute truth; distinguish consensus from individual expert opinion
+- **Temporal changes** — disagreeing sources may both be right at different times; note publication dates: "As of [date], X; previously Y"
+- **Definitional disagreements** — sources may define terms differently (e.g. "unemployment": ILO vs claimant count); clarify and present both
+- **Escalate to domain experts** — specialised technical claims, high-stakes medical/legal claims, divided expert opinion within a field, novel research, complex methodological disputes
 
-**Mixed Factual-Opinion:** Separate factual components (verify) from opinions (flag as subjective, don't verify). Example: "terrible Prime Minister" (opinion) vs "resigned in 2022" (factual).
+More edge cases, time-constrained protocols, and common pitfalls: `references/edge-cases-and-pitfalls.md`.
 
-**Scientific Consensus:** Verify as statement of expert consensus (check IPCC, scientific bodies for level of agreement), not as absolute truth. Distinguish consensus from individual expert opinions.
+## Final checklist
 
-**Temporal Changes:** When sources disagree on facts, check if facts changed over time. Note publication dates; present: "As of [date], X; previously it was Y"
+- [ ] Every claim extracted and categorised; uncheckables flagged with reasons
+- [ ] Three independent sources for significant claims; independence verified, not assumed
+- [ ] RADAR applied to all significant sources; primary sources preferred
+- [ ] Conflicts surfaced transparently, never averaged away
+- [ ] Confidence language matches the assigned level
+- [ ] Audit trail complete enough to reproduce the verification
+- [ ] Limitations acknowledged; expert review flagged where needed
 
-**Definitional Disagreements:** Sources may use different definitions (e.g., "unemployment": ILO vs claimant count). Clarify definitions; present both: "By definition A, X; by definition B, Y"
+## References
 
-**Expert Review Escalation:** Flag for domain experts when encountering: technical claims requiring specialised knowledge, medical/legal high-stakes claims, conflicting expert opinions within specialist field, novel research, complex methodological disputes.
-
-For additional edge cases and common pitfalls, see `references/edge-cases-and-pitfalls.md`.
-
----
-
-## Integration with Other Skills
-
-### Conducting Research (`conducting-research`)
-
-**Integration point:** Phase 2 (Source Identification and Evaluation)
-
-**Enhancement:** This skill's RADAR framework and evidence hierarchy can strengthen source evaluation in research workflows.
-
-**Workflow:** Use `conducting-research` for comprehensive topic investigation; use `verifying-claims` for targeted fact-checking of specific assertions.
-
-### Assessing Quality (`assessing-quality`)
-
-**Integration point:** Factual accuracy is one dimension of quality assessment.
-
-**Workflow:** Quality assessment may invoke claim verification for factual claims in artefacts under review.
-
-### Workflow (`skills/designing-workflow/SKILL.md`, File Naming and Versioning section)
-
-**Integration point:** Verification serves as quality gate before finalising deliverables.
-
-**Workflow:** Producer should fact-check claims before submitting artefacts; critic should verify factual accuracy during review.
-
----
-
-## Evaluation Scenarios
-
-### Scenario 1: Verifying Factual Claim with Primary Source
-
-**Task:** Verify "The IFCN Code of Principles requires signatories to meet 31 criteria"
-
-**Expected process:** Categorise as factual → Proactive mode → Apply SIFT (find IFCN.org official documentation) → RADAR assessment (primary source, high authority) → Count criteria in official code → Triangulate with secondary sources if available → Assign confidence (Confirmed if matches, or issue correction if differs)
-
-**Success criteria:** Locates primary source, counts correctly, assigns appropriate confidence, provides attribution, issues correction if needed.
-
-### Scenario 2: Detecting AI Hallucination (Extrinsic)
-
-**Task:** AI summarises provided research paper. Check if claims match source.
-
-**Expected process:** Extract claims from AI summary → Compare against original paper (retrospective mode) → Apply extrinsic hallucination checklist → Flag contradictions (high severity) and unsupported claims (medium severity) → Document with source references
-
-**Success criteria:** Identifies contradictions vs unsupported claims, provides specific source attribution, recommends corrections.
-
-### Scenario 3: Resolving Conflicting Authoritative Sources
-
-**Task:** Three reputable sources provide different dates for the same event
-
-**Expected process:** Identify disagreement point → Analyse methodologies (timezone/definition differences?) → RADAR assessment → Seek primary source → Determine if definitional or factual → Present transparently if unresolvable → Assign appropriate confidence
-
-**Success criteria:** Investigates root cause, seeks primary source, presents disagreement transparently, does not arbitrarily choose, uses appropriate confidence language.
-
-For additional worked examples, see `examples.md`.
-
----
-
-## Quality Checklist
-
-Before finalising verification report, confirm:
-
-- [ ] All factual claims extracted and categorised (factual/interpretive/opinion)
-- [ ] Uncheckable claims filtered and flagged appropriately
-- [ ] Appropriate verification mode selected (retrospective/proactive)
-- [ ] SIFT method applied for proactive verification
-- [ ] RADAR criteria assessed for all significant sources
-- [ ] Evidence hierarchy applied (primary > secondary > tertiary)
-- [ ] Minimum three independent sources for significant claims (triangulation)
-- [ ] AI-specific checks applied where relevant (semantic entropy, extrinsic hallucinations)
-- [ ] Conflicting sources resolved or disagreement surfaced transparently
-- [ ] Confidence levels calibrated and language appropriate
-- [ ] Complete audit trail documented (sources, methods, reasoning)
-- [ ] Limitations acknowledged explicitly
-- [ ] Expert review flagged where needed
-- [ ] Non-partisan approach maintained (identical standards for all claims)
-- [ ] Corrections documented and communicated transparently if errors discovered
-
----
-
-## Supporting Files
-
-This skill uses progressive disclosure. Core workflow is in this file; detailed reference material is in supporting files:
-
-- **`references/source-evaluation-radar.md`** - Detailed RADAR criteria with red flags, scoring guidance, and context-dependent standards
-- **`references/hallucination-detection.md`** - AI-specific detection methods (semantic entropy, HaluGate, extrinsic hallucination checks, confidence vs correctness)
-- **`references/evidence-hierarchy.md`** - Detailed evidence tier definitions and context-dependent weighting adjustments
-- **`references/edge-cases-and-pitfalls.md`** - Additional edge cases, time-constrained verification protocols, and common pitfalls to avoid
-- **`examples.md`** - Extended worked examples demonstrating complete verification workflows
+- `references/source-evaluation-radar.md` — RADAR rubric, red flags, scoring guidance
+- `references/hallucination-detection.md` — AI-specific detection (semantic entropy, extrinsic checks, confidence vs correctness)
+- `references/evidence-hierarchy.md` — tier detail and context-dependent weighting
+- `references/edge-cases-and-pitfalls.md` — additional edge cases, time-constrained protocols, pitfalls
