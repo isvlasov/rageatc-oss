@@ -538,7 +538,7 @@ Evaluate captured learnings against these 12 checkpoints organised into key them
 - Frame as "what can we learn?" not "who made mistakes?"
 - Celebrate failures as "windows into system health" (HRO approach)
 - Ask: "What made this error likely?" not "Why did they make this error?"
-- Use blame-free language: "The brief lacked X" not "Briefer forgot X"
+- Use blame-free language: "The brief lacked X" not "The brief author forgot X"
 
 ### Pitfall 5: No Follow-Through
 
@@ -576,7 +576,7 @@ Evaluate captured learnings against these 12 checkpoints organised into key them
 Root cause: Lack of feedback loop from task learnings back to template improvements
 
 **Actionable Improvement:**
-Update brief template in `creating-briefs` Skill to include mandatory "Acceptance Criteria" section with 3-5 measurable checkpoints. Briefer-agent to implement by end of current week. Success measured by: (1) template file updated, (2) next 3 briefs include acceptance criteria, (3) critic-agent stops flagging missing criteria.
+Update brief template in `creating-briefs` Skill to include mandatory "Acceptance Criteria" section with 3-5 measurable checkpoints. Orchestrator to implement by end of current week. Success measured by: (1) template file updated, (2) next 3 briefs include acceptance criteria, (3) critic-agent stops flagging missing criteria.
 
 **Why This Helps:**
 This addresses the root cause (missing template requirement) and prevents future artefacts from lacking clear success measures, reducing iterations spent clarifying "done" definition.
@@ -641,7 +641,7 @@ This addresses the root cause (missing template requirement) and prevents future
 
 ### Top 3 Actionable Improvements
 
-1. Add research phase to briefing workflow for complex Skills - Owner: Briefer guidance - By: Next briefing Skill update
+1. Add research phase to briefing workflow for complex Skills - Owner: creating-briefs skill - By: Next briefing Skill update
 2. Include layered architecture guidance in writing-skills - Owner: writing-skills maintainer - By: 2026-01-20
 3. Create evaluation scenario library for common Skill types - Owner: Documentation - By: 2026-02-01
 
@@ -657,17 +657,17 @@ This addresses the root cause (missing template requirement) and prevents future
 - Difference: No gap; this was a success to sustain
 
 **Root Cause:**
-Not applicable (success case). Factor: Briefer explicitly included research in workflow, with clear research brief.
+Not applicable (success case). Factor: the brief explicitly included research in the workflow, with a clear research brief.
 
 **Actionable Improvement:**
-Update briefer-agent guidance to include "When to commission research" decision tree. For complex Skills or unfamiliar domains, create research_brief.md before artefact brief. Briefer-agent owner to implement in next Skill update cycle by 2026-01-20. Success measured by: next 2 complex Skills include research phase when appropriate.
+Update creating-briefs guidance to include "When to commission research" decision tree. For complex Skills or unfamiliar domains, create research_brief.md before artefact brief. Owner to implement in next Skill update cycle by 2026-01-20. Success measured by: next 2 complex Skills include research phase when appropriate.
 
 **Why This Helps:**
 Formalising research decision criteria ensures consistent quality for complex artefacts whilst avoiding unnecessary research overhead for routine tasks.
 
 **Implementation Details:**
-- Owner: Human to update briefer-agent guidance, add "Research Decision Criteria" section
-- Timeline: Next briefer update cycle (2026-01-20)
+- Owner: Human to update creating-briefs guidance, add "Research Decision Criteria" section
+- Timeline: Next creating-briefs update cycle (2026-01-20)
 - Verification: Review next 2 complex Skill creations; check if research phase appropriately included/excluded
 - Priority: Medium (improves quality but not blocking)
 
@@ -687,7 +687,7 @@ Formalising research decision criteria ensures consistent quality for complex ar
 ### Timeline of Events
 
 **2026-01-13 morning:**
-- Briefer created brief.md with clear requirements extracted from standards
+- Orchestrator created brief.md with clear requirements extracted from standards
 - Brief included research_brief.md for background investigation
 - Researcher invoked, produced research_v1.md (650 lines)
 
@@ -745,7 +745,7 @@ Not all learnings come from failures. Capture successes to reinforce good practi
 Research phase provided comprehensive methodology before production started. Producer had clear framework to apply, reducing trial-and-error.
 
 **Actionable Improvement:**
-Formalise research phase for complex/unfamiliar artefact types in briefer guidance.
+Formalise research phase for complex/unfamiliar artefact types in creating-briefs guidance.
 ```
 
 ### When No Clear Root Cause Emerges
@@ -851,7 +851,7 @@ Success → reinforce / Failure → iterate learning
 - **analysing-root-cause**: Deeper Skill for complex RCA; this Skill provides basic RCA guidance
 - **proposing-improvements**: Separate Skill for applying learnings to Skills/agents (future)
 - **writing-skills**: Defines structure for Skill artefacts; learnings may propose updates
-- **creating-briefs**: Briefer may propose improved brief templates based on learnings
+- **creating-briefs**: Learner may propose improved brief templates based on learnings
 
 ## Success Indicators
 

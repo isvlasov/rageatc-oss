@@ -1,6 +1,6 @@
 # Toolkit Awareness
 
-You have a four-plugin toolkit installed. Before starting substantive work, check if a relevant skill exists.
+You have a four-plugin toolkit installed.
 
 ## Plugin Structure
 

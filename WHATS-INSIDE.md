@@ -123,7 +123,6 @@ Internal:
 
 Agents:
 
-- [`briefer-agent`](plugins/rageatc-core-oss/agents/briefer-agent.md) - turns an unstructured request into a structured brief. Invoked when a task needs formal scoping.
 - [`producer-agent`](plugins/rageatc-core-oss/agents/producer-agent.md) - the universal artefact creator. Produces documents, guides, specs, skills. Invoked by orchestration skills.
 - [`critic-agent`](plugins/rageatc-core-oss/agents/critic-agent.md) - rigorous quality assessment of an artefact against the brief and standards. Invoked by `/critic` or during producer-critic-learner cycles.
 - [`learner-agent`](plugins/rageatc-core-oss/agents/learner-agent.md) - extracts lessons from a completed producer-critic cycle and produces improvement proposals.

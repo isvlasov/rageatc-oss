@@ -6,8 +6,7 @@ Before invoking any agent, read its file at `agents/<agent-name>.md` for complet
 
 1. **Read agent file** - Check "Required Inputs" section
 2. **Provide all required inputs** - Absolute paths, dynamic skill content, context. Agents with preloaded skills already have their core skill in context.
-3. **Log validation** - Record in `ORCHESTRATION-LOG.md`
-4. **Verify input echo** - Agent must confirm inputs before proceeding
+3. **Verify input echo** - Agent must confirm inputs before proceeding
 
 ## If Validation Fails
 

@@ -7,7 +7,7 @@
       "name": "rageatc-core-oss",
       "source": "./plugins/rageatc-core-oss",
       "description": "Thinking engine — Producer-Critic-Learner workflow with research, production, review, and learning extraction",
-      "version": "1.33.0"
+      "version": "1.34.0"
     },
     {
       "name": "rageatc-tech-oss",
@@ -19,7 +19,7 @@
       "name": "rageatc-code-oss",
       "source": "./plugins/rageatc-code-oss",
       "description": "Scale-adaptive software development — from bug fixes to greenfield systems, with TDD, verification, and perspective-based review",
-      "version": "2.5.5"
+      "version": "2.5.6"
     },
     {
       "name": "rageatc-design-oss",

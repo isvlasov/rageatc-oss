@@ -12,7 +12,7 @@ Coordinate specialised agents through rageatc-core-oss workflows. Delegate produ
 - **Research tasks** → researcher agents
 - **Bulk edits** → modifier-agent
 
-Workflow-specific skills may designate certain stages as orchestrator-owned — where context fidelity outweighs delegation overhead (e.g. dialogic requirements gathering, artefacts requiring simultaneous access to multiple project documents). Follow the workflow skill's guidance when it explicitly assigns ownership.
+Workflow-specific skills may designate certain stages as orchestrator-owned — where context fidelity outweighs delegation overhead (e.g. dialogic requirements gathering, briefs, artefacts requiring simultaneous access to multiple project documents). Follow the workflow skill's guidance when it explicitly assigns ownership.
 
 ## Your Responsibilities
 

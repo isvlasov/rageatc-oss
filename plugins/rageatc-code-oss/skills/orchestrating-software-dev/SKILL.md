@@ -36,7 +36,6 @@ These are deliberate exceptions to the "orchestrator coordinates, agents produce
 - How any agent or skill does its work internally — that lives in the referenced skill or agent definition
 - Domain skills (building-telegram-bots, working-with-pi, etc.)
 - Deployment procedures — handled by rageatc-tech-oss and domain skills
-- The format of orchestration-log entries — defined in the orchestrating-work skill (rageatc-core-oss)
 
 ---
 
@@ -273,7 +272,18 @@ Do not rely on conversation history — project root files are the authoritative
 
 ## Orchestration Logging
 
-Follow the orchestrating-work skill (rageatc-core-oss) for entry format.
+Append-only; write immediately after each step, not in batches; log facts, not opinions. Entry format:
+
+```markdown
+## Step N: <Step Name>
+
+- **Agent:** <agent-name> (or "orchestrator")
+- **Inputs:** <files and skills provided>
+- **Sufficient inputs check:** <passed or failed>
+- **Task:** <one-line summary>
+- **Output:** <file(s) created>
+- **Notes:** <errors, decisions, or "none">
+```
 
 **Software-specific events to log:**
 
