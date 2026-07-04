@@ -1,13 +1,11 @@
 # Toolkit Awareness
 
-You have a four-plugin toolkit installed.
+You have a two-plugin toolkit installed.
 
 ## Plugin Structure
 
 - **rageatc-core-oss** — Workflow infrastructure: orchestration, research, quality assessment, artefact creation
-- **rageatc-tech-oss** — Tool knowledge: environment detection, fallback chains for external tools
-- **rageatc-code-oss** — Software creation: scale-adaptive development with TDD, architecture, code review
-- **rageatc-design-oss** — Interface design: domain-driven design systems, token architecture, design compliance review
+- **rageatc-code-oss** — Software creation and tool capabilities: scale-adaptive development with TDD, architecture, code review, interface design, and tool knowledge for external tools (browser automation, PDF handling)
 
 ## Task Routing
 

@@ -2,18 +2,16 @@
 
 > **Rage Against The C** - pick your own C to rage against.
 
-Four plugins for Claude Code / Cowork, built on the idea that we're using AI wrong: the speed of its output tricks us into rushing the input. These plugins slow you down on the inputs - proper briefing, good questions asked back, review before anything reaches you - so the outputs are worth keeping.
+Two plugins for Claude Code / Cowork, built on the idea that we're using AI wrong: the speed of its output tricks us into rushing the input. These plugins slow you down on the inputs - proper briefing, good questions asked back, review before anything reaches you - so the outputs are worth keeping.
 
 ## What's inside
 
-Skills and agents to help you with your work or life. Each plugin works alone, but they fit together. Most software work uses all four. For non-coding work you will only need core and tech.
+Skills and agents to help you with your work or life. Each plugin works alone, but they fit together. Software work uses both; for non-coding work you only need core.
 
 | Plugin | Purpose |
 |---|---|
 | **rageatc-core-oss** | To tackle even the most challenging thinking work. Ideate, structure the problem, then solve it with an agentic loop that reviews its own outputs and learns from them. |
-| **rageatc-tech-oss** | Tools that extend what your AI agent can reach: browse websites, read and write PDFs. With fallbacks when the primary tool isn't available. |
-| **rageatc-code-oss** | For building software the slow way. Tests come first, architecture is designed before coding starts, work is broken into small chunks, code is reviewed. Adapts to project size, from a one-line fix to a multi-week build. |
-| **rageatc-design-oss** | For when your software has a UI. Builds a design system from scratch or extracts one from existing code, then keeps the build aligned to it. |
+| **rageatc-code-oss** | For building software the slow way. Tests come first, architecture is designed before coding starts, work is broken into small chunks, code is reviewed. Adapts to project size, from a one-line fix to a multi-week build. When your software has a UI, builds a design system from scratch or extracts one from existing code, then keeps the build aligned to it. Also carries tools that extend what your AI agent can reach: browse websites, read and write PDFs. |
 
 For a detailed description of what's inside and how to use it - see [WHATS-INSIDE.md](WHATS-INSIDE.md).
 
@@ -28,7 +26,7 @@ Works for Claude Code (desktop) and Cowork.
 1. Press **Customize**.
 2. Under **Personal plugins**, choose **Create plugin**.
 3. Choose **Add marketplace** and point it at `isvlasov/rageatc-oss`.
-4. All four `rageatc-*-oss` plugins appear in the list. Install whichever ones you want.
+4. Both `rageatc-*-oss` plugins appear in the list. Install whichever ones you want.
 
 ### With commands
 
@@ -44,9 +42,7 @@ Then install whichever plugins you want:
 
 ```
 /plugin install rageatc-core-oss@rageatc-oss
-/plugin install rageatc-tech-oss@rageatc-oss
 /plugin install rageatc-code-oss@rageatc-oss
-/plugin install rageatc-design-oss@rageatc-oss
 ```
 
 To check it worked, run `/plugin` - installed plugins show under the **Plugins** tab.
@@ -59,7 +55,7 @@ To update a plugin manually:
 /plugin update rageatc-core-oss@rageatc-oss
 ```
 
-Same for the other three. Or enable auto-updates - they're off by default for third-party marketplaces like this one:
+Same for `rageatc-code-oss`. Or enable auto-updates - they're off by default for third-party marketplaces like this one:
 
 1. Run `/plugin` to open the plugin manager.
 2. Go to the **Marketplaces** tab.
@@ -118,7 +114,7 @@ This might look overwhelming, but it is in fact simple. Use a single skill or th
 
 This marketplace draws on:
 
-- [interface-design](https://github.com/Dammyjay93/interface-design) by Damola Akinleye (MIT) - for `rageatc-design-oss`
+- [interface-design](https://github.com/Dammyjay93/interface-design) by Damola Akinleye (MIT) - for the `designing-interfaces` skill in `rageatc-code-oss`
 - [Superpowers](https://github.com/obra/superpowers) by Jesse Vincent (MIT) - for `rageatc-code-oss`
 
 ## Status

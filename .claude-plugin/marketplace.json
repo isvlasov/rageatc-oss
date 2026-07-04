@@ -7,25 +7,13 @@
       "name": "rageatc-core-oss",
       "source": "./plugins/rageatc-core-oss",
       "description": "Thinking engine — Producer-Critic workflow with research, production, and review",
-      "version": "1.38.0"
-    },
-    {
-      "name": "rageatc-tech-oss",
-      "source": "./plugins/rageatc-tech-oss",
-      "description": "Technical capability skills for tool selection, environment detection, and fallback chains",
-      "version": "1.8.0"
+      "version": "1.39.0"
     },
     {
       "name": "rageatc-code-oss",
       "source": "./plugins/rageatc-code-oss",
-      "description": "Scale-adaptive software development — from bug fixes to greenfield systems, with TDD, verification, and perspective-based review",
-      "version": "2.9.0"
-    },
-    {
-      "name": "rageatc-design-oss",
-      "source": "./plugins/rageatc-design-oss",
-      "description": "Interface design with craft and consistency — domain-driven design systems, token architecture, and design compliance review",
-      "version": "1.2.0"
+      "description": "Scale-adaptive software development — TDD, verification, perspective-based review, interface design, and tool capabilities (browser automation, PDF handling)",
+      "version": "3.0.0"
     }
   ]
 }

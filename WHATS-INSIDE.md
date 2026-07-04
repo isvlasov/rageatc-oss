@@ -132,14 +132,6 @@ Agents:
 - [`fact-checker-agent`](plugins/rageatc-core-oss/agents/fact-checker-agent.md) - verifies claims against sources, either live (web search) or retrospective (against pre-collected sources). Used before research findings propagate into production.
 - [`modifier-agent`](plugins/rageatc-core-oss/agents/modifier-agent.md) - mechanical bulk edits across many files: spelling fixes, reference updates after renames, version bumps. No architectural judgement.
 
-### rageatc-tech-oss
-
-Skills that load when relevant:
-
-- [`playwright-cli`](plugins/rageatc-tech-oss/skills/playwright-cli/SKILL.md) - when you want AI to drive a browser: open pages, fill forms, click around, scrape data, or test a web-app you just developed.
-- [`working-with-pdfs`](plugins/rageatc-tech-oss/skills/working-with-pdfs/SKILL.md) - when you need to read, build, merge, split, or otherwise handle PDFs.
-
-
 ### rageatc-code-oss
 
 Skills that load when relevant:
@@ -159,6 +151,9 @@ Skills that load when relevant:
 - [`systematic-debugging`](plugins/rageatc-code-oss/skills/systematic-debugging/SKILL.md) - when debugging or diagnosing failures. Mandates root cause investigation before any fix.
 - [`finding-docs`](plugins/rageatc-code-oss/skills/finding-docs/SKILL.md) - when you ask about a library, framework, SDK, or CLI tool. Pulls current documentation via Context7 rather than relying on training data.
 - [`building-telegram-bots`](plugins/rageatc-code-oss/skills/building-telegram-bots/SKILL.md) - when writing or debugging Telegram bot code in python-telegram-bot, aiogram, grammY, or Telegraf. Verifies API and version before generating code.
+- [`designing-interfaces`](plugins/rageatc-code-oss/skills/designing-interfaces/SKILL.md) - when a project has a UI and architecture is confirmed. Produces a design system through dialogue (greenfield) or by extracting patterns from existing code (brownfield).
+- [`playwright-cli`](plugins/rageatc-code-oss/skills/playwright-cli/SKILL.md) - when you want AI to drive a browser: open pages, fill forms, click around, scrape data, or test a web-app you just developed.
+- [`working-with-pdfs`](plugins/rageatc-code-oss/skills/working-with-pdfs/SKILL.md) - when you need to read, build, merge, split, or otherwise handle PDFs.
 
 Agents:
 
@@ -167,9 +162,3 @@ Agents:
 - [`developer-agent`](plugins/rageatc-code-oss/agents/developer-agent.md) - implements code per chunk inside the architectural boundaries. Has TDD and verification built in.
 - [`reviewer-agent`](plugins/rageatc-code-oss/agents/reviewer-agent.md) - reviews implementation against the chunk and quality standards. Returns accept or revise.
 - [`user-emulation-agent`](plugins/rageatc-code-oss/agents/user-emulation-agent.md) - emulates a real end user interacting with the built product. Catches broken flows, missing states, and PRD gaps.
-
-### rageatc-design-oss
-
-Skills that load when relevant:
-
-- [`designing-interfaces`](plugins/rageatc-design-oss/skills/designing-interfaces/SKILL.md) - when a project has a UI and architecture is confirmed. Produces a design system through dialogue (greenfield) or by extracting patterns from existing code (brownfield).

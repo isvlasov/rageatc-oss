@@ -10,7 +10,7 @@ The orchestrator's handbook for running software projects with rageatc-code-oss:
 **Orchestrator-owned stages.** Four stages are executed directly rather than delegated, because the artefact depends on holding the full project picture (or live dialogue with the user) that delegation would lose:
 
 - **Stage 1 — Product Definition** (managing-product): dialogic requirements extraction
-- **Stage 4 — Interface Design** (designing-interfaces, rageatc-design-oss): dialogic; only when the project has a UI
+- **Stage 4 — Interface Design** (designing-interfaces): dialogic; only when the project has a UI
 - **Stage 6 — Enrichment** (enriching-roadmap): needs PRD, architecture, and all chunk relationships simultaneously
 - **Stage 7 — Planning** (planning-software): needs the full enriched roadmap to produce a coherent contract
 
@@ -68,7 +68,7 @@ Gate: present ARCHITECTURE.md (and any ADRs) for approval. Resolve all open ques
 
 **Conditional: only when the project has a UI; Standard and Thorough only.** After Stage 3, check ARCHITECTURE.md for frontend components, web interface, or UI framework references. If absent, skip and note it in the log. **Quick:** skip — if system.md already exists, the developer uses it.
 
-Apply the `designing-interfaces` skill (rageatc-design-oss, orchestrator-led, dialogic). Greenfield: full exploration workflow. Brownfield: if `.interface-design/system.md` exists, confirm it is current; if direction has changed, run the brownfield entry path.
+Apply the `designing-interfaces` skill (orchestrator-led, dialogic). Greenfield: full exploration workflow. Brownfield: if `.interface-design/system.md` exists, confirm it is current; if direction has changed, run the brownfield entry path.
 
 Gate: present `.interface-design/system.md` for approval before decomposition. Log the approval.
 

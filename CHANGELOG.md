@@ -2,6 +2,12 @@
 
 Notable changes to the rageatc-oss plugins.
 
+## rageatc-code-oss 3.0.0 / rageatc-core-oss 1.39.0 — 2026-07-04
+
+The marketplace is consolidated from four plugins to two. rageatc-code-oss absorbs the contents of rageatc-tech-oss (the playwright-cli and working-with-pdfs skills and the bash-safety-guard hook) and rageatc-design-oss (the designing-interfaces skill); those two plugins are removed from the marketplace. Skill content is unchanged. rageatc-core-oss updates its system-context rule for the two-plugin structure.
+
+**If you have rageatc-tech-oss or rageatc-design-oss installed:** uninstall them (`/plugin uninstall rageatc-tech-oss@rageatc-oss` and `/plugin uninstall rageatc-design-oss@rageatc-oss`), then update rageatc-code-oss to 3.0.0 — the same skills now load from there.
+
 ## rageatc-code-oss 2.9.0 / rageatc-tech-oss 1.8.0 / rageatc-design-oss 1.2.0 — 2026-07-04
 
 Condensed 16 reference files across three plugins: reviewing-code's five review perspectives, systematic-debugging's three technique guides, test-driven-development's testing anti-patterns, architecting-software's architecture template, building-telegram-bots' two framework references, working-with-pdfs' tool-installation guide, and designing-interfaces' principles, examples, and validation references. building-telegram-bots references updated to current framework versions (python-telegram-bot 22.8, aiogram 3.29.1, grammY 1.44.0, Bot API 10.1; verified 2026-07-04) and its documentation-URL pointer corrected. reviewing-code aligns its severity rule with the security perspective's calibration: security findings are never below Major, exploitable vulnerabilities are Critical. designing-interfaces' system template makes the Personality field free text derived from domain exploration. bash-safety-guard now catches rm with split or long-form recursive and force flags (`rm -r -f`, `rm --recursive --force`). Fixed an invalid qpdf compress flag in tool-installation.
