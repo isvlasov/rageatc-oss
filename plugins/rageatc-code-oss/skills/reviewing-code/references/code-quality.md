@@ -1,7 +1,5 @@
 # Perspective: Code Quality
 
-**Load when:** Standard and Thorough tiers. Covers correctness, simplicity, readability, and test quality.
-
 ## Correctness
 
 - Logic errors, off-by-one errors, incorrect conditions
@@ -27,10 +25,9 @@
 ## Test Quality
 
 - Coverage — are the important paths tested?
-- Meaningful assertions — do tests verify behaviour, not implementation details?
+- Meaningful assertions — do tests verify behaviour rather than mirroring internal function names or private structure? Tests that mirror implementation suggest testing after the fact.
 - Edge cases — do tests cover boundary conditions, error paths, empty inputs?
 - Independence — do tests run reliably without depending on order or external state?
-- Test independence from implementation — do tests describe behaviour rather than mirroring internal function names or private method structure? Tests that mirror implementation suggest testing after the fact.
 
 ## Severity Guidance
 

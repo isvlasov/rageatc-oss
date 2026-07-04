@@ -161,7 +161,7 @@ Intent must be systemic. Saying "warm" and using cold colours is not following t
 
 ## References
 
-- `references/principles.md` — code examples, specific values, dark mode implementation
+- `references/principles.md` — specific values, elevation scales, CSS depth examples, control/icon/animation detail
 - `references/examples.md` — craft in action with real decision-making examples
 - `references/validation.md` — memory management, when to update system.md
 - `references/critique.md` — post-build craft critique protocol

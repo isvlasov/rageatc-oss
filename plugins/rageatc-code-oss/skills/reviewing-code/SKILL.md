@@ -120,7 +120,7 @@ validators are needed later, extract a pattern then — not before.
 | **Minor** | Improves quality. Desirable but does not block. | Naming could be clearer, minor duplication, missing edge case test for non-critical path |
 | **Note** | Observation only. No action required. | Worth knowing for future work, pattern that could become a problem at scale |
 
-**Severity honesty:** do not inflate. A naming improvement is not critical; inflation erodes trust and wastes developer cycles. Security vulnerabilities are always critical, even when spec-compliance passes.
+**Severity honesty:** do not inflate. A naming improvement is not critical; inflation erodes trust and wastes developer cycles. Security findings are never below Major — exploitable vulnerabilities are Critical — even when spec-compliance passes (calibration table in `references/security.md`).
 
 ## Decision Criteria
 

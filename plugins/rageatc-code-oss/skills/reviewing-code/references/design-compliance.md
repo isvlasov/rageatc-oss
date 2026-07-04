@@ -1,11 +1,5 @@
 # Perspective: Design Compliance
 
-## Load When
-
-- Project has a `.interface-design/system.md`
-- Chunk touches UI components, styles, or frontend rendering
-- Standard and Thorough tiers (skip for Quick unless the chunk is explicitly a UI fix)
-
 ## What to Examine
 
 ### Token Compliance

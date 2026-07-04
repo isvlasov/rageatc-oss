@@ -9,15 +9,7 @@ Add to system.md when:
 - Pattern is reusable across the project
 - Has specific measurements worth remembering
 
-## Pattern Format
-
-```markdown
-### Button Primary
-- Height: 36px
-- Padding: 12px 16px
-- Radius: 6px
-- Font: 14px, 500 weight
-```
+Format: as the Patterns section of `system-template.md` — component name, measurements, usage.
 
 ## Do Not Document
 

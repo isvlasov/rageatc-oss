@@ -1,24 +1,16 @@
 # Telegram Bot API Reference
 
-*Last verified: 2026-03-15. Fetch the canonical URLs below to confirm current state.*
+*Last verified: 2026-07-04. Fetch the canonical URLs below to confirm current state.*
 
 ## Current Bot API Version
 
-**Bot API 9.5** — released 2026-03-01
+**Bot API 10.1** — released 2026-06-11
 
 Fetch `https://core.telegram.org/bots/api#recent-changes` to confirm the current version before answering any question about API feature availability.
 
-## Canonical URL
-
-All Bot API documentation lives on a single page:
-
-```
-https://core.telegram.org/bots/api
-```
-
-Navigate by anchor — there is no separate index. All method and type definitions are inline.
-
 ## Page Structure and Anchors
+
+All Bot API documentation lives on a single page, `https://core.telegram.org/bots/api` — navigate by anchor; all method and type definitions are inline.
 
 | Section | URL |
 |---------|-----|
@@ -76,22 +68,11 @@ The `file_size` field can exceed 2^31 — handle as a 64-bit integer.
 
 ## Webhook vs Polling
 
-### Polling (`getUpdates`)
+Webhook (`setWebhook`) constraints, per `https://core.telegram.org/bots/webhooks`:
 
-- Bot continuously polls Telegram servers
-- Simpler setup; no public URL required
-- Higher latency; more network overhead
-- Appropriate for development and low-traffic bots
-
-### Webhooks (`setWebhook`)
-
-- Telegram pushes updates to a public HTTPS URL
-- Lower latency; more efficient at scale
 - Requires HTTPS with valid certificate (TLS 1.2+)
 - Supported ports: 443, 80, 88, 8443
 - Self-signed certificates supported via the `certificate` parameter
-
-**Authoritative source:** `https://core.telegram.org/bots/webhooks`
 
 ### Webhook Storm Prevention
 
@@ -109,7 +90,7 @@ When a webhook handler sends a reply and hits a 429 rate limit, Telegram retries
 
 | Version | Date | Key additions |
 |---------|------|---------------|
+| Bot API 10.1 | 2026-06-11 | Rich Messages formatting classes; join request queries; polls with media and multiple correct answers |
+| Bot API 10.0 | 2026-05-08 | Guest Mode (messages from unjoined chats); reaction deletion methods; Live Photos |
+| Bot API 9.6 | 2026-04-03 | Managed Bots (bots creating/controlling bots); multi-answer quizzes; poll option add/delete tracking |
 | Bot API 9.5 | 2026-03-01 | `date_time` MessageEntity type; `setChatMemberTag` method; custom emoji for WebApp bottom buttons |
-| Bot API 9.4 | 2026-02-09 | Custom emoji for bots with Premium owners; topic creation in private chats; `VideoQuality` class; `getUserProfileAudios` |
-| Bot API 9.3 | 2025-12-31 | Topics in private chats; `sendMessageDraft`; expanded gift/financial tracking; suggested posts |
-| Bot API 9.2 | 2025-08-15 | — |

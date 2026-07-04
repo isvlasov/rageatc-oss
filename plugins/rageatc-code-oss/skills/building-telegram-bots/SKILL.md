@@ -46,7 +46,7 @@ If the user is asking about a feature introduced in a Bot API version newer than
 
 Do not rely on training knowledge for method signatures, handler registration patterns, or type names. Fetch the framework's current documentation for the specific feature.
 
-See `references/framework-guide.md` → "Framework Documentation URLs" for the correct URL per framework.
+See `references/framework-guide.md` → "Framework Fact Sheets" (each sheet's "Documentation URLs" block) for the correct URL per framework.
 
 For versioned docs (python-telegram-bot, aiogram), use the URL pattern for the exact version found in Step 1 — not the "latest" or "stable" alias, unless the installed version matches it.
 

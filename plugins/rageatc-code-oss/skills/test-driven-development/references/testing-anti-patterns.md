@@ -1,14 +1,14 @@
 # Testing Anti-Patterns
 
-**Load this reference when:** writing or changing tests, adding mocks, or tempted to add test-only methods to production code.
+**Core principle:** Test what the code does, not what the mocks do. Mocks are a means to isolate, not the thing being tested.
 
-## Overview
+## Contents
 
-Tests must verify real behaviour, not mock behaviour. Mocks are a means to isolate, not the thing being tested.
-
-**Core principle:** Test what the code does, not what the mocks do.
-
-**Following strict TDD prevents these anti-patterns.**
+1. Testing mock behaviour
+2. Test-only methods in production
+3. Mocking without understanding
+4. Incomplete mocks
+5. Red flags
 
 ## The Iron Laws
 
@@ -198,48 +198,13 @@ const mockResponse = {
 };
 ```
 
-## Anti-Pattern 5: Integration Tests as Afterthought
-
-**The violation:**
-```
-✅ Implementation complete
-❌ No tests written
-"Ready for testing"
-```
-
-**The fix:**
-```
-TDD cycle:
-1. Write failing test
-2. Implement to pass
-3. Refactor
-4. THEN claim complete
-```
-
-## Quick Reference
-
-| Anti-Pattern | Fix |
-|--------------|-----|
-| Assert on mock elements | Test real component or unmock it |
-| Test-only methods in production | Move to test utilities |
-| Mock without understanding | Understand dependencies first, mock minimally |
-| Incomplete mocks | Mirror real API completely |
-| Tests as afterthought | TDD - tests first |
-| Over-complex mocks | Consider integration tests |
-
 ## Red Flags
 
 - Assertion checks for `*-mock` test IDs
 - Methods only called in test files
-- Mock setup is >50% of test
+- Mock setup is >50% of test (consider an integration test instead)
 - Test fails when you remove mock
 - Can't explain why mock is needed
 - Mocking "just to be safe"
 
-## The Bottom Line
-
-**Mocks are tools to isolate, not things to test.**
-
-If TDD reveals you're testing mock behaviour, you've gone wrong.
-
-Fix: Test real behaviour or question why you're mocking at all.
+If TDD reveals you're testing mock behaviour, you've gone wrong: test real behaviour, or question why you're mocking at all.

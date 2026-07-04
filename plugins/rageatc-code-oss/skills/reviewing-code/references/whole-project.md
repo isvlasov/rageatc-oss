@@ -1,10 +1,6 @@
 # Perspective: Whole-Project Review
 
-**Load when:** End of Standard or Thorough build — after all chunks are merged. This is the final quality gate before the project is considered complete.
-
-## Purpose
-
-This perspective reviews the **entire codebase** against the **PRD success criteria** — not individual chunks against their briefs. It answers: "Does the complete system deliver what the PRD promised?"
+Reviews the **entire codebase** against the **PRD success criteria** — it answers: "Does the complete system deliver what the PRD promised?"
 
 ## What to Examine
 
@@ -45,11 +41,7 @@ Go through each success criterion in PRD.md line by line:
 
 ## Output Differences
 
-Unlike per-chunk reviews, the whole-project review:
-- References **PRD.md** requirements, not chunk briefs
-- May reference multiple files across the codebase
-- Should summarise overall system health, not just findings
-- Explicitly states which PRD success criteria pass and which don't
+Unlike per-chunk reviews, the whole-project review summarises overall system health, not just findings, and explicitly states which PRD success criteria pass and which don't.
 
 ## Key Principle
 

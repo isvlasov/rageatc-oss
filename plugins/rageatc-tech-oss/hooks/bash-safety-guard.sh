@@ -33,9 +33,12 @@ EOF
 
 # --- Filesystem destruction ---
 
-# rm with -rf or -fr flags
-if echo "$COMMAND" | grep -Eq 'rm\s+.*-[rf]*r[rf]*f|rm\s+.*-[rf]*f[rf]*r'; then
-  ask "Detected recursive force delete (rm -rf). Please review."
+# rm with recursive + force flags in any form: -rf, -fr, -r -f, --recursive --force
+if echo "$COMMAND" | grep -Ewq 'rm'; then
+  if echo "$COMMAND" | grep -Eq '(^|[[:space:]])(-[a-zA-Z]*[rR][a-zA-Z]*|--recursive)' && \
+     echo "$COMMAND" | grep -Eq '(^|[[:space:]])(-[a-zA-Z]*f[a-zA-Z]*|--force)'; then
+    ask "Detected recursive force delete (rm -rf). Please review."
+  fi
 fi
 
 # mkfs as a command (word boundary)

@@ -1,10 +1,6 @@
 # Perspective: Spec Compliance
 
-**Load when:** Always. This is the primary perspective for every code review.
-
 ## What to Examine
-
-Spec compliance is the foundation of every review. Every other perspective is secondary to this one.
 
 - Does the code satisfy **each** acceptance criterion in the brief or enriched roadmap chunk?
 - Does it stay within the specified file set? Files modified outside the declared set need justification.

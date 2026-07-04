@@ -6,28 +6,18 @@ Bugs often manifest deep in the call stack (git init in wrong directory, file cr
 
 **Core principle:** Trace backward through the call chain until you find the original trigger, then fix at the source.
 
-## When to Use
-
-```dot
-digraph when_to_use {
-    "Bug appears deep in stack?" [shape=diamond];
-    "Can trace backwards?" [shape=diamond];
-    "Fix at symptom point" [shape=box];
-    "Trace to original trigger" [shape=box];
-    "BETTER: Also add defense-in-depth" [shape=box];
-
-    "Bug appears deep in stack?" -> "Can trace backwards?" [label="yes"];
-    "Can trace backwards?" -> "Trace to original trigger" [label="yes"];
-    "Can trace backwards?" -> "Fix at symptom point" [label="no - dead end"];
-    "Trace to original trigger" -> "BETTER: Also add defense-in-depth";
-}
-```
-
 **Use when:**
 - Error happens deep in execution (not at entry point)
 - Stack trace shows long call chain
 - Unclear where invalid data originated
 - Need to find which test/code triggers the problem
+
+## Contents
+
+1. The tracing process
+2. Adding stack traces
+3. Finding which test causes pollution
+4. Key principle
 
 ## The Tracing Process
 
@@ -63,6 +53,8 @@ const context = setupCoreTest(); // Returns { tempDir: '' }
 Project.create('name', context.tempDir); // Accessed before beforeEach!
 ```
 
+**Fix at the source:** here, make `tempDir` a getter that throws if accessed before `beforeEach` — then harden the layers the bad value passed through (see `defence-in-depth.md`).
+
 ## Adding Stack Traces
 
 When you can't trace manually, add instrumentation:
@@ -82,14 +74,14 @@ async function gitInit(directory: string) {
 }
 ```
 
-**Critical:** Use `console.error()` in tests (not logger - may not show)
+**Critical:** Use `console.error()` in tests (not logger - may not show), and log **before** the dangerous operation, not after it fails.
 
 **Run and capture:**
 ```bash
 npm test 2>&1 | grep 'DEBUG git init'
 ```
 
-**Analyze stack traces:**
+**Analyse stack traces:**
 - Look for test file names
 - Find the line number triggering the call
 - Identify the pattern (same test? same parameter?)
@@ -99,33 +91,12 @@ npm test 2>&1 | grep 'DEBUG git init'
 If something appears during tests but you don't know which test, use a bisection approach — run tests one-by-one or in halving groups to isolate the polluter:
 
 ```bash
-# Run tests individually to find which one creates the artifact
+# Run tests individually to find which one creates the artefact
 for f in src/**/*.test.ts; do
   npx vitest run "$f" 2>/dev/null
   if [ -e '.git' ]; then echo "POLLUTER: $f"; break; fi
 done
 ```
-
-## Real Example: Empty projectDir
-
-**Symptom:** `.git` created in `packages/core/` (source code)
-
-**Trace chain:**
-1. `git init` runs in `process.cwd()` ← empty cwd parameter
-2. WorktreeManager called with empty projectDir
-3. Session.create() passed empty string
-4. Test accessed `context.tempDir` before beforeEach
-5. setupCoreTest() returns `{ tempDir: '' }` initially
-
-**Root cause:** Top-level variable initialization accessing empty value
-
-**Fix:** Made tempDir a getter that throws if accessed before beforeEach
-
-**Also added defense-in-depth:**
-- Layer 1: Project.create() validates directory
-- Layer 2: WorkspaceManager validates not empty
-- Layer 3: NODE_ENV guard refuses git init outside tmpdir
-- Layer 4: Stack trace logging before git init
 
 ## Key Principle
 
@@ -152,18 +123,3 @@ digraph principle {
 ```
 
 **NEVER fix just where the error appears.** Trace back to find the original trigger.
-
-## Stack Trace Tips
-
-**In tests:** Use `console.error()` not logger - logger may be suppressed
-**Before operation:** Log before the dangerous operation, not after it fails
-**Include context:** Directory, cwd, environment variables, timestamps
-**Capture stack:** `new Error().stack` shows complete call chain
-
-## Real-World Impact
-
-From debugging session (2025-10-03):
-- Found root cause through 5-level trace
-- Fixed at source (getter validation)
-- Added 4 layers of defense
-- 1847 tests passed, zero pollution

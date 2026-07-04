@@ -1,6 +1,6 @@
 {
   "name": "rageatc-code-oss",
-  "version": "2.8.0",
+  "version": "2.9.0",
   "description": "Scale-adaptive software development — from bug fixes to greenfield systems, with TDD, verification, and perspective-based review",
   "author": { "name": "Ilya Vlasov" }
 }

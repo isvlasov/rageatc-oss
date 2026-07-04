@@ -2,7 +2,7 @@
 
 ## Direction
 
-**Personality:** [Precision & Density | Warmth & Approachability | Sophistication & Trust | Boldness & Clarity | Utility & Function | Data & Analysis]
+**Personality:** [this product's character in your own words, derived from the domain exploration and agreed direction — not a preset; e.g. "Precision & Density" for a trading terminal]
 
 **Foundation:** [warm | cool | neutral | tinted]
 

@@ -1,7 +1,5 @@
 # Perspective: Security
 
-**Load when:** Thorough tier, or any chunk that handles user input, authentication, authorisation, or sensitive data.
-
 ## What to Examine
 
 - **Input validation** — is user input sanitised before use? Are types checked?
@@ -25,6 +23,4 @@
 
 ## Key Principle
 
-Security findings are **always at least Major**, even when acceptance criteria are technically met. A feature that works correctly but has an injection vulnerability is not acceptable.
-
-The developer should fix security issues even if the brief did not explicitly require them. Security is an implicit acceptance criterion for all code.
+Security findings are **always at least Major**, even when acceptance criteria are technically met. Security is an implicit acceptance criterion for all code — the developer fixes security issues even if the brief did not require them.

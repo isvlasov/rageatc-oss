@@ -1,6 +1,8 @@
 # Framework Guide
 
-*Last verified: 2026-03-15. Fetch the changelog URLs below to confirm current versions before advising.*
+*Last verified: 2026-07-04. Fetch the changelog URLs below to confirm current versions before advising.*
+
+Sections: Framework Fact Sheets (versions, Bot API mapping, documentation URLs) · Telegraf Staleness Warning · Detecting Framework Version from Project Files · Migration Traps
 
 ## Framework Fact Sheets
 
@@ -8,9 +10,9 @@
 
 | Field | Value |
 |-------|-------|
-| Current stable version | 22.6 |
-| Release date | 2026-01-24 |
-| Bot API supported | 9.3 |
+| Current stable version | 22.8 |
+| Release date | 2026-06-12 |
+| Bot API supported | 10.0 |
 | Python requirement | >=3.10 |
 | Maintenance status | Actively maintained |
 
@@ -34,9 +36,9 @@
 
 | Field | Value |
 |-------|-------|
-| Current stable version | 3.26.0 |
-| Release date | 2026-03-02 |
-| Bot API supported | 9.5 |
+| Current stable version | 3.29.1 |
+| Release date | 2026-07-02 |
+| Bot API supported | 10.1 |
 | Python requirement | >=3.10, <3.15 |
 | Maintenance status | Actively maintained |
 
@@ -59,9 +61,9 @@
 
 | Field | Value |
 |-------|-------|
-| Current stable version | 1.41.1 |
-| Release date | 2026-03-02 |
-| Bot API supported | 9.5 |
+| Current stable version | 1.44.0 |
+| Release date | 2026-06-14 |
+| Bot API supported | 10.1 |
 | Runtime support | Node.js, Deno, Bun |
 | Maintenance status | Actively maintained |
 
@@ -109,73 +111,23 @@ When a project uses Telegraf v4, issue this warning to the user before writing a
 
 After issuing the warning, continue only if the user confirms they want to proceed with Telegraf v4 and the required feature is within Bot API 7.1 scope.
 
-## Framework-to-Bot-API Version Mapping
-
-*Approximate mapping — fetch framework changelogs to verify exact version boundaries.*
-
-| Framework version | Bot API supported |
-|-------------------|-------------------|
-| aiogram >= 3.26.0 | 9.5 |
-| grammY >= 1.41.0 | 9.5 |
-| grammY >= 1.40.0 | 9.4 |
-| python-telegram-bot >= 22.6 | 9.3 |
-| telegraf any 4.x | 7.1 |
-
 ## Detecting Framework Version from Project Files
 
 ### Python projects
 
-**Detection order:**
-
-1. Check for `pyproject.toml` (modern projects — check `[project].dependencies` and `[tool.poetry.dependencies]`)
+1. Check for `pyproject.toml` (check `[project].dependencies` and `[tool.poetry.dependencies]`)
 2. Fall back to `requirements.txt`
 3. Look for `python-telegram-bot` (hyphens, PyPI name) or `aiogram`
 4. Extract the version constraint; the left-most pinned version indicates the API target
 
-**pyproject.toml examples:**
-
-```toml
-[project]
-dependencies = [
-    "python-telegram-bot==22.6",
-    "aiogram>=3.26.0",
-]
-
-# Poetry variant:
-[tool.poetry.dependencies]
-python-telegram-bot = "^22.6"
-aiogram = "^3.26.0"
-```
-
-**requirements.txt example:**
-
-```
-python-telegram-bot==22.6
-aiogram==3.26.0
-```
-
 ### Node.js projects
-
-**Detection order:**
 
 1. Read `package.json` → `dependencies` and `devDependencies`
 2. Key `"grammy"` → grammY framework
 3. Key `"telegraf"` → Telegraf framework
 4. Check `package-lock.json` or `yarn.lock` for the exact resolved version if the constraint is a range
 
-**package.json example:**
-
-```json
-{
-  "dependencies": {
-    "grammy": "^1.41.1"
-  }
-}
-```
-
 ## Migration Traps
-
-Read this section when a project shows signs of a version upgrade: mixed sync/async patterns, old import paths, or a dependency version bump in git history.
 
 ### python-telegram-bot v13 → v20
 

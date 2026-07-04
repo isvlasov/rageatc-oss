@@ -13,19 +13,19 @@
       "name": "rageatc-tech-oss",
       "source": "./plugins/rageatc-tech-oss",
       "description": "Technical capability skills for tool selection, environment detection, and fallback chains",
-      "version": "1.7.0"
+      "version": "1.8.0"
     },
     {
       "name": "rageatc-code-oss",
       "source": "./plugins/rageatc-code-oss",
       "description": "Scale-adaptive software development — from bug fixes to greenfield systems, with TDD, verification, and perspective-based review",
-      "version": "2.8.0"
+      "version": "2.9.0"
     },
     {
       "name": "rageatc-design-oss",
       "source": "./plugins/rageatc-design-oss",
       "description": "Interface design with craft and consistency — domain-driven design systems, token architecture, and design compliance review",
-      "version": "1.1.0"
+      "version": "1.2.0"
     }
   ]
 }

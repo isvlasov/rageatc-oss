@@ -18,8 +18,6 @@
 
 [The most important section. For each top-level directory or module, state what it does — not how it works. Answer: "where is the thing that does X?" and "what does the thing I'm looking at do?"]
 
-[Name modules by their searchable identifiers rather than linking to file paths — paths change, symbol names are searchable.]
-
 [The directory structure below is illustrative only — it shows a hexagonal/clean architecture pattern with TypeScript entry points. Replace it with the structure chosen in Steps 3c and 3f of the architecting-software skill. A layered Python Django project, a flat Go service, or a Next.js monorepo will look different.]
 
 ```
