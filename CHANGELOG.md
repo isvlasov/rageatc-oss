@@ -2,6 +2,10 @@
 
 Notable changes to the rageatc-oss plugins.
 
+## rageatc-code-oss 2.8.0 / rageatc-tech-oss 1.7.0 — 2026-07-04
+
+planning-software's ORCHESTRATION-PLAN template now points to orchestrating-software-dev's per-chunk protocol and Stage 9 completion review instead of restating them; the plan keeps the tier-resolved review perspectives. This also corrects the template's completion steps, which omitted user emulation. developer-agent defers status-code definitions to its preloaded verifying-work skill. using-worktrees records a 2026-07-04 re-verification of automated worktree isolation: the permission, data-loss, and background-composition issues from the Feb 2026 reports are fixed; opaque branch naming remains, and the manual approach stays for orchestrator lifecycle control. rageatc-tech-oss 1.7.0 is a version-only release with no content changes.
+
 ## rageatc-core-oss 1.38.0 — 2026-07-04
 
 Condensed the four verifying-claims reference files (source-evaluation-radar, hallucination-detection, evidence-hierarchy, edge-cases-and-pitfalls) from 1,618 to 265 lines. Evidence-hierarchy's numeric confidence adjustments are replaced with directional weighting guidance, matching the skill's qualitative calibration model. All criteria, protocols, edge cases, and pitfalls are retained.

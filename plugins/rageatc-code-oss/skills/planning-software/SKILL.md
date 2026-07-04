@@ -1,11 +1,11 @@
 ---
 name: planning-software
-description: Transforms an approved enriched roadmap into a self-contained orchestration plan. Use when creating an orchestration plan, producing a build plan, or resuming a project from a saved plan. Not for roadmap creation/enrichment or workflow tier selection.
+description: Transforms an approved enriched roadmap into an orchestration plan. Use when creating an orchestration plan, producing a build plan, or resuming a project from a saved plan. Not for roadmap creation/enrichment or workflow tier selection.
 ---
 
 # Planning Software
 
-Produces a self-contained orchestration plan from an approved enriched roadmap. The plan is the orchestrator's execution contract — it records the workflow tier, tracks chunk progress, and contains the full per-chunk protocol so any orchestrator session (including a fresh one) can resume without conversation history.
+Produces an orchestration plan from an approved enriched roadmap. The plan is the orchestrator's execution contract — it records the workflow tier, tracks chunk progress, and holds everything project-specific a fresh session needs to resume; the execution protocol itself lives in orchestrating-software-dev, which any resuming session loads.
 
 The plan describes **process** (agent sequence, review perspectives, gates); the roadmap describes **content** (what to build in each chunk). Separate documents, separate owners — never duplicate roadmap content into the plan.
 
@@ -13,7 +13,7 @@ The plan describes **process** (agent sequence, review perspectives, gates); the
 
 **Outputs:** ORCHESTRATION-PLAN.md (the workflow contract) and an empty append-only ORCHESTRATION-LOG.md, both in the project root.
 
-**Not covered:** roadmap creation/enrichment, tier selection, per-chunk execution itself, the log entry format (defined in orchestrating-software-dev).
+**Not covered:** roadmap creation/enrichment, tier selection, the per-chunk execution protocol and log entry format (both defined in orchestrating-software-dev).
 
 ## Workflow
 
@@ -26,7 +26,7 @@ Read ROADMAP.md completely. Note: total chunk count and IDs; phased (Thorough) o
 | Tier | Plan depth |
 |------|------------|
 | Quick | Short — no phases section, flat chunk list, no whole-project review step |
-| Standard | Full — sequential chunks, complete per-chunk protocol, whole-project review at end |
+| Standard | Full — sequential chunks, whole-project review at end |
 | Thorough | Full with phases — phase groupings, parallel dispatch annotations, whole-project review at end |
 
 ### Step 3: Write the orchestration plan
@@ -36,8 +36,8 @@ Populate the Template below:
 - **Header** — project name, tier, date, pointers to upstream artefacts
 - **Upstream steps** — mark all complete (they are done by the time this skill runs). Quick lists PRD + architecture only; Standard/Thorough add interface design, decomposition, enrichment.
 - **Build Progress** — one todo per chunk, chunk-level only (no sub-steps); whole-project review entry for Standard/Thorough. Markers: `[ ]` not started, `[~]` in-progress, `[x]` complete.
-- **Per-Chunk Execution Protocol** — written once, used for every chunk. For Thorough with parallel chunks, note which can run concurrently.
-- **Completion** — Quick omits; Standard/Thorough include whole-project review against PRD.
+- **Execution** — pointer to the per-chunk protocol plus the review perspectives resolved for this tier.
+- **Completion** — Quick omits; Standard/Thorough point to Stage 9 (whole-project review and user emulation).
 - **Resumption Note** — tells a fresh session how to find the current position.
 
 ### Step 4: Initialise ORCHESTRATION-LOG.md
@@ -52,7 +52,7 @@ Create it with a header comment only — the entry format lives in orchestrating
 
 ## Template
 
-Adapt to the workflow tier per the annotations. The per-chunk protocol intentionally summarises orchestrating-software-dev content so the plan is self-contained for cross-session resumption — if the protocol changes there, update this template to match.
+Adapt to the workflow tier per the annotations.
 
 ```markdown
 # Orchestration Plan — [Project Name]
@@ -88,33 +88,11 @@ Adapt to the workflow tier per the annotations. The per-chunk protocol intention
 
 ---
 
-## Per-Chunk Execution Protocol
+## Execution
 
-### 1. Assign the chunk
+For each chunk, in dependency order, run the Per-Chunk Execution Protocol from the orchestrating-software-dev skill.
 
-Read the next uncomplete chunk from ROADMAP.md. Provide developer-agent with:
-- Chunk section from ROADMAP.md (acceptance criteria, file set)
-- Relevant ARCHITECTURE.md section(s)
-- For Standard/Thorough: pointer to patterns from earlier chunks if relevant
-
-### 2. Worktree setup
-
-Orchestrator creates an isolated worktree for this chunk using the using-worktrees skill, then points developer-agent to the worktree path.
-
-### 3. Developer executes
-
-Developer-agent: TDD (red-green-refactor) → verify → report status code.
-
-| Status code | Orchestrator action |
-|------------|---------------------|
-| DONE | Send to reviewer-agent |
-| DONE_WITH_CONCERNS | Review concerns, then send to reviewer-agent |
-| NEEDS_CONTEXT | Provide missing context, developer continues |
-| BLOCKED | Escalate — is this an architecture gap or scope issue? |
-
-### 4. Review loop
-
-Invoke reviewer-agent with the appropriate perspectives:
+**Review perspectives (resolved for this tier):**
 
 [Quick:]
 - spec-compliance
@@ -125,17 +103,6 @@ Invoke reviewer-agent with the appropriate perspectives:
 [Thorough:]
 - spec-compliance → code-quality → design-compliance (if system.md exists and chunk touches UI) → security (if chunk handles user input or sensitive data)
 
-**Decision:**
-- Accept → merge worktree, proceed to Step 5
-- Revise → return to developer-agent with specific findings
-- After 3 iterations without acceptance → escalate (signals a brief or architecture gap)
-
-### 5. After each chunk
-
-1. Update chunk status in Build Progress above
-2. Append step to ORCHESTRATION-LOG.md
-3. Update LEARNINGS.md only if something noteworthy happened
-
 ---
 
 ## Completion
@@ -144,17 +111,13 @@ Invoke reviewer-agent with the appropriate perspectives:
 
 [Standard/Thorough:]
 
-After all chunks are marked complete:
-
-1. Invoke reviewer-agent with whole-project perspective against PRD.md
-2. If accepted: mark plan complete
-3. If revise: address findings and re-run whole-project review
+After all chunks are marked complete, run Stage 9 (Completion Review — whole-project review, then user emulation) from the orchestrating-software-dev skill.
 
 ---
 
 ## Resumption Note
 
-New session? Read this file. Find the first `[~]` or `[ ]` chunk in Build Progress. Resume from there using the Per-Chunk Execution Protocol above.
+New session? Read this file. Find the first `[~]` or `[ ]` chunk in Build Progress. Resume from there using the Per-Chunk Execution Protocol from orchestrating-software-dev.
 ```
 
 ## Edge Cases

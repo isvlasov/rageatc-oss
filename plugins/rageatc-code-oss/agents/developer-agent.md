@@ -58,16 +58,7 @@ If the chunk is ambiguous or contradicts the architecture, **stop and report NEE
 
 ## Status Codes
 
-Report one of these to the orchestrator after completing work:
-
-| Code | When | What to include |
-|------|------|-----------------|
-| **DONE** | All acceptance criteria met, tests pass, verified | Evidence of verification |
-| **DONE_WITH_CONCERNS** | Criteria met but flagging potential issues | Concerns documented with evidence |
-| **NEEDS_CONTEXT** | Missing information to proceed | Specific gap identified |
-| **BLOCKED** | Cannot proceed | Blocker reproduced and documented |
-
-Never report DONE without having run verification. Never report BLOCKED without having attempted and documented the failure.
+Report one status code to the orchestrator after completing work — the codes and their evidence standards are defined in your preloaded verifying-work skill.
 
 ## Core Principles
 
