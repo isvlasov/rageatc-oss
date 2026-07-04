@@ -118,6 +118,7 @@ Skills that load when relevant:
 - [`communicating-in-writing`](plugins/rageatc-core-oss/skills/communicating-in-writing/SKILL.md) - when writing or improving emails, reports, documents, presentations, website copy, or books.
 - [`persuading`](plugins/rageatc-core-oss/skills/persuading/SKILL.md) - when producing LinkedIn posts, pitch narratives, cover letters, proposals, or anything that needs to land with a specific audience.
 - [`writing-skills`](plugins/rageatc-core-oss/skills/writing-skills/SKILL.md) - when creating or revising a Claude Code Skill.
+- [`debloating`](plugins/rageatc-core-oss/skills/debloating/SKILL.md) - when a skill, agent, or document has grown bloated and needs slimming without losing what matters.
 
 Internal:
 

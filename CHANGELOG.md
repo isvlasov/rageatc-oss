@@ -2,6 +2,10 @@
 
 Notable changes to the rageatc-oss plugins.
 
+## rageatc-core-oss 1.40.0 — 2026-07-05
+
+Adds the debloating skill: raises an artefact's signal-to-noise ratio by removing text that earns nothing for its reader, through a tiered classify → present → apply workflow with offloading of conditional detail to reference files. Tuned for SKILL.md files; works on any prose artefact. Listed in WHATS-INSIDE.md.
+
 ## rageatc-code-oss 3.0.0 / rageatc-core-oss 1.39.0 — 2026-07-04
 
 The marketplace is consolidated from four plugins to two. rageatc-code-oss absorbs the contents of rageatc-tech-oss (the playwright-cli and working-with-pdfs skills and the bash-safety-guard hook) and rageatc-design-oss (the designing-interfaces skill); those two plugins are removed from the marketplace. Skill content is unchanged. rageatc-core-oss updates its system-context rule for the two-plugin structure.
