@@ -40,8 +40,10 @@ researching    ─────►  fact-checker  (verify claims)
 producing      ◄════►  critic        (iterate until accept)
  │
  ▼
-learning       ─────►  critic        (review proposals)
+learning       (capture with /learn, codify later with /codify)
 ```
+
+Stage names map to what's below: `briefing` = `creating-briefs`, `researching` = researcher-agent + fact-checker-agent, `producing` = producer-agent iterating with critic-agent, `learning` = `/learn` + `/codify`.
 
 ### rageatc-code-oss (Thorough mode)
 
@@ -73,7 +75,7 @@ building            ◄════►  reviewer    (iterate per chunk)
 completion-review   ─────►  reviewer  +  user-emulation
  │
  ▼
-learning            ─────►  critic     (review proposals)
+learning            (observations logged, /codify sweeps them later)
 ```
 
 Each planning step produces an artefact (PRD, architecture, design system, roadmap, plan) that you approve before the next stage runs.
@@ -91,6 +93,7 @@ Conventions:
 
 Skills you invoke yourself:
 
+- [`/shaping`](plugins/rageatc-core-oss/skills/shaping/SKILL.md) - when you have raw thinking to shape: dump it all in and Claude becomes a thinking partner - expanding the idea, interviewing you until the problem is clear, weighing approaches. Runs `ideating`, `understanding-the-ask`, and `solutioning` as needed and ends with a concept document.
 - [`/eli40`](plugins/rageatc-core-oss/skills/eli40/SKILL.md) - when you want something explained in simpler terms, but not like to a five-year-old. Re-explains the previous message, or use `/eli40 <topic>` for something new.
 - [`/critic`](plugins/rageatc-core-oss/skills/critic/SKILL.md) - when you want the latest produced artefact reviewed against the brief and standards.
 - [`/roast`](plugins/rageatc-core-oss/skills/roast/SKILL.md) - when you want your reasoning challenged. Sharp, direct, constructive. Use `/roast` to target the last proposal, or `/roast <claim>` for something specific.
@@ -105,7 +108,6 @@ Skills that load when relevant:
 - [`ideating`](plugins/rageatc-core-oss/skills/ideating/SKILL.md) - when you want to brainstorm, capture loose thoughts, or explore a problem space before committing.
 - [`understanding-the-ask`](plugins/rageatc-core-oss/skills/understanding-the-ask/SKILL.md) - when you want to understand what are you solving for. Pulls intent through structured dialogue. My most used skill.
 - [`solutioning`](plugins/rageatc-core-oss/skills/solutioning/SKILL.md) - when the problem is clear but the approach isn't. Helps you choose between options.
-- [`shaping`](plugins/rageatc-core-oss/skills/shaping/SKILL.md) - the umbrella skill that takes a raw idea through ideating, understanding, and solutioning, ending with a concept document.
 - [`creating-briefs`](plugins/rageatc-core-oss/skills/creating-briefs/SKILL.md) - when a task needs a formal brief before substantive work starts. Used for new skills, agents, research, and documents.
 - [`designing-workflow`](plugins/rageatc-core-oss/skills/designing-workflow/SKILL.md) - when planning a multi-stage task and choosing which phases to include.
 - [`orchestrating-work`](plugins/rageatc-core-oss/skills/orchestrating-work/SKILL.md) - the execution handbook for any multi-agent workflow. Covers logging, gates, file conventions.

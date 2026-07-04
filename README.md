@@ -2,9 +2,7 @@
 
 > **Rage Against The C** - pick your own C to rage against.
 
-Four plugins for Claude Code / Cowork, built on an idea we're using AI wrong. They slow you down on the inputs so the outputs are worth keeping.
-
-[Quick install guide](INSTALL.md)
+Four plugins for Claude Code / Cowork, built on the idea that we're using AI wrong: the speed of its output tricks us into rushing the input. These plugins slow you down on the inputs - proper briefing, good questions asked back, review before anything reaches you - so the outputs are worth keeping.
 
 ## What's inside
 
@@ -19,6 +17,71 @@ Skills and agents to help you with your work or life. Each plugin works alone, b
 
 For a detailed description of what's inside and how to use it - see [WHATS-INSIDE.md](WHATS-INSIDE.md).
 
+## Install
+
+You need Claude Code (desktop app or terminal) or Claude Cowork (app) installed.
+
+### Through the desktop app
+
+Works for Claude Code (desktop) and Cowork.
+
+1. Press **Customize**.
+2. Under **Personal plugins**, choose **Create plugin**.
+3. Choose **Add marketplace** and point it at `isvlasov/rageatc-oss`.
+4. All four `rageatc-*-oss` plugins appear in the list. Install whichever ones you want.
+
+### With commands
+
+The commands below are typed inside a Claude Code or Cowork session, not in your terminal.
+
+Add the marketplace (you only do this once):
+
+```
+/plugin marketplace add isvlasov/rageatc-oss
+```
+
+Then install whichever plugins you want:
+
+```
+/plugin install rageatc-core-oss@rageatc-oss
+/plugin install rageatc-tech-oss@rageatc-oss
+/plugin install rageatc-code-oss@rageatc-oss
+/plugin install rageatc-design-oss@rageatc-oss
+```
+
+To check it worked, run `/plugin` - installed plugins show under the **Plugins** tab.
+
+### Updating
+
+To update a plugin manually:
+
+```
+/plugin update rageatc-core-oss@rageatc-oss
+```
+
+Same for the other three. Or enable auto-updates - they're off by default for third-party marketplaces like this one:
+
+1. Run `/plugin` to open the plugin manager.
+2. Go to the **Marketplaces** tab.
+3. Select `rageatc-oss`.
+4. Choose **Enable auto-update**.
+
+From then on, Claude refreshes the marketplace and updates installed plugins at startup. If anything updated, you'll see a prompt to run `/reload-plugins`.
+
+## Your first session
+
+No setup after install - skills load themselves when the situation matches. Some ways to start:
+
+- **Dump your raw thinking into `/shaping`.** Type `/shaping` and pour out whatever's in your head - a half-formed idea, a problem you can't quite name, three thoughts that might be one thing. Claude becomes a thinking partner: expands the idea with you, interviews you until the real problem is clear, weighs the options, and ends with a concept document you've shaped together. The most used command in this whole toolkit.
+- **Just describe a task.** "I need to decide whether to switch suppliers" or "something's wrong with how we onboard clients" - the right skill picks it up and starts asking questions back. Vague is fine; that's the point.
+- **Put AI's work through `/critic`.** When Claude produces something - a document, a plan, a spec - `/critic` hands it to a review agent that knows how to assess AI output properly: against the brief, against standards, with actionable feedback instead of applause.
+- **Ask for research.** "Research the current state of X" runs a structured research workflow and synthesises the findings - with fact-checking of the claims if you want it.
+- **Build something.** Describe the software you want - often the natural next step once `/shaping` has turned an idea into a concept. The workflow scales itself: a one-line fix stays quick, a real project gets a PRD, architecture, and a roadmap you approve step by step.
+
+For ongoing projects, two commands bookend your sessions: `/prime` at the start (orients Claude in the project) and `/finalise-session` at the end (records state so the next session resumes cleanly).
+
+The full catalogue of skills and agents is in [WHATS-INSIDE.md](WHATS-INSIDE.md).
+
 ## Why I built this - written by a meatbag, not an AI
 
 Hi all,
@@ -27,7 +90,7 @@ I'm Ilya. I have decades of structured problem-solving and management experience
 
 I feel we're not using AI the right way. The speed at which AI produces output has misled us into thinking that giving AI directions could be fast too. Wrong.
 
-So I built rageatc to make AI work the way I'd work with good people on a team - briefed properly, asked good questions back, given time on the parts that matter. The frameworks behind it come from science and best practices from industries where things matter, not consulting. You've likely heard of those, but too lazy to apply them in real life (me too) - AI isn't.
+So I built rageatc to make AI work the way I'd work with good people on a team - briefed properly, asked good questions back, given time on the parts that matter. The frameworks behind it come from science and best practices from industries where things matter, not consulting. You've likely heard of those, but are too lazy to apply them in real life (me too) - AI isn't.
 
 Started with one skill (`writing-skills`) for what I actually needed. Grew one skill or agent at a time as new real problems showed up. I use it daily - not every part of it, but there is no dead weight.
 
