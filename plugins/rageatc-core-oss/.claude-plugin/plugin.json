@@ -1,6 +1,6 @@
 {
   "name": "rageatc-core-oss",
-  "version": "1.37.0",
+  "version": "1.38.0",
   "description": "Thinking engine — Producer-Critic workflow with research, production, and review",
   "author": { "name": "Ilya Vlasov" }
 }

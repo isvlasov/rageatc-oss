@@ -1,373 +1,77 @@
 # Source Evaluation: RADAR Framework
 
-This file provides detailed RADAR criteria for systematic source quality assessment.
+Apply all five criteria to each source before weighting its evidence.
 
-## Overview
+## R — Rationale (purpose and bias)
 
-RADAR is a comprehensive framework for evaluating source quality before weighting evidence. Apply all five criteria to each source consulted during verification.
+Why was this created? Are alternative viewpoints presented? Important facts omitted? Language neutral or emotionally charged? Who funds it?
 
----
+**Red flags:** promotional or emotionally manipulative language; hidden funding or undisclosed conflicts of interest; one-sided presentation ignoring counter-evidence; extreme partisan framing; cherry-picked data; ad hominem in place of evidence.
 
-## R - Rationale (Purpose and Bias)
+**Low bias looks like:** disclosed funding and conflicts, multiple perspectives presented, neutral language, acknowledged limitations, transparent methodology. **High bias looks like:** the red flags above, facts distorted to fit a narrative, no acknowledged limitations.
 
-### Core Questions
+## A — Authority (credibility)
 
-- Why did the author/publisher create this information?
-- Does it present alternative viewpoints or only one perspective?
-- Are important facts omitted?
-- Is the language neutral or emotionally charged?
-- Who funds this research or publication?
+What are the author's credentials? Reputable institutional affiliation? Cited by other experts? Official source or third-party interpretation?
 
-### Red Flags
+**Red flags:** anonymous content; unverifiable or self-proclaimed expertise; credentials in an unrelated field presented as relevant; history of misconduct or retractions; predatory or non-peer-reviewed outlets.
 
-- Heavy promotional language or marketing focus
-- Hidden funding sources or undisclosed conflicts of interest
-- Only presents one perspective without acknowledging alternatives
-- Emotional manipulation or fear-mongering tactics
-- Extreme partisan framing (left or right)
-- Cherry-picking data to support predetermined conclusion
-- Ad hominem attacks rather than evidence-based argument
+**Institutional authority, highest to lowest:**
 
-### Scoring Guidance
+1. Government statistical agencies, peer-reviewed journals, official documents and legislation, international organisations (UN, WHO, World Bank), central banks and regulators
+2. Reputable news agencies (Reuters, AP, BBC), academic research institutions, professional organisations, think tanks with transparent methodology, industry regulators
+3. Specialist publications with editorial standards, credentialed individual experts, NGOs with disclosed funding, trade publications
+4. Blogs and personal sites, social media posts (even from experts — verify independently), anonymous sources, self-published content
 
-**High rationale quality (low bias):**
-- Clear disclosure of funding and potential conflicts
-- Balanced presentation of multiple perspectives
-- Neutral, factual language
-- Acknowledged limitations and uncertainties
-- Transparent methodology
+**Always prefer official/primary sources over third-party interpretation** — cite ONS statistics directly, not a newspaper's reading of them.
 
-**Medium rationale quality (some bias):**
-- Some editorial slant but factual basis maintained
-- Perspective clear but alternative views noted
-- Funding disclosed but potential influence acknowledged
-- Mostly neutral language with occasional opinion
+## D — Date (currency)
 
-**Low rationale quality (high bias):**
-- Hidden agenda or undisclosed funding
-- One-sided presentation ignoring counter-evidence
-- Emotionally manipulative language
-- Facts distorted to support narrative
-- No acknowledgement of limitations
+When was it published or last updated? Current enough for the field's pace? Superseded by newer research?
 
----
+Currency standards by field:
 
-## A - Authority (Credibility)
+- **Technology/AI:** 1–2 years for cutting-edge topics; 3–5 for established methods; foundational papers regardless of age
+- **Science/medicine:** 5 years for active research areas, 10 for established knowledge; check for more recent systematic reviews
+- **Social sciences:** 5–10 years empirical, 15 theoretical; note survey collection dates
+- **History/theory:** seminal older works remain appropriate; recent historiography may update interpretation
+- **Current events:** 6–12 months; real-time for breaking situations; date precisely when facts move fast
+- **Law/policy:** current legislation and case law only; check amendment dates and supersession
 
-### Core Questions
+**Red flags:** no visible publication date; outdated statistics presented as current; superseded terminology; citations to retracted papers.
 
-- What are the author's credentials and expertise?
-- Is the author affiliated with reputable institutions?
-- Do other experts cite this author's work?
-- Is the author recognised in the field?
-- Is this an official source or third-party interpretation?
+When using an older source: state its date, note any supersession, explain why it still applies — "According to 2019 ONS data (most recent available for this metric)…".
 
-### Red Flags
+## A — Accuracy (verification)
 
-- No author attribution or anonymous content
-- Lack of verifiable credentials
-- Self-proclaimed expertise without institutional backing
-- No track record in the field
-- Credentials in unrelated field presented as expertise
-- Revoked credentials or history of academic misconduct
-- Publishing in predatory journals or non-peer-reviewed outlets
+Does it cite reliable sources? Can key claims be verified elsewhere? Obvious errors or inconsistencies? Editorial or expert review?
 
-### Evaluating Institutional Authority
+**Red flags:** no citations; claims conflicting with multiple reliable sources; internal contradictions; misrepresentation of cited sources (check the originals); cherry-picked data; statistical errors; quotes out of context.
 
-**Tier 1 (Highest Authority):**
-- Government statistical agencies (ONS, census bureaux)
-- Peer-reviewed academic journals
-- Official government documents and legislation
-- International organisations (UN, WHO, World Bank)
-- Central banks and financial regulators
+**Verification checklist:**
 
-**Tier 2 (High Authority):**
-- Reputable news agencies (Reuters, AP, BBC News)
-- Academic research institutions
-- Professional organisations in relevant field
-- Established think tanks with transparent methodology
-- Industry regulatory bodies
-
-**Tier 3 (Moderate Authority):**
-- Specialist publications with editorial standards
-- Individual experts with relevant credentials
-- NGOs with disclosed funding and methodology
-- Trade publications in relevant industry
-
-**Tier 4 (Low Authority):**
-- Blogs and personal websites (unless expert in field)
-- Social media posts (even from experts - verify independently)
-- Anonymous sources
-- Self-published content without editorial review
-
-### Priority Principle
-
-**Always prefer official/primary sources over third-party interpretations.**
-
-Example: Cite ONS unemployment statistics directly rather than newspaper interpretation of ONS data.
-
----
-
-## D - Date (Currency)
-
-### Core Questions
-
-- When was this published or last updated?
-- Is this information still current?
-- For fast-moving fields, is this recent enough?
-- Has newer research superseded these findings?
-
-### Context-Dependent Currency Standards
-
-**Technology and AI:**
-- Prefer last 1-2 years for cutting-edge topics
-- Last 3-5 years acceptable for established methods
-- Foundational papers remain relevant regardless of age
-
-**Science and Medicine:**
-- Last 5 years for active research areas
-- Last 10 years for established knowledge
-- Check if systematic reviews or meta-analyses are more recent
-
-**Social Sciences:**
-- Last 5-10 years for empirical research
-- Last 15 years for theoretical frameworks
-- Census and survey data: note collection date
-
-**History and Theory:**
-- Older sources often appropriate if seminal works
-- Original historical documents valued regardless of age
-- Recent historiography may provide updated interpretations
-
-**Current Events:**
-- Last 6-12 months for ongoing situations
-- Real-time updates for fast-breaking news
-- Note date precisely when facts change rapidly
-
-**Law and Policy:**
-- Current legislation and case law essential
-- Note amendment dates
-- Check if superseded by newer rulings or legislation
-
-### Red Flags
-
-- No publication date visible
-- Outdated statistics presented as current
-- Ignores recent developments in fast-moving fields
-- Uses superseded terminology or frameworks
-- References withdrawn or retracted papers
-
-### Temporal Contextualisation
-
-When using older sources:
-- State publication date clearly
-- Note if information has been superseded
-- Explain why older source is still relevant
-- Check for more recent updates
-
-Example: "According to 2019 ONS data (most recent available for this metric), X. Note that 2024 data collection is underway."
-
----
-
-## A - Accuracy (Verification)
-
-### Core Questions
-
-- Does this cite other reliable sources?
-- Can you verify key claims elsewhere?
-- Are there obvious errors or inconsistencies?
-- Was this reviewed by editors or subject experts?
-- Do facts match other authoritative sources?
-
-### Red Flags
-
-- No citations or references provided
-- Claims conflict with multiple reliable sources
-- Obvious factual errors or internal contradictions
-- Misrepresentation of cited sources (check originals)
-- Cherry-picking data whilst ignoring contradictory evidence
-- Unsupported sweeping generalisations
-- Statistical errors or misapplication of methods
-- Quotes taken out of context
-
-### Verification Checklist
-
-- [ ] Key statistics can be traced to original sources
-- [ ] Quotes are accurate and contextualised
-- [ ] Methodology is transparent and reproducible
-- [ ] Data sources are identified and accessible
-- [ ] Peer review or editorial review conducted
+- [ ] Key statistics trace to original sources
+- [ ] Quotes accurate and contextualised
+- [ ] Methodology transparent and reproducible
+- [ ] Data sources identified and accessible
+- [ ] Peer or editorial review conducted
 - [ ] Corrections policy exists and is followed
-- [ ] Author responds to legitimate criticism
 
-### Assessing Peer Review
+Peer-reviewed journals with rigorous review are the gold standard; editorial review with independent fact-checking is high accuracy; no oversight and resistance to correction is low.
 
-**Gold standard (highest accuracy):**
-- Peer-reviewed academic journals with rigorous review
-- Multiple rounds of expert review
-- Transparent review process
+**Cross-verification for important claims:** identify 2–3 key assertions → search for independent corroboration → check the original sources cited → compare statistics across sources → flag discrepancies for investigation.
 
-**High accuracy:**
-- Editorial review by subject experts
-- Fact-checking by independent team
-- Corrections published prominently
+## R — Relevance (applicability)
 
-**Moderate accuracy:**
-- Editorial standards but limited fact-checking
-- Self-correction when errors identified
-- Responsive to external feedback
+Does it directly address the question, in a matching context (country, period, population), at the right depth?
 
-**Low accuracy:**
-- No editorial oversight
-- History of uncorrected errors
-- Resistant to corrections
+**Context mismatches to watch:** geographic (UK vs US definitions, national vs regional data), temporal (pre- vs post-pandemic, different fiscal years), demographic (different populations, sample sizes, methodologies), definitional (different measurement standards or inclusion criteria).
 
-### Cross-Verification Protocol
+Deprioritise tangential sources. When using a less relevant source, note the context difference explicitly and caveat the conclusion.
 
-For important claims:
-1. Identify 2-3 key assertions
-2. Search for independent corroboration
-3. Check original sources cited
-4. Compare statistics across sources
-5. Flag discrepancies for investigation
+## Decision rules
 
----
-
-## R - Relevance (Applicability)
-
-### Core Questions
-
-- Does this directly address your research question?
-- Is the context similar to your use case?
-- Is the depth appropriate for your needs?
-- Does it add substantive insights?
-- Is the geographic or demographic context applicable?
-
-### Assessing Relevance
-
-**High relevance:**
-- Directly addresses the specific claim being verified
-- Context matches (same country, time period, population)
-- Appropriate level of detail for verification task
-- Provides primary evidence or direct observation
-
-**Medium relevance:**
-- Related but not identical context
-- Provides useful background but not direct evidence
-- Geographic or temporal differences noted
-- Requires adaptation or contextualisation
-
-**Low relevance:**
-- Tangentially related only
-- Different context (different country, era, population)
-- Too general or too specific for the task
-- Background information without direct bearing on claim
-
-### Context Mismatches to Watch
-
-**Geographic:**
-- UK vs US statistics (definitions differ)
-- National vs regional data
-- Urban vs rural contexts
-
-**Temporal:**
-- Historical vs current data
-- Pre-pandemic vs post-pandemic
-- Different fiscal or calendar years
-
-**Demographic:**
-- Different age groups or populations
-- Different socioeconomic contexts
-- Different sample sizes or methodologies
-
-**Definitional:**
-- Different measurement standards
-- Different inclusion/exclusion criteria
-- Different operational definitions
-
-### Action
-
-Deprioritise tangentially relevant sources; focus on directly applicable evidence. When using less relevant sources, explicitly note context differences and caveat conclusions.
-
----
-
-## Combining RADAR Criteria
-
-### Overall Source Quality Assessment
-
-**Excellent quality (use as primary evidence):**
-- High authority (expert or official source)
-- Current for the field
-- Well-cited and verifiable
-- Low bias, transparent methodology
-- Directly relevant
-
-**Good quality (strong supporting evidence):**
-- Credible authority with minor limitations
-- Recent enough for context
-- Mostly verifiable with minor gaps
-- Some perspective but factual basis solid
-- Relevant with minor contextual differences
-
-**Moderate quality (use with caution):**
-- Limited authority or credentials unclear
-- Somewhat dated but no major superseding research
-- Some verification gaps or citations missing
-- Noticeable bias but factual claims checkable
-- Partially relevant, requires adaptation
-
-**Poor quality (avoid or use only as starting point):**
-- Low or no verifiable authority
-- Outdated for fast-moving field
-- Unverifiable claims, no citations
-- High bias, agenda-driven
-- Marginally relevant or wrong context
-
-### Decision Rules
-
-**When source scores high on all RADAR criteria:**
-- Weight evidence highly
-- Use for primary support of claim
-- Cite prominently in verification report
-
-**When source scores high on most but weak on one dimension:**
-- Note limitation explicitly (e.g., "credible but dated")
-- Seek additional sources to compensate
-- Use as corroborating rather than primary evidence
-
-**When source scores poorly on multiple dimensions:**
-- Do not use for verification
-- May use to identify better sources
-- Note why excluded from evidence base
-
-**When only poor-quality sources available:**
-- Flag claim as unverified
-- Note limitation: "insufficient authoritative sources available"
-- Consider escalating to expert review
-- Never inflate confidence based on poor sources
-
----
-
-## Quick Reference
-
-### RADAR in 60 Seconds
-
-1. **Rationale**: Why was this created? Is it neutral or biased?
-2. **Authority**: Who wrote it? Are they credible experts?
-3. **Date**: When was it published? Is it still current?
-4. **Accuracy**: Can you verify the claims? Are sources cited?
-5. **Relevance**: Does it directly address your question?
-
-### Common Patterns
-
-**Strong source:**
-- Official statistics → Published this year → By ONS → Methodology transparent → Directly answers claim
-- Confidence: Use as primary evidence
-
-**Weak source:**
-- Blog post → No date → Anonymous author → No citations → Tangentially related
-- Confidence: Exclude from verification
-
-**Mixed source:**
-- News article → Recent → By Reuters → Cites primary sources → Relevant but interpretive
-- Confidence: Use as secondary evidence, trace to primary sources
+- **High on all criteria** → weight highly; use as primary support for the claim.
+- **High on most, weak on one** → note the limitation explicitly ("credible but dated"), compensate with additional sources, use as corroborating rather than primary evidence.
+- **Poor on multiple criteria** → exclude from the evidence base and note why; at most use it to find better sources.
+- **Only poor sources available** → flag the claim Unverified, note "insufficient authoritative sources available", consider expert escalation. Never inflate confidence because poor sources agree.

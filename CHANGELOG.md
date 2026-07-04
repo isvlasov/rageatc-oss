@@ -2,6 +2,10 @@
 
 Notable changes to the rageatc-oss plugins.
 
+## rageatc-core-oss 1.38.0 — 2026-07-04
+
+Condensed the four verifying-claims reference files (source-evaluation-radar, hallucination-detection, evidence-hierarchy, edge-cases-and-pitfalls) from 1,618 to 265 lines. Evidence-hierarchy's numeric confidence adjustments are replaced with directional weighting guidance, matching the skill's qualitative calibration model. All criteria, protocols, edge cases, and pitfalls are retained.
+
 ## rageatc-core-oss 1.37.0 / rageatc-tech-oss 1.6.0 / rageatc-code-oss 2.6.0 / rageatc-design-oss 1.1.0 — 2026-07-04
 
 Condensed skills across all four plugins: four core skills (roast, eli40, learn, critic) and two core agents (producer, modifier); working-with-pdfs and playwright-cli in tech; fifteen code skills; designing-interfaces in design. playwright-cli updated for the current upstream CLI — adds `attach`/`detach`, `drop`, `--cdp`, and `--hires`, and corrects the npm package name to `@playwright/cli`. using-worktrees dates its Claude Code worktree-isolation caveats to the Feb 2026 reports.

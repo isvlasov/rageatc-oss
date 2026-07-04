@@ -7,7 +7,7 @@
       "name": "rageatc-core-oss",
       "source": "./plugins/rageatc-core-oss",
       "description": "Thinking engine — Producer-Critic workflow with research, production, and review",
-      "version": "1.37.0"
+      "version": "1.38.0"
     },
     {
       "name": "rageatc-tech-oss",
