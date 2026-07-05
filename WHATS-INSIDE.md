@@ -123,6 +123,7 @@ Skills that load when relevant:
 Internal:
 
 - [`understanding-rageatc`](plugins/rageatc-core-oss/skills/understanding-rageatc/SKILL.md) - behavioural frame preloaded by every rageatc agent. Not user-invocable; sets scope discipline and shared protocols.
+- [`loading-rules`](plugins/rageatc-core-oss/skills/loading-rules/SKILL.md) - fallback loader for the plugin's operating rules when the SessionStart hook fails to deliver them.
 
 Agents:
 
@@ -155,6 +156,10 @@ Skills that load when relevant:
 - [`designing-interfaces`](plugins/rageatc-code-oss/skills/designing-interfaces/SKILL.md) - when a project has a UI and architecture is confirmed. Produces a design system through dialogue (greenfield) or by extracting patterns from existing code (brownfield).
 - [`playwright-cli`](plugins/rageatc-code-oss/skills/playwright-cli/SKILL.md) - when you want AI to drive a browser: open pages, fill forms, click around, scrape data, or test a web-app you just developed.
 - [`working-with-pdfs`](plugins/rageatc-code-oss/skills/working-with-pdfs/SKILL.md) - when you need to read, build, merge, split, or otherwise handle PDFs.
+
+Internal:
+
+- [`loading-rules`](plugins/rageatc-code-oss/skills/loading-rules/SKILL.md) - fallback loader for the plugin's operating rules when the SessionStart hook fails to deliver them.
 
 Agents:
 

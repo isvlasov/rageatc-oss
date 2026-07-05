@@ -2,10 +2,19 @@
   "hooks": {
     "SessionStart": [
       {
+        "matcher": "startup|clear|compact",
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/inject-rules.sh"
+            "command": "cat \"${CLAUDE_PLUGIN_ROOT}/rules/\"*.md"
+          },
+          {
+            "type": "command",
+            "command": "type \"%CLAUDE_PLUGIN_ROOT%\\rules\\*.md\""
+          },
+          {
+            "type": "command",
+            "command": "echo rageatc-core-oss failsafe: if the rageatc-core-oss operating rules are not visible in this hook output, invoke the rageatc-core-oss:loading-rules skill to load them before proceeding."
           }
         ]
       }

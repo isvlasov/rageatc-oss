@@ -2,6 +2,10 @@
 
 Notable changes to the rageatc-oss plugins.
 
+## rageatc-core-oss 1.41.0 / rageatc-code-oss 3.1.0 — 2026-07-06
+
+Rules injection reworked for cross-platform reliability. The SessionStart hook now runs three scriptless commands instead of a bash script requiring jq: `cat` for POSIX shells and Git Bash, the `type` builtin for Windows cmd.exe, and a static `echo` failsafe pointing to the new `loading-rules` skill, which reads the plugin's rules directly if injection fails. Each plugin gains a `rules/00-intro.md` framing file with a truncation-recovery instruction. All rules files are now ASCII-only, and the combined rules payload per plugin stays under the 10,000-character hook-output cap (documented in each plugin README). Resume sessions skip re-injection via the hook matcher. The `inject-rules.sh` scripts are removed.
+
 ## rageatc-core-oss 1.40.0 — 2026-07-05
 
 Adds the debloating skill: raises an artefact's signal-to-noise ratio by removing text that earns nothing for its reader, through a tiered classify → present → apply workflow with offloading of conditional detail to reference files. Tuned for SKILL.md files; works on any prose artefact. Listed in WHATS-INSIDE.md.
