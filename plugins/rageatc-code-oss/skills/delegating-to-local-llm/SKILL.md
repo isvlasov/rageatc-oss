@@ -35,7 +35,7 @@ which pi && herdr agent list >/dev/null && echo ok
 
    ```bash
    herdr agent send <task-name> "<task>"
-   herdr pane send-keys <pane-id> enter
+   sleep 1 && herdr pane send-keys <pane-id> enter
    ```
 
    Task text is literal and single-line — shell-quote it, and make it self-contained: goal, relevant paths, done-criterion. Local models do best with one focused task.

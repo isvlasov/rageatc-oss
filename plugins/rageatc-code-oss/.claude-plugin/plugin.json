@@ -1,7 +1,7 @@
 {
   "name": "rageatc-code-oss",
-  "version": "3.3.0",
-  "description": "Scale-adaptive software development — TDD, verification, perspective-based review, interface design, and tool capabilities (browser automation, PDFs, YouTube transcripts, local-LLM delegation)",
+  "version": "3.4.0",
+  "description": "Scale-adaptive software development — TDD, verification, perspective-based review, interface design, and tool capabilities (browser automation, PDFs, YouTube transcripts, local-LLM and Codex delegation)",
   "author": {
     "name": "Ilya Vlasov"
   }

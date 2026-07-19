@@ -2,6 +2,10 @@
 
 Notable changes to the rageatc-oss plugins.
 
+## rageatc-code-oss 3.4.0 — 2026-07-19
+
+Adds the delegating-to-codex skill: delegates a task to OpenAI Codex running as an interactive session in a herdr pane, billed to the user's ChatGPT subscription. Covers preflight, model and reasoning-effort selection, sandboxed autonomous execution (workspace-write, no approval prompts), the spawn/wait/verify loop with the initial task passed as the prompt argument, mid-session steering, and hand-over. The delegating-to-local-llm skill adds a pause before the submission keystroke to avoid a race with the starting TUI.
+
 ## rageatc-code-oss 3.3.0 — 2026-07-19
 
 Adds the delegating-to-local-llm skill: delegates a task to a local LLM running as a Pi coding-agent session inside a herdr pane. The session is visible in herdr as a named agent, can be steered mid-task, and results are verified before acceptance. Covers preflight checks (Apple Silicon, oMLX server, models, pi, herdr), the spawn/wait/read/send control loop, and failure handling (memory-guard aborts, submission races, blocked states). First-time environment setup lives in a bundled reference. Listed in WHATS-INSIDE.md.
