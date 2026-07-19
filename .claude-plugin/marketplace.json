@@ -1,7 +1,9 @@
 {
   "name": "rageatc-oss",
   "description": "Claude Code plugins for sharper thinking and structured problem-solving",
-  "owner": { "name": "Ilya Vlasov" },
+  "owner": {
+    "name": "Ilya Vlasov"
+  },
   "plugins": [
     {
       "name": "rageatc-core-oss",
@@ -13,7 +15,7 @@
       "name": "rageatc-code-oss",
       "source": "./plugins/rageatc-code-oss",
       "description": "Scale-adaptive software development — TDD, verification, perspective-based review, interface design, and tool capabilities (browser automation, PDF handling)",
-      "version": "3.2.0"
+      "version": "3.3.0"
     }
   ]
 }

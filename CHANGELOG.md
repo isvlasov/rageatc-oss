@@ -2,6 +2,10 @@
 
 Notable changes to the rageatc-oss plugins.
 
+## rageatc-code-oss 3.3.0 — 2026-07-19
+
+Adds the delegating-to-local-llm skill: delegates a task to a local LLM running as a Pi coding-agent session inside a herdr pane. The session is visible in herdr as a named agent, can be steered mid-task, and results are verified before acceptance. Covers preflight checks (Apple Silicon, oMLX server, models, pi, herdr), the spawn/wait/read/send control loop, and failure handling (memory-guard aborts, submission races, blocked states). First-time environment setup lives in a bundled reference. Listed in WHATS-INSIDE.md.
+
 ## rageatc-code-oss 3.2.0 — 2026-07-06
 
 The bash-safety-guard hook is removed. The plugin no longer registers a PreToolUse hook on Bash; `hooks/bash-safety-guard.sh` is deleted and `hooks/hooks.json` retains only the SessionStart rules-injection hook. Destructive-command handling now relies on Claude Code's built-in permission system.
